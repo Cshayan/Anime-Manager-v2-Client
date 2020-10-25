@@ -1,12 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  makeStyles,
-  Card,
-  CardContent,
-  Typography,
-  Grid,
-} from '@material-ui/core';
+import { makeStyles, Typography, Grid } from '@material-ui/core';
 import cls from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,10 +10,11 @@ const useStyles = makeStyles((theme) => ({
     background: theme.card.background,
     border: `1px solid ${theme.palette.primary.main}`,
   },
+  boxContainer: {
+    margin: '0 auto',
+  },
   box: {
-    padding: '5px 20px',
-    width: theme.typography.pxToRem(120),
-    height: theme.typography.pxToRem(120),
+    padding: '5px 40px',
     borderRadius: '5px',
     background: theme.palette.background.default,
     border: `1px solid ${theme.palette.primary.main}`,
@@ -28,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     margin: theme.typography.pxToRem(10),
+    boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+    cursor: 'pointer',
+  },
+  totalText: {
+    color: theme.palette.text.primary,
   },
   title: {
     fontSize: theme.typography.pxToRem(16),
@@ -59,48 +59,50 @@ const AnimeBoxStats = (props) => {
   const { total, watching, unwatched, completed, hold, dropped } = props;
   const classes = useStyles();
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Grid container alignContent="center" justify="center">
-          <Grid item xs={4} lg={6} md={6}>
-            <div className={cls(classes.box)}>
-              <Typography className={classes.title}>Total</Typography>
-              <Typography className={classes.value}>{total}</Typography>
-            </div>
-          </Grid>
-          <Grid item xs={4} lg={6} md={6}>
-            <div className={cls(classes.box, classes.watching)}>
-              <Typography className={classes.title}>Watching</Typography>
-              <Typography className={classes.value}>{watching}</Typography>
-            </div>
-          </Grid>
-          <Grid item xs={4} lg={6} md={6}>
-            <div className={cls(classes.box, classes.unwatched)}>
-              <Typography className={classes.title}>Unwatched</Typography>
-              <Typography className={classes.value}>{unwatched}</Typography>
-            </div>
-          </Grid>
-          <Grid item xs={4} lg={6} md={6}>
-            <div className={cls(classes.box, classes.completed)}>
-              <Typography className={classes.title}>Completed</Typography>
-              <Typography className={classes.value}>{completed}</Typography>
-            </div>
-          </Grid>
-          <Grid item xs={4} lg={6} md={6}>
-            <div className={cls(classes.box, classes.hold)}>
-              <Typography className={classes.title}>On Hold</Typography>
-              <Typography className={classes.value}>{hold}</Typography>
-            </div>
-          </Grid>
-          <Grid item xs={4} lg={6} md={6}>
-            <div className={cls(classes.box, classes.dropped)}>
-              <Typography className={classes.title}>Dropped</Typography>
-              <Typography className={classes.value}>{dropped}</Typography>
-            </div>
-          </Grid>
+    <div className={classes.boxContainer}>
+      <Grid container alignItems="center" justify="space-between">
+        <Grid item xs={4} lg={2} md={2}>
+          <div className={cls(classes.box)}>
+            <Typography className={cls(classes.title, classes.totalText)}>
+              Total
+            </Typography>
+            <Typography className={cls(classes.value, classes.totalText)}>
+              {total}
+            </Typography>
+          </div>
         </Grid>
-      </CardContent>
-    </Card>
+        <Grid item xs={4} lg={2} md={2}>
+          <div className={cls(classes.box, classes.watching)}>
+            <Typography className={classes.title}>Watching</Typography>
+            <Typography className={classes.value}>{watching}</Typography>
+          </div>
+        </Grid>
+        <Grid item xs={4} lg={2} md={2}>
+          <div className={cls(classes.box, classes.unwatched)}>
+            <Typography className={classes.title}>Unwatched</Typography>
+            <Typography className={classes.value}>{unwatched}</Typography>
+          </div>
+        </Grid>
+        <Grid item xs={4} lg={2} md={2}>
+          <div className={cls(classes.box, classes.completed)}>
+            <Typography className={classes.title}>Completed</Typography>
+            <Typography className={classes.value}>{completed}</Typography>
+          </div>
+        </Grid>
+        <Grid item xs={4} lg={2} md={2}>
+          <div className={cls(classes.box, classes.hold)}>
+            <Typography className={classes.title}>On Hold</Typography>
+            <Typography className={classes.value}>{hold}</Typography>
+          </div>
+        </Grid>
+        <Grid item xs={4} lg={2} md={2}>
+          <div className={cls(classes.box, classes.dropped)}>
+            <Typography className={classes.title}>Dropped</Typography>
+            <Typography className={classes.value}>{dropped}</Typography>
+          </div>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 

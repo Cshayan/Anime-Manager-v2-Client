@@ -1,39 +1,39 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles, Typography } from "@material-ui/core";
-import cls from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles, Typography } from '@material-ui/core';
+import cls from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   noAnimeContainer: {
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "1rem",
-    height: "100%",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '1rem',
+    height: '100%',
+    width: '100%',
   },
   img: {
     width: 200,
     height: 200,
   },
   animatedImage: {
-    "-webkit-animation": "moveUpDown 1s infinite alternate",
-    animation: "moveUpDown 1s infinite alternate",
+    '-webkit-animation': 'moveUpDown 1s infinite alternate',
+    animation: 'moveUpDown 1s infinite alternate',
   },
   noAnimeText: {
-    fontSize: "1.5rem",
+    fontSize: '1.5rem',
     color: theme.palette.text.primary,
-    letterSpacing: "0.1rem",
+    letterSpacing: '0.1rem',
   },
-  "@media screen and (max-width: 600px)": {
+  '@media screen and (max-width: 600px)': {
     img: {
       width: 100,
       height: 100,
     },
     noAnimeText: {
-      fontSize: "1rem",
+      fontSize: '1rem',
     },
   },
 }));
@@ -62,7 +62,7 @@ StateView.propTypes = {
 };
 
 StateView.defaultProps = {
-  textToRender: "Text to display here.",
+  textToRender: 'Text to display here.',
   isAnimationRequired: false,
 };
 

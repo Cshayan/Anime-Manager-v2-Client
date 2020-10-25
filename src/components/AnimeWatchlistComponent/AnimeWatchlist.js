@@ -69,7 +69,7 @@ const AnimeWatchlist = (props) => {
       </div>
       <Grid container spacing={4}>
         {animeWatchlist.map((anime) => (
-          <Grid item xs={12} md={6} lg={6} key={anime._id}>
+          <Grid item xs={12} md={4} lg={4} key={anime._id}>
             <AnimewatchlistCard
               animeId={anime._id}
               status={anime.animeStatus}

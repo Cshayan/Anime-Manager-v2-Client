@@ -5,11 +5,11 @@ import AnimeWatchlistStatsContainer from '../../containers/AnimeWatchlistStatist
 
 const DashboardContent = () => (
   <Grid container>
-    <Grid item lg={9} md={9} sm={12}>
-      <AnimeWatchlistContainer />
-    </Grid>
-    <Grid item lg={3} md={3} sm={12}>
+    <Grid item lg={12} md={12} sm={12} container>
       <AnimeWatchlistStatsContainer />
+    </Grid>
+    <Grid item lg={12} md={12} sm={12}>
+      <AnimeWatchlistContainer />
     </Grid>
   </Grid>
 );

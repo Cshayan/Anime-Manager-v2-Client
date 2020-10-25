@@ -65,14 +65,14 @@ export const darkTheme = createMuiTheme({
       primary: '#fff',
     },
     background: {
-      default: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
+      default: 'linear-gradient(to left, #000000, #434343)',
     },
   },
   typography: {
     pxToRem: (px) => pxToRem(px),
   },
   card: {
-    background: 'linear-gradient(to right, #485563, #29323c)',
+    background: 'linear-gradient(to right, #232526, #414345)',
   },
   button: {
     background: {
@@ -96,7 +96,8 @@ export const darkTheme = createMuiTheme({
         background: 'rgba(0, 0, 0, 0.5)',
       },
       paper: {
-        background: 'linear-gradient(to right, #485563, #29323c)',
+        background: 'linear-gradient(to left, #000000, #434343)',
+        border: '1px solid #fff',
       },
     },
   },

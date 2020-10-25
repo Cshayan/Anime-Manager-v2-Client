@@ -46,7 +46,7 @@ const AnimeGlobalSearchListContainer = (props) => {
       <Grid container spacing={4}>
         {animeSearchResults &&
           animeSearchResults.map((anime) => (
-            <Grid item xs={12} md={6} lg={6} key={anime.mal_id}>
+            <Grid item xs={12} md={4} lg={4} key={anime.mal_id}>
               <AnimeCard
                 id={anime.mal_id}
                 title={anime.title}

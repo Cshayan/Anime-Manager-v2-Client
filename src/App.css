@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
-@import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+@import '//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css';
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   overflow-x: hidden;
   transition: all 0.25s linear;
 }
@@ -24,6 +24,6 @@ body::-webkit-scrollbar-thumb {
 
 @media screen and (max-width: 600px) {
   * {
-    overflow: auto;
+    overflow-y: auto;
   }
 }

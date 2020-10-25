@@ -24,7 +24,6 @@ const AnimeWatchlistContainer = () => {
         <StateView
           textToRender="Loading... Please wait."
           imageToRender={HourGlass}
-          isAnimationRequired
         />
       </>
     );
@@ -75,7 +74,6 @@ const AnimeWatchlistContainer = () => {
         <StateView
           textToRender="Go on. Search your anime."
           imageToRender={SearchAnime}
-          isAnimationRequired
         />
       </>
     );
