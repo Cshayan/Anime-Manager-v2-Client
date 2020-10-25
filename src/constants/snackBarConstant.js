@@ -1,0 +1,7 @@
+const SNACKBAR_OPEN = "SNACKBAR_OPEN";
+const SNACKBAR_CLOSE = "SNACKBAR_CLOSE";
+
+export const snackBar = {
+  SNACKBAR_OPEN,
+  SNACKBAR_CLOSE,
+};

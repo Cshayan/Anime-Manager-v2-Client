@@ -1,0 +1,67 @@
+.searchBar {
+  padding: 1rem;
+  outline: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background: linear-gradient(to right, #abbaab, #ffffff);
+}
+
+input[type="text"]:focus {
+  border-bottom: 3px solid rgba(81, 203, 238, 1);
+  padding: 1rem;
+}
+
+.searchBar::-webkit-input-placeholder {
+  font-family: FontAwesome;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  padding-left: 5px;
+  padding-top: 2px;
+  color: #111;
+}
+
+.searchBar::-moz-placeholder {
+  font-family: FontAwesome;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  padding-left: 5px;
+  padding-top: 2px;
+  color: #111;
+}
+
+.searchBar:-ms-input-placeholder {
+  font-family: FontAwesome;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  padding-left: 5px;
+  padding-top: 2px;
+  color: #111;
+}
+
+@media screen and (max-width: 600px) {
+  .searchBar {
+    font-size: 0.7rem;
+    padding: 0.3rem;
+    width: 100%;
+  }
+  input[type="text"]:focus {
+    border-bottom: 3px solid rgba(81, 203, 238, 1);
+    padding: 0.3rem;
+  }
+  .search-btn {
+    padding: 0.5rem;
+  }
+}
