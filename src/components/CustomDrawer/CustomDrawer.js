@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Drawer,
   makeStyles,
@@ -7,60 +7,75 @@ import {
   ListItem,
   Tooltip,
   Divider,
-} from "@material-ui/core";
-import cls from "classnames";
-import { ReactComponent as User } from "../../assets/userHam.svg";
-import { ReactComponent as Bell } from "../../assets/bell.svg";
-import { ReactComponent as Pie } from "../../assets/pie.svg";
-import { ReactComponent as Logout } from "../../assets/logout.svg";
-import { ReactComponent as DarkModeIcon } from "../../assets/nightMode.svg";
+} from '@material-ui/core';
+import { useResizeScreen } from 'custom-hooks/useResizeHook';
+import cls from 'classnames';
+import { ReactComponent as DashboardIcon } from 'assets/dashboard.svg';
+import { ReactComponent as User } from '../../assets/userHam.svg';
+import { ReactComponent as Bell } from '../../assets/bell.svg';
+import { ReactComponent as Pie } from '../../assets/pie.svg';
+import { ReactComponent as Logout } from '../../assets/logout.svg';
+import { ReactComponent as DarkModeIcon } from '../../assets/nightMode.svg';
 
 const useStyles = makeStyles((theme) => ({
   userIcon: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
   },
   bellIcon: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
   },
   pieIcon: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
   },
   logoutIcon: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
+  },
+  activeIcon: {
+    borderRight: `5px solid ${theme.palette.primary.main}`,
+    background: theme.button.background.light,
   },
   logoutButtonPosition: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
   },
   drawer: {
     background: theme.card.background,
   },
   list: {
-    position: "relative",
-    height: "100vh",
+    position: 'relative',
+    height: '100vh',
   },
   listButton: {
     margin: `${theme.typography.pxToRem(10)} 0`,
-    cursor: "pointer",
+    cursor: 'pointer',
   },
 }));
 
 const CustomDrawer = (props) => {
   const classes = useStyles();
+  const { isMobile } = useResizeScreen();
   const { open, onLogOutClick, onClose, handleDarkModeClick } = props;
 
   return (
     <Drawer
-      variant="temporary"
-      open={open}
+      variant={isMobile ? 'temporary' : 'persistent'}
+      open={isMobile ? open : true}
       onClose={onClose}
       classes={{ paper: classes.drawer }}
     >
       <List className={classes.list}>
+        <Tooltip title="Dashboard">
+          <ListItem
+            button
+            className={cls(classes.listButton, classes.activeIcon)}
+          >
+            <DashboardIcon className={classes.userIcon} />
+          </ListItem>
+        </Tooltip>
         <Tooltip title="View Profile">
           <ListItem button className={classes.listButton}>
             <User className={classes.userIcon} />

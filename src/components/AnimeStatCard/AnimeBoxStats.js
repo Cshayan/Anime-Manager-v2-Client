@@ -91,7 +91,7 @@ const AnimeBoxStats = (props) => {
         </Grid>
         <Grid item xs={4} lg={2} md={2}>
           <div className={cls(classes.box, classes.hold)}>
-            <Typography className={classes.title}>On Hold</Typography>
+            <Typography className={classes.title}>OnHold</Typography>
             <Typography className={classes.value}>{hold}</Typography>
           </div>
         </Grid>

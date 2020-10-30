@@ -5,7 +5,7 @@ export const pxToRem = (px) => `${px / 22.5}rem`;
 export default createMuiTheme({
   palette: {
     primary: {
-      main: '#5DAAE0',
+      main: '#27ae60',
       dark: '#273D49',
     },
     secondary: {

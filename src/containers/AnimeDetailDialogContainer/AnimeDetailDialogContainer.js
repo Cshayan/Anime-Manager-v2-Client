@@ -6,32 +6,26 @@ const AnimeDetailDialogContainer = () => {
   const {
     isAnimeDetailDialogOpen,
     handleAnimeCloseDetailDialog,
-    animeDialogDetail,
     handleSaveAnimeStatus,
+    title,
+    imageUrl,
+    animeId,
+    status,
+    finalStatus,
+    icon,
   } = useAnimeDetailDialog();
-
-  const statusArray = [
-    'Unwatched',
-    'Watching',
-    'Completed',
-    'On Hold',
-    'Dropped',
-  ];
-
-  const finalStatus = statusArray.filter(
-    (status) => status !== animeDialogDetail.status,
-  );
 
   return (
     <AnimeDetailDialog
       open={isAnimeDetailDialogOpen}
       onClose={handleAnimeCloseDetailDialog}
-      title={animeDialogDetail.title}
-      imageUrl={animeDialogDetail.imageUrl}
-      animeId={animeDialogDetail.animeId}
-      status={animeDialogDetail.status}
+      title={title}
+      imageUrl={imageUrl}
+      animeId={animeId}
+      status={status}
       onSaveClick={handleSaveAnimeStatus}
       statusArray={finalStatus}
+      icon={icon}
     />
   );
 };
