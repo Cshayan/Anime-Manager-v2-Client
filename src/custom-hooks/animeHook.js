@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   openAnimeDeleteDialog,
@@ -6,6 +6,11 @@ import {
   openAnimeDetailDialog,
   closeAnimeDetailDialog,
 } from 'actions/dialogAction';
+import UnwatchedIcon from 'assets/unwatched.svg';
+import CompletedIcon from 'assets/completed.svg';
+import WatchingIcon from 'assets/watching.svg';
+import OnHoldIcon from 'assets/hold.svg';
+import DroppedIcon from 'assets/dropped.svg';
 import {
   addAnimeWatchlistStart,
   getAnimeWatchlistStart,
@@ -63,7 +68,49 @@ export const useAnime = () => {
 export const useAnimeDetailDialog = () => {
   const dispatch = useDispatch();
   const isAnimeDetailDialogOpen = useSelector(selectIsAnimeDetailDialogOpen);
-  const animeDialogDetail = useSelector(selectAnimeDialogDetail);
+  const { title = '', imageUrl = '', animeId = '', status = '' } = useSelector(
+    selectAnimeDialogDetail,
+  );
+  const [statusValue, setStatusValue] = useState('');
+  const [icon, setIcon] = useState('');
+
+  useEffect(() => {
+    if (status) {
+      setStatusValue(status);
+
+      switch (status) {
+        case 'Unwatched':
+          setIcon(UnwatchedIcon);
+          break;
+        case 'Watching':
+          setIcon(WatchingIcon);
+          break;
+        case 'Completed':
+          setIcon(CompletedIcon);
+          break;
+        case 'On Hold':
+          setIcon(OnHoldIcon);
+          break;
+        case 'Dropped':
+          setIcon(DroppedIcon);
+          break;
+        default:
+          setIcon(UnwatchedIcon);
+      }
+    }
+  }, [status]);
+
+  const statusArray = [
+    { title: 'Unwatched', icon: UnwatchedIcon },
+    { title: 'Watching', icon: WatchingIcon },
+    { title: 'Completed', icon: CompletedIcon },
+    { title: 'On Hold', icon: OnHoldIcon },
+    { title: 'Dropped', icon: DroppedIcon },
+  ];
+
+  const finalStatus = statusArray.filter(
+    (animeStatus) => animeStatus.title !== statusValue,
+  );
 
   const handleStatusClick = (animeDetail) => {
     handleAnimeOpenDetailDialog();
@@ -87,7 +134,12 @@ export const useAnimeDetailDialog = () => {
     handleStatusClick,
     isAnimeDetailDialogOpen,
     handleAnimeCloseDetailDialog,
-    animeDialogDetail,
+    title,
+    imageUrl,
+    animeId,
+    status,
     handleSaveAnimeStatus,
+    finalStatus,
+    icon,
   };
 };

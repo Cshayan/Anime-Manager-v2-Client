@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles, Avatar, IconButton } from '@material-ui/core';
 import cls from 'classnames';
+import { useResizeScreen } from 'custom-hooks/useResizeHook';
 import { drawerOpen } from '../../actions/drawerAction';
 import UserIcon from '../../assets/user.svg';
 import Hamburger from '../../assets/hamburger.svg';
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const AvatarPopup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { isMobile } = useResizeScreen();
 
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
@@ -93,13 +95,15 @@ const AvatarPopup = () => {
             className={cls(classes.avatarIcon)}
           />
         </IconButton>
-        <IconButton onClick={onHamburgerClick}>
-          <img
-            src={Hamburger}
-            alt="hamburger-menu"
-            className={cls(classes.hamburger)}
-          />
-        </IconButton>
+        {isMobile && (
+          <IconButton onClick={onHamburgerClick}>
+            <img
+              src={Hamburger}
+              alt="hamburger-menu"
+              className={cls(classes.hamburger)}
+            />
+          </IconButton>
+        )}
       </div>
       <ProfilePopOver
         open={profileOpen}

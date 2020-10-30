@@ -16,7 +16,7 @@ import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
   imgContainer: {
-    width: '40%',
+    width: '35%',
     height: '100%',
     overflow: 'hidden',
   },
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   infoContainer: {
-    width: '60%',
+    width: '65%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
