@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
+import { makeStyles, TextField } from '@material-ui/core';
 import { useRegister } from '../../custom-hooks/authHook';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,14 +15,22 @@ const useStyles = makeStyles((theme) => ({
   },
   registerButton: {
     background: theme.button.background.light,
-    padding: `${theme.typography.pxToRem(7)} ${theme.typography.pxToRem(25)}`,
+    padding: `${theme.typography.pxToRem(9)} ${theme.typography.pxToRem(25)}`,
     border: `1px solid ${theme.palette.primary.main}`,
     color: '#fff',
     fontWeight: 'bold',
     fontSize: theme.typography.pxToRem(18),
     margin: `1rem 0`,
+    borderRadius: theme.typography.pxToRem(5),
+    outline: 'none',
+    cursor: 'pointer',
     '&:hover': {
       border: `1px solid ${theme.button.background.light}`,
+    },
+    '&:disabled': {
+      background: theme.button.background.light,
+      border: `1px solid ${theme.palette.primary.main}`,
+      cursor: 'no-drop',
     },
   },
 }));
@@ -35,6 +43,7 @@ const RegisterForm = () => {
     password,
     onChangeHandler,
     onRegisterSubmit,
+    isUserLogging,
   } = useRegister();
   return (
     <form noValidate autoComplete="off" onSubmit={(e) => onRegisterSubmit(e)}>
@@ -80,9 +89,20 @@ const RegisterForm = () => {
           classes: { input: classes.input },
         }}
       />
-      <Button className={classes.registerButton} type="submit">
-        SIGN UP
-      </Button>
+      <button
+        className={classes.registerButton}
+        type="submit"
+        disabled={isUserLogging}
+      >
+        {isUserLogging ? (
+          <i
+            className="fa fa-spinner fa-spin"
+            style={{ color: '#fff', fontSize: '20px' }}
+          ></i>
+        ) : (
+          'SIGN UP'
+        )}
+      </button>
     </form>
   );
 };

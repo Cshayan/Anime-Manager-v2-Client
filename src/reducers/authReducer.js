@@ -7,6 +7,7 @@ const initialState = {
   isAuthenticated: !!localStorage.getItem(ANIME_TOKEN),
   user: null,
   error: null,
+  isUserLogging: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -17,6 +18,7 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: false,
+        isUserLogging: true,
       };
     case AUTH.LOGIN_API_SUCCESS:
     case AUTH.REGISTER_API_SUCCESS:
@@ -24,6 +26,7 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        isUserLogging: false,
         ...payload,
         error: null,
       };
@@ -32,6 +35,7 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: false,
+        isUserLogging: false,
         token: null,
         error: payload,
       };
