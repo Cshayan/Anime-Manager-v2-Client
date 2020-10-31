@@ -18,6 +18,7 @@ import {
   deleteAnimeWatchlistStart,
   setAnimeDialogDetail,
   animeStatusSaveStart,
+  setAnimeFilter,
 } from '../actions/animeAction';
 
 const selectWatchlist = ({ anime: { watchlist = [] } }) => watchlist;
@@ -27,6 +28,11 @@ const selectIsAnimeDetailDialogOpen = ({
 }) => isAnimeDetailDialogOpen;
 const selectAnimeDialogDetail = ({ anime: { animeDialogDetail = {} } }) =>
   animeDialogDetail;
+const selectSelectedFilter = ({
+  animeFilter: { selectedFilter = 'Watching' },
+}) => selectedFilter;
+const selectFilteredWatchlist = ({ animeFilter: { filteredWatchlist = [] } }) =>
+  filteredWatchlist;
 
 export const useAnime = () => {
   const dispatch = useDispatch();
@@ -141,5 +147,30 @@ export const useAnimeDetailDialog = () => {
     handleSaveAnimeStatus,
     finalStatus,
     icon,
+  };
+};
+
+export const useAnimeFilter = () => {
+  const selectedFilter = useSelector(selectSelectedFilter);
+  const animeWatchlist = useSelector(selectWatchlist);
+  const filteredWatchlist = useSelector(selectFilteredWatchlist);
+  const dispatch = useDispatch();
+
+  const handleFilterButtonClick = (type) => {
+    let filteredList = [];
+    if (type === 'Total') {
+      filteredList = [];
+    } else {
+      filteredList = animeWatchlist.filter(
+        (anime) => anime.animeStatus === type,
+      );
+    }
+    dispatch(setAnimeFilter({ filterType: type, filterValue: filteredList }));
+  };
+
+  return {
+    selectedFilter,
+    filteredWatchlist,
+    handleFilterButtonClick,
   };
 };

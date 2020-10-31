@@ -1,12 +1,13 @@
 /* Root Reducer to combine all the reducers */
-import { combineReducers } from "redux";
-import { authReducer } from "./authReducer";
-import { snackBarReducer } from "./snackbarReducer";
-import { drawerReducer } from "./drawerReducer";
-import { globalAnimeSearchReducer } from "./globalAnimeSearchReducer";
-import { darkModeReducer } from "./darkModeReducer";
-import { dialogReducer } from "./dialogReducer";
-import { animeReducer } from "./animeReducer";
+import { combineReducers } from 'redux';
+import { authReducer } from './authReducer';
+import { snackBarReducer } from './snackbarReducer';
+import { drawerReducer } from './drawerReducer';
+import { globalAnimeSearchReducer } from './globalAnimeSearchReducer';
+import { darkModeReducer } from './darkModeReducer';
+import { dialogReducer } from './dialogReducer';
+import { animeReducer } from './animeReducer';
+import { animeFilterReducer } from './animeFilterSortReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   darkMode: darkModeReducer,
   dialog: dialogReducer,
   anime: animeReducer,
+  animeFilter: animeFilterReducer,
 });

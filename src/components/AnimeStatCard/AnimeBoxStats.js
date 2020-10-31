@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography, Grid } from '@material-ui/core';
@@ -52,17 +54,35 @@ const useStyles = makeStyles((theme) => ({
   dropped: {
     color: '#e74c3c',
   },
+  activeFilter: {
+    background: theme.button.background.light,
+    color: '#fff',
+  },
   '@media screen and (max-width:600px)': {},
 }));
 
 const AnimeBoxStats = (props) => {
-  const { total, watching, unwatched, completed, hold, dropped } = props;
+  const {
+    total,
+    watching,
+    unwatched,
+    completed,
+    hold,
+    dropped,
+    selectedFilter,
+    handleFilterButtonClick,
+  } = props;
   const classes = useStyles();
   return (
     <div className={classes.boxContainer}>
       <Grid container alignItems="center" justify="space-between">
         <Grid item xs={4} lg={2} md={2}>
-          <div className={cls(classes.box)}>
+          <div
+            className={cls(classes.box, {
+              [classes.activeFilter]: selectedFilter === 'Total',
+            })}
+            onClick={() => handleFilterButtonClick('Total')}
+          >
             <Typography className={cls(classes.title, classes.totalText)}>
               Total
             </Typography>
@@ -72,31 +92,56 @@ const AnimeBoxStats = (props) => {
           </div>
         </Grid>
         <Grid item xs={4} lg={2} md={2}>
-          <div className={cls(classes.box, classes.watching)}>
+          <div
+            className={cls(classes.box, classes.watching, {
+              [classes.activeFilter]: selectedFilter === 'Watching',
+            })}
+            onClick={() => handleFilterButtonClick('Watching')}
+          >
             <Typography className={classes.title}>Watching</Typography>
             <Typography className={classes.value}>{watching}</Typography>
           </div>
         </Grid>
         <Grid item xs={4} lg={2} md={2}>
-          <div className={cls(classes.box, classes.unwatched)}>
+          <div
+            className={cls(classes.box, classes.unwatched, {
+              [classes.activeFilter]: selectedFilter === 'Unwatched',
+            })}
+            onClick={() => handleFilterButtonClick('Unwatched')}
+          >
             <Typography className={classes.title}>Unwatched</Typography>
             <Typography className={classes.value}>{unwatched}</Typography>
           </div>
         </Grid>
         <Grid item xs={4} lg={2} md={2}>
-          <div className={cls(classes.box, classes.completed)}>
+          <div
+            className={cls(classes.box, classes.completed, {
+              [classes.activeFilter]: selectedFilter === 'Completed',
+            })}
+            onClick={() => handleFilterButtonClick('Completed')}
+          >
             <Typography className={classes.title}>Completed</Typography>
             <Typography className={classes.value}>{completed}</Typography>
           </div>
         </Grid>
         <Grid item xs={4} lg={2} md={2}>
-          <div className={cls(classes.box, classes.hold)}>
+          <div
+            className={cls(classes.box, classes.hold, {
+              [classes.activeFilter]: selectedFilter === 'On Hold',
+            })}
+            onClick={() => handleFilterButtonClick('On Hold')}
+          >
             <Typography className={classes.title}>OnHold</Typography>
             <Typography className={classes.value}>{hold}</Typography>
           </div>
         </Grid>
         <Grid item xs={4} lg={2} md={2}>
-          <div className={cls(classes.box, classes.dropped)}>
+          <div
+            className={cls(classes.box, classes.dropped, {
+              [classes.activeFilter]: selectedFilter === 'Dropped',
+            })}
+            onClick={() => handleFilterButtonClick('Dropped')}
+          >
             <Typography className={classes.title}>Dropped</Typography>
             <Typography className={classes.value}>{dropped}</Typography>
           </div>
@@ -113,6 +158,8 @@ AnimeBoxStats.propTypes = {
   completed: PropTypes.number,
   hold: PropTypes.number,
   dropped: PropTypes.number,
+  selectedFilter: PropTypes.string,
+  handleFilterButtonClick: PropTypes.func,
 };
 
 AnimeBoxStats.defaultProps = {
@@ -122,6 +169,8 @@ AnimeBoxStats.defaultProps = {
   completed: 0,
   hold: 0,
   dropped: 0,
+  selectedFilter: 'Watching',
+  handleFilterButtonClick: () => {},
 };
 
 export default AnimeBoxStats;
