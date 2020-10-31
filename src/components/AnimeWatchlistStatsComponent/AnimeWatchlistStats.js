@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import AnimeBoxStats from 'components/AnimeStatCard/AnimeBoxStats';
 
 const AnimeWatchlistStats = (props) => {
-  const { watchlist, animeStats } = props;
+  const {
+    watchlist,
+    animeStats,
+    selectedFilter,
+    handleFilterButtonClick,
+  } = props;
   return (
     <>
       {watchlist.length > 0 && (
@@ -14,6 +19,8 @@ const AnimeWatchlistStats = (props) => {
           hold={animeStats.hold}
           dropped={animeStats.dropped}
           completed={animeStats.completed}
+          selectedFilter={selectedFilter}
+          handleFilterButtonClick={handleFilterButtonClick}
         />
       )}
     </>
@@ -23,11 +30,15 @@ const AnimeWatchlistStats = (props) => {
 AnimeWatchlistStats.propTypes = {
   watchlist: PropTypes.array,
   animeStats: PropTypes.object,
+  selectedFilter: PropTypes.string,
+  handleFilterButtonClick: PropTypes.func,
 };
 
 AnimeWatchlistStats.defaultProps = {
   watchlist: [],
   animeStats: {},
+  selectedFilter: 'Watching',
+  handleFilterButtonClick: () => {},
 };
 
 export default AnimeWatchlistStats;

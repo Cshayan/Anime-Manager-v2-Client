@@ -13,6 +13,7 @@ import {
   ANIME_STATUS_SAVE_START,
   ANIME_STATUS_SAVE_SUCCESS,
   ANIME_STATUS_SAVE_FAIL,
+  SET_ANIME_FILTER,
 } from '../constants/animeConstant';
 
 export const addAnimeWatchlistStart = (payload) => ({
@@ -81,5 +82,10 @@ export const animeStatusSaveSuccess = (payload) => ({
 
 export const animeStatusSaveFail = (payload) => ({
   type: ANIME_STATUS_SAVE_FAIL,
+  payload,
+});
+
+export const setAnimeFilter = (payload) => ({
+  type: SET_ANIME_FILTER,
   payload,
 });

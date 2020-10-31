@@ -3,7 +3,7 @@ import {
   useFocus,
   useGlobalSearchAnime,
 } from '../../custom-hooks/globalAnimeSearchHook';
-import { useAnime } from '../../custom-hooks/animeHook';
+import { useAnime, useAnimeFilter } from '../../custom-hooks/animeHook';
 import AnimeWatchlist from '../../components/AnimeWatchlistComponent/AnimeWatchlist';
 import StateView from '../../components/StateView/StateView';
 import AnimeGlobalSearchListContainer from '../AnimeGlobalSearchListContainer/AnimeGlobalSearchListContainer';
@@ -17,6 +17,7 @@ const AnimeWatchlistContainer = () => {
   const { isSearchBarFoccused } = useFocus();
   const { isAnimeLoading, searchResults, searchError } = useGlobalSearchAnime();
   const { animeWatchlist } = useAnime();
+  const { filteredWatchlist, selectedFilter } = useAnimeFilter();
 
   if (isSearchBarFoccused && isAnimeLoading) {
     return (
@@ -79,6 +80,14 @@ const AnimeWatchlistContainer = () => {
     );
   }
 
+  if (selectedFilter !== 'Total' && filteredWatchlist.length === 0) {
+    return (
+      <>
+        <StateView textToRender="No results found." imageToRender={Error} />
+      </>
+    );
+  }
+
   return (
     <>
       {animeWatchlist.length === 0 ? (
@@ -87,7 +96,13 @@ const AnimeWatchlistContainer = () => {
           imageToRender={NoAnimeImg}
         />
       ) : (
-        <AnimeWatchlist animeWatchlist={animeWatchlist} />
+        <AnimeWatchlist
+          animeWatchlist={
+            selectedFilter !== 'Total' || filteredWatchlist.length > 0
+              ? filteredWatchlist
+              : animeWatchlist
+          }
+        />
       )}
     </>
   );
