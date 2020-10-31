@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
+import { makeStyles, TextField } from '@material-ui/core';
 import { useLogin } from '../../custom-hooks/authHook';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,21 +15,35 @@ const useStyles = makeStyles((theme) => ({
   },
   loginButton: {
     background: theme.button.background.light,
-    padding: `${theme.typography.pxToRem(7)} ${theme.typography.pxToRem(25)}`,
+    padding: `${theme.typography.pxToRem(9)} ${theme.typography.pxToRem(25)}`,
     border: `1px solid ${theme.palette.primary.main}`,
     color: '#fff',
     fontWeight: 'bold',
     fontSize: theme.typography.pxToRem(18),
     margin: `1rem 0`,
+    borderRadius: theme.typography.pxToRem(5),
+    outline: 'none',
+    cursor: 'pointer',
     '&:hover': {
       border: `1px solid ${theme.button.background.light}`,
+    },
+    '&:disabled': {
+      background: theme.button.background.light,
+      border: `1px solid ${theme.palette.primary.main}`,
+      cursor: 'no-drop',
     },
   },
 }));
 
 const LoginForm = () => {
   const classes = useStyles();
-  const { email, password, onChangeHandler, onLoginSubmit } = useLogin();
+  const {
+    email,
+    password,
+    onChangeHandler,
+    onLoginSubmit,
+    isUserLogging,
+  } = useLogin();
   return (
     <form noValidate autoComplete="off" onSubmit={(e) => onLoginSubmit(e)}>
       <TextField
@@ -60,9 +74,20 @@ const LoginForm = () => {
           classes: { input: classes.input },
         }}
       />
-      <Button className={classes.loginButton} type="submit">
-        LOGIN
-      </Button>
+      <button
+        className={classes.loginButton}
+        type="submit"
+        disabled={isUserLogging}
+      >
+        {isUserLogging ? (
+          <i
+            className="fa fa-spinner fa-spin"
+            style={{ color: '#fff', fontSize: '20px' }}
+          ></i>
+        ) : (
+          'LOGIN'
+        )}
+      </button>
     </form>
   );
 };

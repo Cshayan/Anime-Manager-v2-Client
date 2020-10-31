@@ -1,17 +1,19 @@
 /* Custom Hooks for authentication */
-import { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   loginAPIStart,
   getMeAPIStart,
   registerAPIStart,
   logOutUserSuccess,
-} from "../actions/authAction";
-import { resetAll } from "../actions/resetAction";
-import { openLogoutDialog, closeLogoutDialog } from "../actions/dialogAction";
-import { drawerClose } from "../actions/drawerAction";
+} from '../actions/authAction';
+import { resetAll } from '../actions/resetAction';
+import { openLogoutDialog, closeLogoutDialog } from '../actions/dialogAction';
+import { drawerClose } from '../actions/drawerAction';
 
 const selectLogoutDialog = (state) => state.dialog.isLogoutDialogOpen;
+const selectIsUserLogging = ({ auth: { isUserLogging = false } }) =>
+  isUserLogging;
 
 export const useAuthentication = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -23,10 +25,11 @@ export const useAuthentication = () => {
 
 export const useLogin = () => {
   const dispatch = useDispatch();
+  const isUserLogging = useSelector(selectIsUserLogging);
 
   const [loginDetails, setLoginDetails] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const onChangeHandler = (e) => {
@@ -43,16 +46,18 @@ export const useLogin = () => {
     password: loginDetails.password,
     onChangeHandler,
     onLoginSubmit,
+    isUserLogging,
   };
 };
 
 export const useRegister = () => {
   const dispatch = useDispatch();
+  const isUserLogging = useSelector(selectIsUserLogging);
 
   const [registerDetails, setLoginDetails] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   });
 
   const onChangeHandler = (e) => {
@@ -70,6 +75,7 @@ export const useRegister = () => {
     password: registerDetails.password,
     onChangeHandler,
     onRegisterSubmit,
+    isUserLogging,
   };
 };
 
