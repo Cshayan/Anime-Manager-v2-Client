@@ -6,6 +6,7 @@ import {
   GET_ANIME_WATCHLIST_START,
   DELETE_ANIME_WATCHLIST_START,
   ANIME_STATUS_SAVE_START,
+  GET_ANIME_DETAILS_START,
 } from '../constants/animeConstant';
 import {
   animeSearchSuccess,
@@ -20,6 +21,8 @@ import {
   deleteAnimeWatchlistFail,
   animeStatusSaveSuccess,
   animeStatusSaveFail,
+  getAnimeDetailsSuccess,
+  getAnimeDetailsFail,
 } from '../actions/animeAction';
 import { snackBarOpen } from '../actions/snackbarAction';
 import {
@@ -28,6 +31,7 @@ import {
   getAnimeWatchlist,
   deleteAnimeWatchlist,
   saveAnimeStatus,
+  getAnimeDetails,
 } from '../services/animeService';
 
 /* Worker Saga */
@@ -111,6 +115,23 @@ function* setAnimeStatusWorker(action) {
   }
 }
 
+function* getAnimeDetailsWorker(action) {
+  const { payload } = action;
+  try {
+    const { data: { data = {} } = {} } = yield call(getAnimeDetails, payload);
+    yield put(getAnimeDetailsSuccess(data));
+  } catch (err) {
+    yield put(getAnimeDetailsFail());
+    yield put(
+      snackBarOpen(
+        'Failed to load the anime details. Please try again later.',
+        'error',
+      ),
+    );
+  }
+  yield;
+}
+
 /* Watcher Saga */
 export function* searchAnimeWatcher() {
   yield takeLatest(GLO_ANIME_SEARCH_START, searchAnimeWorker);
@@ -130,4 +151,8 @@ export function* deleteAnimeWatchlistWatcher() {
 
 export function* setAnimeStatusWatcher() {
   yield takeLatest(ANIME_STATUS_SAVE_START, setAnimeStatusWorker);
+}
+
+export function* getAnimeDetailsWatcher() {
+  yield takeLatest(GET_ANIME_DETAILS_START, getAnimeDetailsWorker);
 }
