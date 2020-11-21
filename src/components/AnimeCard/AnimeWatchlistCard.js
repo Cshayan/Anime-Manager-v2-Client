@@ -9,8 +9,8 @@ import {
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import StarRatings from 'react-star-ratings';
 import cls from 'classnames';
-import { ReactComponent as LoveIcon } from '../../assets/love.svg';
-import { ReactComponent as ToIcon } from '../../assets/to.svg';
+import { useHistory } from 'react-router-dom';
+import { ReactComponent as PlusIcon } from '../../assets/plus.svg';
 import MAL from '../../assets/mal.png';
 import './styles.css';
 
@@ -193,6 +193,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#e74c3c',
     border: '1px dashed #e74c3c',
   },
+  moreDetails: {
+    fontSize: theme.typography.pxToRem(20),
+    background: theme.palette.background.default,
+    borderRadius: '5px',
+    color: theme.palette.text.primary,
+  },
   '@media screen and (max-width: 600px)': {
     scoreBad: {
       fontSize: '1.5rem',
@@ -230,24 +236,19 @@ const AnimeCard = (props) => {
   const classes = useStyles();
   const {
     animeId,
-    animeData: {
-      // id,
-      title,
-      url,
-      imageUrl,
-      type,
-      episodes,
-      score,
-      startDate,
-      endDate,
-      // ongoing,
-      rated,
-      members,
-    },
+    animeData: { title, url, imageUrl, type, episodes, score, rated },
     onDeleteClick,
     onStatusClick,
     status,
+    malId,
   } = props;
+
+  const history = useHistory();
+
+  const onCardClick = (id) => {
+    history.push(`/anime/${id}`);
+  };
+
   return (
     <>
       <div className={classes.animeCard}>
@@ -268,17 +269,6 @@ const AnimeCard = (props) => {
                 starSpacing="2px"
               />
             </div>
-            <div className={classes.dateContainer}>
-              <div className={classes.dateContent}>
-                <Typography className={classes.startDate}>
-                  {startDate}
-                </Typography>
-              </div>
-              <ToIcon className={classes.toIcon} />
-              <div className={classes.dateContent}>
-                <Typography className={classes.endDate}>{endDate}</Typography>
-              </div>
-            </div>
             <div className={classes.otherInfoCont}>
               <div className={classes.type}>{type}</div>
               <div className={classes.episodes}>
@@ -289,10 +279,13 @@ const AnimeCard = (props) => {
             </div>
             <div className={classes.membersCont}>
               <div className={classes.memberInner}>
-                <LoveIcon className={classes.love} />
-                <Tooltip title="Members">
-                  <Typography className={classes.members}>{members}</Typography>
-                </Tooltip>
+                <IconButton
+                  className={classes.moreDetails}
+                  onClick={() => onCardClick(malId)}
+                >
+                  <PlusIcon className={classes.love} />
+                  More details
+                </IconButton>
               </div>
               <Tooltip title="View in MAL">
                 <a href={url} target="_blank" rel="noopener noreferrer">
@@ -337,11 +330,8 @@ AnimeCard.propTypes = {
   type: PropTypes.string,
   episodes: PropTypes.number,
   score: PropTypes.number,
-  startDate: PropTypes.any,
-  endDate: PropTypes.any,
-  // ongoing: PropTypes.string,
+  malId: PropTypes.string,
   rated: PropTypes.string,
-  members: PropTypes.number,
   onDeleteClick: PropTypes.func,
   onStatusClick: PropTypes.func,
   animeData: PropTypes.object,
@@ -351,15 +341,12 @@ AnimeCard.propTypes = {
 AnimeCard.defaultProps = {
   title: 'No title.',
   url: '',
+  malId: '',
   imageUrl: '',
   type: '---',
   episodes: 0,
   score: 0.0,
-  startDate: 'NA',
-  endDate: '?',
-  // ongoing: 'NA',
   rated: '?',
-  members: 0,
   onDeleteClick: () => {},
   onStatusClick: () => {},
   animeData: {},

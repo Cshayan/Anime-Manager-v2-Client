@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/';
-import DashboardContainer from '../../containers/Dashboard/DashboardContainer';
+import DashboardContainer from 'containers/Dashboard/DashboardContainer';
 
 const useStyles = makeStyles((theme) => ({
   dashboardBack: {

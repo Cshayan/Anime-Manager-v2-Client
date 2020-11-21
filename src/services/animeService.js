@@ -33,3 +33,9 @@ export const saveAnimeStatus = (animeId, status) =>
     url: `/features/updateWatchlist/${animeId}`,
     data: { animeStatus: status },
   });
+
+export const getAnimeDetails = (id) =>
+  axios({
+    method: 'GET',
+    url: `features/anime-details/${id}`,
+  });

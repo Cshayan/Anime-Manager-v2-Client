@@ -8,6 +8,7 @@ import { darkModeReducer } from './darkModeReducer';
 import { dialogReducer } from './dialogReducer';
 import { animeReducer } from './animeReducer';
 import { animeFilterReducer } from './animeFilterSortReducer';
+import { animeDetailsReducer } from './animeDetailsReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   dialog: dialogReducer,
   anime: animeReducer,
   animeFilter: animeFilterReducer,
+  animeDetails: animeDetailsReducer,
 });

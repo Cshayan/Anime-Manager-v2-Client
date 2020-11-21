@@ -19,6 +19,7 @@ import {
   setAnimeDialogDetail,
   animeStatusSaveStart,
   setAnimeFilter,
+  getAnimeDetailsStart,
 } from '../actions/animeAction';
 
 const selectWatchlist = ({ anime: { watchlist = [] } }) => watchlist;
@@ -33,6 +34,10 @@ const selectSelectedFilter = ({
 }) => selectedFilter;
 const selectFilteredWatchlist = ({ animeFilter: { filteredWatchlist = [] } }) =>
   filteredWatchlist;
+const selectAnimeDetailsLoading = ({
+  animeDetails: { isAnimeDetailsLoading = false } = {},
+}) => isAnimeDetailsLoading;
+const selectAnimeDetails = ({ animeDetails: { details = {} } = {} }) => details;
 
 export const useAnime = () => {
   const dispatch = useDispatch();
@@ -172,5 +177,22 @@ export const useAnimeFilter = () => {
     selectedFilter,
     filteredWatchlist,
     handleFilterButtonClick,
+  };
+};
+
+export const useAnimeDetails = (malId) => {
+  const animeDetails = useSelector(selectAnimeDetails);
+  const isAnimeDetailsLoading = useSelector(selectAnimeDetailsLoading);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (malId) {
+      dispatch(getAnimeDetailsStart(malId));
+    }
+  }, [malId]);
+
+  return {
+    isAnimeDetailsLoading,
+    animeDetails,
   };
 };
