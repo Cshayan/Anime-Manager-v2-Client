@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, Tooltip, Typography } from '@material-ui/core/';
+import {
+  makeStyles,
+  Tooltip,
+  Typography,
+  IconButton,
+} from '@material-ui/core/';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import cls from 'classnames';
+import { useHistory } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import { ReactComponent as LoveIcon } from 'assets/love.svg';
 import { ReactComponent as ToIcon } from 'assets/to.svg';
+import { ReactComponent as PlusIcon } from 'assets/plus.svg';
 import MAL from 'assets/mal.png';
 import './styles.css';
 
@@ -163,8 +169,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   love: {
-    width: theme.typography.pxToRem(30),
-    height: theme.typography.pxToRem(30),
+    width: theme.typography.pxToRem(20),
+    height: theme.typography.pxToRem(20),
     margin: `0 ${theme.typography.pxToRem(10)}`,
   },
   members: {
@@ -174,6 +180,12 @@ const useStyles = makeStyles((theme) => ({
   mal: {
     width: theme.typography.pxToRem(30),
     height: theme.typography.pxToRem(30),
+  },
+  moreDetails: {
+    fontSize: theme.typography.pxToRem(18),
+    background: theme.palette.background.default,
+    borderRadius: '5px',
+    color: theme.palette.text.primary,
   },
   '@media screen and (max-width: 600px)': {
     scoreBad: {
@@ -225,6 +237,13 @@ const AnimeCard = (props) => {
     members,
     onAddClick,
   } = props;
+
+  const history = useHistory();
+
+  const onCardClick = (animeId) => {
+    history.push(`/anime/${animeId}`);
+  };
+
   return (
     <div className={classes.animeCard}>
       <div className={classes.imgContainer}>
@@ -271,10 +290,13 @@ const AnimeCard = (props) => {
           </div>
           <div className={classes.membersCont}>
             <div className={classes.memberInner}>
-              <LoveIcon className={classes.love} />
-              <Tooltip title="Members">
-                <Typography className={classes.members}>{members}</Typography>
-              </Tooltip>
+              <IconButton
+                className={classes.moreDetails}
+                onClick={() => onCardClick(id)}
+              >
+                <PlusIcon className={classes.love} />
+                More details
+              </IconButton>
             </div>
             <Tooltip title="View in MAL">
               <a href={url} target="_blank" rel="noopener noreferrer">

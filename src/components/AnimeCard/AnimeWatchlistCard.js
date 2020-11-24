@@ -10,7 +10,7 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import StarRatings from 'react-star-ratings';
 import cls from 'classnames';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as PlusIcon } from '../../assets/plus.svg';
+import { ReactComponent as PlusIcon } from 'assets/plus.svg';
 import MAL from '../../assets/mal.png';
 import './styles.css';
 

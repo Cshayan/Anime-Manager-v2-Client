@@ -34,6 +34,8 @@ export default createMuiTheme({
   },
   badge: {
     background: 'linear-gradient(to right, #00b09b, #96c93d)',
+    background2:
+      'linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6)', // blue gradient badge
   },
   overrides: {
     MuiTooltip: {
@@ -87,6 +89,7 @@ export const darkTheme = createMuiTheme({
   },
   badge: {
     background: 'linear-gradient(to right, #2193b0, #6dd5ed)',
+    background2: 'linear-gradient(to right, #00b09b, #96c93d)', // green gradient badge
   },
   overrides: {
     MuiTooltip: {

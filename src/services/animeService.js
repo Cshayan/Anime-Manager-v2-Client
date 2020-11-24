@@ -39,3 +39,9 @@ export const getAnimeDetails = (id) =>
     method: 'GET',
     url: `features/anime-details/${id}`,
   });
+
+export const getAnimeReview = (id) =>
+  axios({
+    method: 'GET',
+    url: `features/anime-review/${id}`,
+  });

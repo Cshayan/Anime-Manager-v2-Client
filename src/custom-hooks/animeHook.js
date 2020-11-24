@@ -20,6 +20,7 @@ import {
   animeStatusSaveStart,
   setAnimeFilter,
   getAnimeDetailsStart,
+  getAnimeReviewStart,
 } from '../actions/animeAction';
 
 const selectWatchlist = ({ anime: { watchlist = [] } }) => watchlist;
@@ -37,7 +38,16 @@ const selectFilteredWatchlist = ({ animeFilter: { filteredWatchlist = [] } }) =>
 const selectAnimeDetailsLoading = ({
   animeDetails: { isAnimeDetailsLoading = false } = {},
 }) => isAnimeDetailsLoading;
-const selectAnimeDetails = ({ animeDetails: { details = {} } = {} }) => details;
+const selectAnimeDetails = ({
+  animeDetails: { details: { data = {} } = {} } = {},
+}) => data;
+const selectIsAnimeAlreadyPresent = ({
+  animeDetails: { details: { isAnimeAlreadyPresent = false } = {} } = {},
+}) => isAnimeAlreadyPresent;
+const selectIsAnimeReviewsLoading = ({
+  animeReview: { isReviewsLoading = false } = {},
+}) => isReviewsLoading;
+const selectAnimeReviews = ({ animeReview: { reviews = [] } = {} }) => reviews;
 
 export const useAnime = () => {
   const dispatch = useDispatch();
@@ -183,16 +193,40 @@ export const useAnimeFilter = () => {
 export const useAnimeDetails = (malId) => {
   const animeDetails = useSelector(selectAnimeDetails);
   const isAnimeDetailsLoading = useSelector(selectAnimeDetailsLoading);
+  const isAnimeAlreadyPresent = useSelector(selectIsAnimeAlreadyPresent);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (malId) {
       dispatch(getAnimeDetailsStart(malId));
     }
-  }, [malId]);
+  }, []);
 
   return {
     isAnimeDetailsLoading,
+    isAnimeAlreadyPresent,
     animeDetails,
+  };
+};
+
+export const useAnimeReviews = (malId) => {
+  const isAnimeReviewsLoading = useSelector(selectIsAnimeReviewsLoading);
+  const animeReviews = useSelector(selectAnimeReviews);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAnimeReviewStart(malId));
+  }, []);
+
+  const handleReviewReadMoreClick = (urlToOpen) => {
+    const win = window.open(urlToOpen, '_blank');
+    if (win != null) {
+      win.focus();
+    }
+  };
+
+  return {
+    isAnimeReviewsLoading,
+    animeReviews,
+    handleReviewReadMoreClick,
   };
 };
