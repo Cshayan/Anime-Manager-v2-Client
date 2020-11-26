@@ -8,7 +8,13 @@ const AnimeWatchlistStats = (props) => {
     animeStats,
     selectedFilter,
     handleFilterButtonClick,
+    isSearchBarFoccused,
   } = props;
+
+  if (isSearchBarFoccused) {
+    return <></>;
+  }
+
   return (
     <>
       {watchlist.length > 0 && (
@@ -32,6 +38,7 @@ AnimeWatchlistStats.propTypes = {
   animeStats: PropTypes.object,
   selectedFilter: PropTypes.string,
   handleFilterButtonClick: PropTypes.func,
+  isSearchBarFoccused: PropTypes.bool,
 };
 
 AnimeWatchlistStats.defaultProps = {
@@ -39,6 +46,7 @@ AnimeWatchlistStats.defaultProps = {
   animeStats: {},
   selectedFilter: 'Watching',
   handleFilterButtonClick: () => {},
+  isSearchBarFoccused: false,
 };
 
 export default AnimeWatchlistStats;

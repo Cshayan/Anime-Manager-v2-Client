@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -79,6 +81,11 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     '&:hover': {
       opacity: '0.9',
+    },
+    '&:disabled': {
+      background: theme.button.delete.background,
+      cursor: 'no-drop',
+      opacity: '0.5',
     },
   },
   dateContainer: {
@@ -241,6 +248,7 @@ const AnimeCard = (props) => {
     onStatusClick,
     status,
     malId,
+    isAnimeDeletingFromWatchlist,
   } = props;
 
   const history = useHistory();
@@ -252,7 +260,10 @@ const AnimeCard = (props) => {
   return (
     <>
       <div className={classes.animeCard}>
-        <div className={classes.imgContainer}>
+        <div
+          className={classes.imgContainer}
+          onClick={() => onCardClick(malId)}
+        >
           <img src={imageUrl} className={classes.img} alt="anime-cover" />
         </div>
         <div className={classes.infoContainer}>
@@ -313,8 +324,18 @@ const AnimeCard = (props) => {
           <button
             className={classes.deleteFromWatchlist}
             onClick={() => onDeleteClick(animeId)}
+            disabled={isAnimeDeletingFromWatchlist}
           >
-            <DeleteIcon /> Delete from Watchlist
+            {isAnimeDeletingFromWatchlist ? (
+              <i
+                className="fa fa-spinner fa-spin"
+                style={{ color: '#fff', fontSize: '20px' }}
+              ></i>
+            ) : (
+              <>
+                <DeleteIcon /> Delete from Watchlist
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -336,6 +357,7 @@ AnimeCard.propTypes = {
   onStatusClick: PropTypes.func,
   animeData: PropTypes.object,
   status: PropTypes.string,
+  isAnimeDeletingFromWatchlist: PropTypes.bool,
 };
 
 AnimeCard.defaultProps = {
@@ -351,6 +373,7 @@ AnimeCard.defaultProps = {
   onStatusClick: () => {},
   animeData: {},
   status: 'Unknown',
+  isAnimeDeletingFromWatchlist: false,
 };
 
 export default AnimeCard;

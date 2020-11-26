@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -81,6 +83,11 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     '&:hover': {
       opacity: '0.9',
+    },
+    '&:disabled': {
+      background: theme.button.background.light,
+      cursor: 'no-drop',
+      opacity: '0.5',
     },
   },
   dateContainer: {
@@ -236,6 +243,7 @@ const AnimeCard = (props) => {
     rated,
     members,
     onAddClick,
+    isAnimeAddingToWatchlist,
   } = props;
 
   const history = useHistory();
@@ -246,7 +254,7 @@ const AnimeCard = (props) => {
 
   return (
     <div className={classes.animeCard}>
-      <div className={classes.imgContainer}>
+      <div className={classes.imgContainer} onClick={() => onCardClick(id)}>
         <img src={imageUrl} className={classes.img} alt="anime-cover" />
       </div>
       <div className={classes.infoContainer}>
@@ -323,9 +331,18 @@ const AnimeCard = (props) => {
               members,
             })
           }
+          disabled={isAnimeAddingToWatchlist}
         >
-          {' '}
-          <AddCircleIcon /> Add to Watchlist
+          {isAnimeAddingToWatchlist ? (
+            <i
+              className="fa fa-spinner fa-spin"
+              style={{ color: '#fff', fontSize: '20px' }}
+            ></i>
+          ) : (
+            <>
+              <AddCircleIcon /> Add to Watchlist
+            </>
+          )}
         </button>
       </div>
     </div>
@@ -346,6 +363,7 @@ AnimeCard.propTypes = {
   rated: PropTypes.string,
   members: PropTypes.number,
   onAddClick: PropTypes.func,
+  isAnimeAddingToWatchlist: PropTypes.bool,
 };
 
 AnimeCard.defaultProps = {
@@ -361,6 +379,7 @@ AnimeCard.defaultProps = {
   rated: '?',
   members: 0,
   onAddClick: () => {},
+  isAnimeAddingToWatchlist: false,
 };
 
 export default AnimeCard;

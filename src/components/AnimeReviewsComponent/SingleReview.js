@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: '0.7rem',
   },
   scoresContainer: {
     display: 'flex',
@@ -101,6 +102,10 @@ const SingleReview = (props) => {
         <div className={classes.overallScore}>
           Overall Score - {overallScore}
         </div>
+        <div className={classes.likeContainer}>
+          <LikeIcon className={classes.reviewerImage} />
+          <Typography className={classes.likeText}>{helpfulCount}</Typography>
+        </div>
       </div>
       <div>
         <Typography className={classes.reviewContent}>
@@ -130,10 +135,6 @@ const SingleReview = (props) => {
           <Typography className={classes.scoresText}>
             Enjoyment - {enjoymentScore}
           </Typography>
-        </div>
-        <div className={classes.likeContainer}>
-          <LikeIcon className={classes.reviewerImage} />
-          <Typography className={classes.likeText}>{helpfulCount}</Typography>
         </div>
       </div>
     </div>

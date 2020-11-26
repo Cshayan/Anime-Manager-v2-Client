@@ -99,7 +99,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AnimeSynopsis = (props) => {
-  const { synopsis, score, status, episodes, trailerUrl, popularity } = props;
+  const {
+    synopsis,
+    score,
+    status,
+    episodes,
+    trailerUrl,
+    popularity,
+    isAnimeAlreadyPresent,
+  } = props;
   const classes = useStyles();
   return (
     <div className={classes.synopsisContainer}>
@@ -115,7 +123,10 @@ const AnimeSynopsis = (props) => {
         </div>
       </div>
       <div className={classes.presentAbCont}>
-        <AnimeTrailerStat trailerUrl={trailerUrl} />
+        <AnimeTrailerStat
+          trailerUrl={trailerUrl}
+          isAnimeAlreadyPresent={isAnimeAlreadyPresent}
+        />
       </div>
       <div className={classes.synopsisCont}>
         <Typography className={classes.synopsisHeading}>Synopsis</Typography>
@@ -132,6 +143,7 @@ AnimeSynopsis.propTypes = {
   status: PropTypes.string,
   episodes: PropTypes.number,
   popularity: PropTypes.number,
+  isAnimeAlreadyPresent: PropTypes.bool,
 };
 
 AnimeSynopsis.defaultProps = {
@@ -141,6 +153,7 @@ AnimeSynopsis.defaultProps = {
   status: 'No status found.',
   episodes: 0,
   popularity: 0,
+  isAnimeAlreadyPresent: false,
 };
 
 export default AnimeSynopsis;

@@ -39,13 +39,12 @@ const AnimeTrailerStat = (props) => {
   return (
     <>
       <div className={classes.trailerCont}>
-        <ReactPlayer width="100%" height="100%" url={trailerUrl} />
+        <ReactPlayer width="100%" height="100%" url={trailerUrl} controls />
       </div>
       <button
         className={classes.addToWatchlist}
         disabled={isAnimeAlreadyPresent}
       >
-        {' '}
         <AddCircleIcon /> Add to Watchlist
       </button>
     </>

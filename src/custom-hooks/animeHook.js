@@ -21,38 +21,31 @@ import {
   setAnimeFilter,
   getAnimeDetailsStart,
   getAnimeReviewStart,
-} from '../actions/animeAction';
-
-const selectWatchlist = ({ anime: { watchlist = [] } }) => watchlist;
-const selectAnimeId = ({ anime: { animeIdToDelete = '' } }) => animeIdToDelete;
-const selectIsAnimeDetailDialogOpen = ({
-  dialog: { isAnimeDetailDialogOpen },
-}) => isAnimeDetailDialogOpen;
-const selectAnimeDialogDetail = ({ anime: { animeDialogDetail = {} } }) =>
-  animeDialogDetail;
-const selectSelectedFilter = ({
-  animeFilter: { selectedFilter = 'Watching' },
-}) => selectedFilter;
-const selectFilteredWatchlist = ({ animeFilter: { filteredWatchlist = [] } }) =>
-  filteredWatchlist;
-const selectAnimeDetailsLoading = ({
-  animeDetails: { isAnimeDetailsLoading = false } = {},
-}) => isAnimeDetailsLoading;
-const selectAnimeDetails = ({
-  animeDetails: { details: { data = {} } = {} } = {},
-}) => data;
-const selectIsAnimeAlreadyPresent = ({
-  animeDetails: { details: { isAnimeAlreadyPresent = false } = {} } = {},
-}) => isAnimeAlreadyPresent;
-const selectIsAnimeReviewsLoading = ({
-  animeReview: { isReviewsLoading = false } = {},
-}) => isReviewsLoading;
-const selectAnimeReviews = ({ animeReview: { reviews = [] } = {} }) => reviews;
+} from 'actions/animeAction';
+import {
+  selectWatchlist,
+  selectAnimeId,
+  selectIsAnimeAddingToWatchlist,
+  selectIsAnimeDeletingFromWatchlist,
+  selectIsAnimeDetailDialogOpen,
+  selectAnimeDialogDetail,
+  selectSelectedFilter,
+  selectFilteredWatchlist,
+  selectAnimeDetailsLoading,
+  selectAnimeDetails,
+  selectIsAnimeAlreadyPresent,
+  selectIsAnimeReviewsLoading,
+  selectAnimeReviews,
+} from 'selectors/animeSelectors';
 
 export const useAnime = () => {
   const dispatch = useDispatch();
   const animeWatchlist = useSelector(selectWatchlist);
   const animeIdToDelete = useSelector(selectAnimeId);
+  const isAnimeAddingToWatchlist = useSelector(selectIsAnimeAddingToWatchlist);
+  const isAnimeDeletingFromWatchlist = useSelector(
+    selectIsAnimeDeletingFromWatchlist,
+  );
 
   const handleAnimeAddToWatchlistClick = (animeData) => {
     addAnimeToWatchlist(animeData);
@@ -78,6 +71,8 @@ export const useAnime = () => {
   }, [dispatch]);
 
   return {
+    isAnimeAddingToWatchlist,
+    isAnimeDeletingFromWatchlist,
     handleAnimeAddToWatchlistClick,
     fetchAnimes,
     animeWatchlist,

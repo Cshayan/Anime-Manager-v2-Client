@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography, makeStyles } from '@material-ui/core';
@@ -66,14 +68,22 @@ const useStyles = makeStyles((theme) => ({
 
 const AnimeBasicInfo = (props) => {
   const classes = useStyles();
-  const { title, imageUrl, engTitle, duration, genres, date } = props;
+  const {
+    title,
+    imageUrl,
+    engTitle,
+    duration,
+    genres,
+    date,
+    handleAnimeCoverClick,
+  } = props;
   return (
     <div className={classes.mobileView}>
-      <div>
+      <div onClick={() => handleAnimeCoverClick(imageUrl)}>
         <img
           src={imageUrl}
           alt="Anime Cover"
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: '100%', height: '100%', cursor: 'pointer' }}
         ></img>
       </div>
       <div className={classes.basicInfoText}>
@@ -112,6 +122,7 @@ AnimeBasicInfo.propTypes = {
   duration: PropTypes.string,
   genres: PropTypes.array,
   date: PropTypes.string,
+  handleAnimeCoverClick: PropTypes.func,
 };
 
 AnimeBasicInfo.defaultProps = {
@@ -121,6 +132,7 @@ AnimeBasicInfo.defaultProps = {
   duration: 'No duration available.',
   genres: [],
   date: 'No date available',
+  handleAnimeCoverClick: () => {},
 };
 
 export default AnimeBasicInfo;

@@ -23,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       opacity: 0.9,
     },
+    '&:disabled': {
+      background: theme.button.background.light,
+      cursor: 'no-drop',
+      opacity: '0.5',
+    },
   },
   blueText: {
     color: theme.palette.primary.main,
@@ -68,6 +73,7 @@ const AnimeSearchBar = () => {
     animeName,
     onHandleAnimeNameChange,
     onHandleAnimeSearch,
+    isAnimeLoading,
   } = useGlobalSearchAnime();
   const { isMobile } = useResizeScreen();
   const [dropDownValue, setDropDownValue] = useState(1);
@@ -113,8 +119,19 @@ const AnimeSearchBar = () => {
         value={animeName}
         onChange={onHandleAnimeNameChange}
       />
-      <button type="submit" className={classes.searchButton}>
-        Search
+      <button
+        type="submit"
+        className={classes.searchButton}
+        disabled={isAnimeLoading}
+      >
+        {isAnimeLoading ? (
+          <i
+            className="fa fa-spinner fa-spin"
+            style={{ color: '#fff', fontSize: '20px' }}
+          ></i>
+        ) : (
+          'Search'
+        )}
       </button>
     </form>
   );

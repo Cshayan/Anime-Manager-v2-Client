@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
       background: theme.button.background.light,
       border: `1px solid ${theme.palette.primary.main}`,
       cursor: 'no-drop',
+      opacity: '0.5',
     },
   },
 }));

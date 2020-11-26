@@ -70,14 +70,16 @@ export const darkTheme = createMuiTheme({
       primary: '#fff',
     },
     background: {
-      default: 'linear-gradient(to left, #000000, #434343)',
+      // background-color: #000000;
+      // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
+      default: 'linear-gradient(315deg, #485461 0%, #28313b 74%)',
     },
   },
   typography: {
     pxToRem: (px) => pxToRem(px),
   },
   card: {
-    background: 'linear-gradient(to right, #232526, #414345)',
+    background: 'linear-gradient(to right, #141e30, #243b55)',
   },
   button: {
     background: {
@@ -89,7 +91,7 @@ export const darkTheme = createMuiTheme({
   },
   badge: {
     background: 'linear-gradient(to right, #2193b0, #6dd5ed)',
-    background2: 'linear-gradient(to right, #00b09b, #96c93d)', // green gradient badge
+    background2: 'linear-gradient(147deg, #000000 0%, #04619f 74%)', // green gradient badge
   },
   overrides: {
     MuiTooltip: {
@@ -105,7 +107,7 @@ export const darkTheme = createMuiTheme({
         background: 'rgba(0, 0, 0, 0.5)',
       },
       paper: {
-        background: 'linear-gradient(to left, #000000, #434343)',
+        background: 'linear-gradient(315deg, #485461 0%, #28313b 74%)',
         border: '1px solid #fff',
       },
     },

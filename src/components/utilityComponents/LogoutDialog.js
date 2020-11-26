@@ -52,7 +52,25 @@ const useStyles = makeStyles((theme) => ({
     height: theme.typography.pxToRem(40),
     margin: `0 ${theme.typography.pxToRem(5)}`,
   },
-  '@media screen and (max-width: 600px)': {},
+  '@media screen and (max-width: 600px)': {
+    dialogTitle: {
+      fontSize: theme.typography.pxToRem(22),
+      fontWeight: '400',
+    },
+    noButton: {
+      padding: '0.5rem',
+      fontSize: theme.typography.pxToRem(18),
+    },
+    yesButton: {
+      padding: '0.5rem',
+      fontSize: theme.typography.pxToRem(18),
+    },
+    icon: {
+      width: theme.typography.pxToRem(30),
+      height: theme.typography.pxToRem(30),
+      margin: `0 ${theme.typography.pxToRem(5)}`,
+    },
+  },
 }));
 
 const LogoutDialog = () => {
