@@ -12,7 +12,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 0,
-    background: theme.card.background,
+    background: '#333',
+    opacity: '0.9',
+    borderLeft: `2px solid ${theme.palette.primary.main}`,
   },
   cardContent: {
     padding: 0,
@@ -59,7 +61,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   login: {
-    color: theme.palette.text.primary,
+    color: '#fff',
+    fontWeight: 'bold',
+    letterSpacing: '0.1rem',
   },
   '@media screen and (max-width: 600px)': {
     marginTop: 0,
