@@ -7,6 +7,7 @@ import {
   DELETE_ANIME_WATCHLIST_START,
   ANIME_STATUS_SAVE_START,
   GET_ANIME_DETAILS_START,
+  GET_ANIME_REVIEW_START,
 } from '../constants/animeConstant';
 import {
   animeSearchSuccess,
@@ -23,6 +24,8 @@ import {
   animeStatusSaveFail,
   getAnimeDetailsSuccess,
   getAnimeDetailsFail,
+  getAnimeReviewSuccess,
+  getAnimeReviewFail,
 } from '../actions/animeAction';
 import { snackBarOpen } from '../actions/snackbarAction';
 import {
@@ -32,6 +35,7 @@ import {
   deleteAnimeWatchlist,
   saveAnimeStatus,
   getAnimeDetails,
+  getAnimeReview,
 } from '../services/animeService';
 
 /* Worker Saga */
@@ -118,7 +122,7 @@ function* setAnimeStatusWorker(action) {
 function* getAnimeDetailsWorker(action) {
   const { payload } = action;
   try {
-    const { data: { data = {} } = {} } = yield call(getAnimeDetails, payload);
+    const { data = {} } = yield call(getAnimeDetails, payload);
     yield put(getAnimeDetailsSuccess(data));
   } catch (err) {
     yield put(getAnimeDetailsFail());
@@ -129,7 +133,26 @@ function* getAnimeDetailsWorker(action) {
       ),
     );
   }
-  yield;
+}
+
+function* getAnimeReviewWorker(action) {
+  const { payload } = action;
+  delay(2000);
+  try {
+    const { data: { data: { reviews = [] } = {} } = {} } = yield call(
+      getAnimeReview,
+      payload,
+    );
+    yield put(
+      getAnimeReviewSuccess({
+        reviews,
+        message: 'Reviews fetched successfully!',
+      }),
+    );
+  } catch (err) {
+    yield put(getAnimeReviewFail({ message: 'Failed to load the reviews!' }));
+    yield put(snackBarOpen('Failed to load the anime reviews.', 'error'));
+  }
 }
 
 /* Watcher Saga */
@@ -155,4 +178,8 @@ export function* setAnimeStatusWatcher() {
 
 export function* getAnimeDetailsWatcher() {
   yield takeLatest(GET_ANIME_DETAILS_START, getAnimeDetailsWorker);
+}
+
+export function* getAnimeReviewWatcher() {
+  yield takeLatest(GET_ANIME_REVIEW_START, getAnimeReviewWorker);
 }

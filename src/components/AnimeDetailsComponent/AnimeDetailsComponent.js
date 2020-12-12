@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
+import Lightbox from 'react-image-lightbox';
+import AnimeReviews from 'components/AnimeReviewsComponent/AnimeReviews';
 import AnimeBasicInfo from './AnimeBasicInfo';
 import AnimeSynopsis from './AnimeSynopsis';
-import AnimeTrailerStat from './AnimeTrailerStat';
 
 const useStyles = makeStyles((theme) => ({
   detailCont: {
     display: 'grid',
-    gridTemplateColumns: '0.8fr 1.5fr 1fr',
-    gridGap: '1rem',
+    gridTemplateColumns: '0.7fr 2fr',
+  },
+  '@media screen and (max-width:600px)': {
+    detailCont: {
+      gridTemplateColumns: '1fr',
+    },
   },
 }));
 
 const AnimeDetailsComponent = (props) => {
   const classes = useStyles();
+  const [isAnimeCoverOpen, setIsAnimeCoverOpen] = useState(false);
+  const [animeCoverUrl, setAnimeCoverUrl] = useState(false);
+
+  const handleAnimeCoverClick = (imageUrl) => {
+    setAnimeCoverUrl(imageUrl);
+    setIsAnimeCoverOpen(true);
+  };
+
   return (
     <div className={classes.detailCont}>
       <AnimeBasicInfo
@@ -23,12 +36,30 @@ const AnimeDetailsComponent = (props) => {
         duration={props?.duration}
         genres={props?.genres}
         date={props?.aired?.string}
+        handleAnimeCoverClick={handleAnimeCoverClick}
       />
-      <AnimeSynopsis synopsis={props?.synopsis} score={props?.score} />
-      <AnimeTrailerStat
-        trailerUrl={props?.trailer_url}
-        status={props?.status}
-      />
+      <div>
+        <AnimeSynopsis
+          synopsis={props?.synopsis}
+          score={props?.score}
+          status={props?.status}
+          episodes={props?.episodes}
+          trailerUrl={props?.trailer_url}
+          popularity={props?.popularity}
+          isAnimeAlreadyPresent={props?.isAnimeAlreadyPresent}
+        />
+        <AnimeReviews
+          reviews={props?.reviews}
+          handleReviewReadMoreClick={props?.handleReviewReadMoreClick}
+          isReviewsLoading={props?.isAnimeReviewsLoading}
+        />
+      </div>
+      {isAnimeCoverOpen && (
+        <Lightbox
+          mainSrc={animeCoverUrl}
+          onCloseRequest={() => setIsAnimeCoverOpen(false)}
+        />
+      )}
     </div>
   );
 };

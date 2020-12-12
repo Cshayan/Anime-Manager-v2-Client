@@ -5,14 +5,14 @@ import cls from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   noAnimeContainer: {
+    width: '100vw',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '1rem',
-    height: '100%',
-    width: '100%',
   },
   img: {
     width: 200,
@@ -43,13 +43,15 @@ const StateView = (props) => {
   const { textToRender, imageToRender, isAnimationRequired } = props;
   return (
     <div className={classes.noAnimeContainer}>
-      <img
-        src={imageToRender}
-        alt="img"
-        className={cls(classes.img, {
-          [classes.animatedImage]: isAnimationRequired,
-        })}
-      />
+      <div>
+        <img
+          src={imageToRender}
+          alt="img"
+          className={cls(classes.img, {
+            [classes.animatedImage]: isAnimationRequired,
+          })}
+        />
+      </div>
       <Typography className={classes.noAnimeText}>{textToRender}</Typography>
     </div>
   );

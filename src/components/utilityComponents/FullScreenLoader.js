@@ -14,11 +14,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    background: '-webkit-linear-gradient(to right, #085078, #85d8ce)',
-    background: 'linear-gradient(to right, #085078, #85d8ce)',
+    background: theme.background,
   },
   loaderText: {
-    color: '#fff',
+    color: theme.palette.text.primary,
     fontSize: theme.typography.pxToRem(26),
     fontWeight: 'bold',
     letterSpacing: '0.1rem',

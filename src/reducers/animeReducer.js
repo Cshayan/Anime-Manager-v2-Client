@@ -6,6 +6,7 @@ import {
   GET_ANIME_WATCHLIST_SUCCESS,
   GET_ANIME_WATCHLIST_FAIL,
   SET_ANIME_ID,
+  DELETE_ANIME_WATCHLIST_START,
   DELETE_ANIME_WATCHLIST_SUCCESS,
   DELETE_ANIME_WATCHLIST_FAIL,
   SET_ANIME_DIALOG_DETAIL,
@@ -23,6 +24,8 @@ const initialState = {
   animeDeleteMessage: null,
   animeDeleteError: null,
   animeDialogDetail: {},
+  isAnimeAdding: false,
+  isAnimeDeleting: false,
 };
 
 export const animeReducer = (state = initialState, action) => {
@@ -31,6 +34,7 @@ export const animeReducer = (state = initialState, action) => {
     case ADD_ANIME_WATCHLIST_START:
       return {
         ...state,
+        isAnimeAdding: true,
         animeAddMessage: null,
         addAnimeError: null,
         animeIdToDelete: '',
@@ -38,6 +42,7 @@ export const animeReducer = (state = initialState, action) => {
     case ADD_ANIME_WATCHLIST_SUCCESS:
       return {
         ...state,
+        isAnimeAdding: false,
         animeAddMessage: payload.msg,
         animeAddError: null,
         watchlist: [payload.data, ...state.watchlist],
@@ -46,6 +51,7 @@ export const animeReducer = (state = initialState, action) => {
     case ADD_ANIME_WATCHLIST_FAIL:
       return {
         ...state,
+        isAnimeAdding: false,
         animeAddMessage: null,
         animeAddError: payload.error,
         animeIdToDelete: '',
@@ -81,9 +87,15 @@ export const animeReducer = (state = initialState, action) => {
         ...state,
         animeIdToDelete: payload,
       };
+    case DELETE_ANIME_WATCHLIST_START:
+      return {
+        ...state,
+        isAnimeDeleting: true,
+      };
     case DELETE_ANIME_WATCHLIST_SUCCESS:
       return {
         ...state,
+        isAnimeDeleting: false,
         watchlist: state.watchlist.filter(
           (currentWatchlist) => currentWatchlist._id !== payload,
         ),
@@ -93,6 +105,7 @@ export const animeReducer = (state = initialState, action) => {
     case DELETE_ANIME_WATCHLIST_FAIL:
       return {
         ...state,
+        isAnimeDeleting: false,
         animeDeleteMessage: null,
         animeDeleteError: 'Failed to delete the anime from the watchlist!',
       };

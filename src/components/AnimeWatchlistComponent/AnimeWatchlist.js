@@ -58,7 +58,10 @@ const useStyles = makeStyles((theme) => ({
 const AnimeWatchlist = (props) => {
   const { animeWatchlist } = props;
   const classes = useStyles();
-  const { handleDeleteFromWatchlistClick } = useAnime();
+  const {
+    handleDeleteFromWatchlistClick,
+    isAnimeDeletingFromWatchlist,
+  } = useAnime();
   const { handleStatusClick } = useAnimeDetailDialog();
 
   return (
@@ -76,6 +79,7 @@ const AnimeWatchlist = (props) => {
               {...anime}
               onDeleteClick={handleDeleteFromWatchlistClick}
               onStatusClick={handleStatusClick}
+              isAnimeDeletingFromWatchlist={isAnimeDeletingFromWatchlist}
             />
           </Grid>
         ))}

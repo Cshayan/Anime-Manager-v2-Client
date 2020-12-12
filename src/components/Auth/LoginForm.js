@@ -9,9 +9,10 @@ const useStyles = makeStyles((theme) => ({
   input: {
     '&::placeholder': {
       fontSize: theme.typography.pxToRem(18),
-      color: theme.palette.text.primary,
+      color: '#fff',
     },
     fontSize: theme.typography.pxToRem(20),
+    color: '#fff',
   },
   loginButton: {
     background: theme.button.background.light,
@@ -31,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
       background: theme.button.background.light,
       border: `1px solid ${theme.palette.primary.main}`,
       cursor: 'no-drop',
+      opacity: '0.5',
+      overflow: 'hidden',
     },
   },
 }));
@@ -82,7 +85,7 @@ const LoginForm = () => {
         {isUserLogging ? (
           <i
             className="fa fa-spinner fa-spin"
-            style={{ color: '#fff', fontSize: '20px' }}
+            style={{ color: '#fff', fontSize: '20px', overflow: 'hidden' }}
           ></i>
         ) : (
           'LOGIN'

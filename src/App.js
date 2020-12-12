@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { useDarkMode } from './custom-hooks/darkModeHook';
 import theme, { darkTheme } from './utils/theme';
+import 'react-image-lightbox/style.css';
 import { HomeView, AuthView, Dashboard, AnimeDetailsView } from './views';
 import SnackBar from './components/utilityComponents/UniversalSnackbar';
 import './App.css';

@@ -11,6 +11,7 @@ import {
   deleteAnimeWatchlistWatcher,
   setAnimeStatusWatcher,
   getAnimeDetailsWatcher,
+  getAnimeReviewWatcher,
 } from './animeSaga';
 
 export default function* rootSaga() {
@@ -24,5 +25,6 @@ export default function* rootSaga() {
     deleteAnimeWatchlistWatcher(),
     setAnimeStatusWatcher(),
     getAnimeDetailsWatcher(),
+    getAnimeReviewWatcher(),
   ]);
 }

@@ -34,7 +34,10 @@ const AnimeGlobalSearchListContainer = (props) => {
   const { animeSearchResults } = props;
   const classes = useStyles();
   const { animeText } = useGlobalSearchAnime();
-  const { handleAnimeAddToWatchlistClick } = useAnime();
+  const {
+    handleAnimeAddToWatchlistClick,
+    isAnimeAddingToWatchlist,
+  } = useAnime();
 
   return (
     <div className={classes.searchlistContainer}>
@@ -61,6 +64,7 @@ const AnimeGlobalSearchListContainer = (props) => {
                 rated={anime.rated}
                 members={anime.members}
                 onAddClick={handleAnimeAddToWatchlistClick}
+                isAnimeAddingToWatchlist={isAnimeAddingToWatchlist}
               />
             </Grid>
           ))}
