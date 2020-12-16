@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core/';
-import AnimewatchlistCard from '../AnimeCard/AnimeWatchlistCard';
-import { useAnime, useAnimeDetailDialog } from '../../custom-hooks/animeHook';
+import AnimeWatchListViewCard from 'components/AnimeCard/AnimeWatchListViewCard';
+import PropTypes from 'prop-types';
+import { useAnime, useAnimeDetailDialog } from 'custom-hooks/animeHook';
 
-const AnimeWatchlist = (props) => {
+const AnimeWatchListView = (props) => {
   const { animeWatchlist } = props;
   const {
     handleDeleteFromWatchlistClick,
@@ -15,8 +15,8 @@ const AnimeWatchlist = (props) => {
   return (
     <Grid container spacing={2}>
       {animeWatchlist.map((anime) => (
-        <Grid item xs={12} md={4} lg={4} key={anime._id}>
-          <AnimewatchlistCard
+        <Grid item xs={12} md={12} lg={12} key={anime._id}>
+          <AnimeWatchListViewCard
             animeId={anime._id}
             status={anime.animeStatus}
             {...anime}
@@ -30,12 +30,4 @@ const AnimeWatchlist = (props) => {
   );
 };
 
-AnimeWatchlist.propTypes = {
-  animeWatchlist: PropTypes.array,
-};
-
-AnimeWatchlist.defaultProps = {
-  animeWatchlist: [],
-};
-
-export default AnimeWatchlist;
+export default AnimeWatchListView;
