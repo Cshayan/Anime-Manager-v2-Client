@@ -225,3 +225,20 @@ export const useAnimeReviews = (malId) => {
     handleReviewReadMoreClick,
   };
 };
+
+export const useAnimeWatchlistGridListView = () => {
+  const [defaultView, setDefaultView] = useState('grid');
+
+  const onGridClick = (view) => {
+    if (view === 'grid') {
+      setDefaultView('list');
+    } else {
+      setDefaultView('grid');
+    }
+  };
+
+  return {
+    defaultView,
+    onGridClick,
+  };
+};
