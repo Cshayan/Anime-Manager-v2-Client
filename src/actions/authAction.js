@@ -1,4 +1,4 @@
-import { AUTH } from "../constants/authConstant";
+import { AUTH } from '../constants/authConstant';
 
 export const loginAPIStart = (data) => ({
   type: AUTH.LOGIN_API_START,
@@ -42,6 +42,21 @@ export const getMeAPISuccess = (data) => ({
 
 export const getMeAPIFail = (data) => ({
   type: AUTH.GET_ME_API_FAIL,
+  payload: data,
+});
+
+export const verifyAccountAPIStart = (data) => ({
+  type: AUTH.VERIFY_ACCOUNT_START,
+  payload: data,
+});
+
+export const verifyAccountAPISuccess = (data) => ({
+  type: AUTH.VERIFY_ACCOUNT_SUCCESS,
+  payload: data,
+});
+
+export const verifyAccountAPIFail = (data) => ({
+  type: AUTH.VERIFY_ACCOUNT_FAIL,
   payload: data,
 });
 

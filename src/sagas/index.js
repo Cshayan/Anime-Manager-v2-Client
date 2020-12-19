@@ -3,6 +3,7 @@ import {
   loginUserWatcher,
   getMeWatcher,
   registerUserWatcher,
+  verifyAccountWatcher,
 } from './authSaga';
 import {
   searchAnimeWatcher,
@@ -19,6 +20,7 @@ export default function* rootSaga() {
     loginUserWatcher(),
     getMeWatcher(),
     registerUserWatcher(),
+    verifyAccountWatcher(),
     searchAnimeWatcher(),
     addAnimeWatchlistWatcher(),
     getAnimeWatchlistWatcher(),

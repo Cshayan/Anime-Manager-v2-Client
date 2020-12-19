@@ -8,6 +8,9 @@ const initialState = {
   user: null,
   error: null,
   isUserLogging: false,
+  isUserVerifying: false,
+  isUserVerified: false,
+  hasUserRegistered: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -19,16 +22,22 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: false,
         isUserLogging: true,
+        hasUserRegistered: false,
       };
     case AUTH.LOGIN_API_SUCCESS:
-    case AUTH.REGISTER_API_SUCCESS:
       localStorage.setItem(ANIME_TOKEN, payload.token);
       return {
         ...state,
         isAuthenticated: true,
         isUserLogging: false,
+        isUserVerifed: true,
         ...payload,
         error: null,
+      };
+    case AUTH.REGISTER_API_SUCCESS:
+      return {
+        ...state,
+        hasUserRegistered: true,
       };
     case AUTH.LOGIN_API_FAIL:
     case AUTH.REGISTER_API_FAIL:
@@ -38,6 +47,7 @@ export const authReducer = (state = initialState, action) => {
         isUserLogging: false,
         token: null,
         error: payload,
+        hasUserRegistered: false,
       };
     case AUTH.GET_ME_API_START:
       return {
@@ -60,6 +70,24 @@ export const authReducer = (state = initialState, action) => {
         error: payload,
         user: null,
       };
+    case AUTH.VERIFY_ACCOUNT_START:
+      return {
+        ...state,
+        isUserVerifying: true,
+        isUserVerified: false,
+      };
+    case AUTH.VERIFY_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        isUserVerifying: false,
+        isUserVerified: true,
+      };
+    case AUTH.VERIFY_ACCOUNT_FAIL:
+      return {
+        ...state,
+        isUserVerifying: false,
+        isUserVerified: false,
+      };
     case AUTH.LOGOUT_USER_SUCCESS:
     case AUTH.RESET_ALL:
       localStorage.removeItem(ANIME_TOKEN);
@@ -70,6 +98,8 @@ export const authReducer = (state = initialState, action) => {
         isAuthenticated: !!localStorage.getItem(ANIME_TOKEN),
         user: null,
         error: null,
+        isUserVerifying: false,
+        isUserVerifed: false,
       };
     default:
       return state;
