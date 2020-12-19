@@ -1,11 +1,13 @@
 /* Custom Hooks for authentication */
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import qs from 'query-string';
 import {
   loginAPIStart,
   getMeAPIStart,
   registerAPIStart,
   logOutUserSuccess,
+  verifyAccountAPIStart,
 } from '../actions/authAction';
 import { resetAll } from '../actions/resetAction';
 import { openLogoutDialog, closeLogoutDialog } from '../actions/dialogAction';
@@ -14,12 +16,20 @@ import { drawerClose } from '../actions/drawerAction';
 const selectLogoutDialog = (state) => state.dialog.isLogoutDialogOpen;
 const selectIsUserLogging = ({ auth: { isUserLogging = false } }) =>
   isUserLogging;
+const selectIsUserVerifying = ({ auth: { isUserVerifying = false } }) =>
+  isUserVerifying;
+const selectIsUserVerified = ({ auth: { isUserVerified = false } }) =>
+  isUserVerified;
 
 export const useAuthentication = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const hasUserRegistered = useSelector(
+    (state) => state.auth.hasUserRegistered,
+  );
 
   return {
     isAuthenticated,
+    hasUserRegistered,
   };
 };
 
@@ -92,6 +102,26 @@ export const useGetMe = () => {
     isUserLoading,
     getCurrentUser,
     userDetails,
+  };
+};
+
+export const useVerifyAccount = (props) => {
+  const { email = '', token = '' } = qs.parse(props.location.search);
+  const isUserVerifying = useSelector(selectIsUserVerifying);
+  const isUserVerified = useSelector(selectIsUserVerified);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (email && token) {
+      dispatch(verifyAccountAPIStart({ email, token }));
+    }
+  }, [email, token]);
+
+  console.log({ isUserVerifying, isUserVerified });
+
+  return {
+    isUserVerifying,
+    isUserVerified,
   };
 };
 

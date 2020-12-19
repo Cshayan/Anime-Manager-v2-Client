@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
+import RegisterSuccessComp from 'components/Auth/RegisterSuccess';
 import LoginContainer from './LoginContainer';
 import RegisterContainer from './RegisterContainer';
 import './authStyles.css';
@@ -27,7 +28,7 @@ const AuthContainer = (props) => {
   const classes = useStyles();
   const [transitionState, setTransitionState] = useState(true);
   const isLoginTrue = props.location?.state?.login;
-  const { isAuthenticated } = useAuthentication();
+  const { isAuthenticated, hasUserRegistered } = useAuthentication();
 
   useEffect(() => {
     if (isLoginTrue === undefined) {
@@ -46,25 +47,33 @@ const AuthContainer = (props) => {
   }
 
   return (
-    <SwitchTransition mode="out-in">
-      <CSSTransition
-        key={transitionState}
-        addEndListener={(node, done) => {
-          node.addEventListener('transitionend', done, false);
-        }}
-        classNames="fade"
-      >
-        <div className={classes.authContainer}>
-          {transitionState ? (
-            <LoginContainer onRightButtonClick={onRegisterLoginButtonClick} />
-          ) : (
-            <RegisterContainer
-              onRightButtonClick={onRegisterLoginButtonClick}
-            />
-          )}
-        </div>
-      </CSSTransition>
-    </SwitchTransition>
+    <>
+      {!hasUserRegistered ? (
+        <SwitchTransition mode="out-in">
+          <CSSTransition
+            key={transitionState}
+            addEndListener={(node, done) => {
+              node.addEventListener('transitionend', done, false);
+            }}
+            classNames="fade"
+          >
+            <div className={classes.authContainer}>
+              {transitionState ? (
+                <LoginContainer
+                  onRightButtonClick={onRegisterLoginButtonClick}
+                />
+              ) : (
+                <RegisterContainer
+                  onRightButtonClick={onRegisterLoginButtonClick}
+                />
+              )}
+            </div>
+          </CSSTransition>
+        </SwitchTransition>
+      ) : (
+        <RegisterSuccessComp />
+      )}
+    </>
   );
 };
 

@@ -21,4 +21,11 @@ const getMe = () =>
     url: '/auth/getMe',
   });
 
-export const APIS = { loginUser, registerUser, getMe };
+const verifyAccount = (data) =>
+  axios({
+    method: 'POST',
+    url: '/auth/verify-account',
+    data,
+  });
+
+export const APIS = { loginUser, registerUser, getMe, verifyAccount };

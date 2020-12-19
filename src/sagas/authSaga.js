@@ -9,6 +9,8 @@ import {
   registerAPIFail,
   registerAPISuccess,
   logOutUserSuccess,
+  verifyAccountAPISuccess,
+  verifyAccountAPIFail,
 } from '../actions/authAction';
 import { snackBarOpen } from '../actions/snackbarAction';
 import { APIS } from '../services/authService';
@@ -22,6 +24,7 @@ function* getMeWorker() {
   } catch (err) {
     yield put(getMeAPIFail(err.response.data));
     yield put(snackBarOpen(err.response.data.error, 'info'));
+    yield put(logOutUserSuccess());
   }
 }
 
@@ -30,6 +33,7 @@ function* registerUserWorker(action) {
   try {
     const { data } = yield call(APIS.registerUser, payload);
     yield put(registerAPISuccess(data));
+    yield put(snackBarOpen(data?.message, 'success'));
   } catch (err) {
     yield put(registerAPIFail(err.response.data));
     yield put(snackBarOpen(err.response.data.error, 'info'));
@@ -44,6 +48,20 @@ function* loginUserWorker(action) {
   } catch (err) {
     yield put(loginAPIFail(err.response.data));
     yield put(snackBarOpen(err.response.data.error, 'info'));
+  }
+}
+
+function* verifyAccountWorker(action) {
+  const { payload } = action;
+  try {
+    const { data } = yield call(APIS.verifyAccount, payload);
+    yield put(verifyAccountAPISuccess());
+    yield put(snackBarOpen(data?.message, 'success'));
+  } catch (err) {
+    yield put(verifyAccountAPIFail());
+    yield put(
+      snackBarOpen('Something went wrong in verifying the account.', 'error'),
+    );
   }
 }
 
@@ -62,6 +80,10 @@ export function* registerUserWatcher() {
 
 export function* getMeWatcher() {
   yield takeLatest(AUTH.GET_ME_API_START, getMeWorker);
+}
+
+export function* verifyAccountWatcher() {
+  yield takeLatest(AUTH.VERIFY_ACCOUNT_START, verifyAccountWorker);
 }
 
 export function* logOutUserWatcher() {
