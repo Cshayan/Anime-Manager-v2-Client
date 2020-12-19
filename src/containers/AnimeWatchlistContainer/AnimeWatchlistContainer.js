@@ -13,11 +13,13 @@ import AnimeWatchlistGrid from 'components/AnimeWatchlistComponent/AnimeWatchlis
 import AnimeWatchListView from 'components/AnimeWatchlistComponent/AnimeWatchListView';
 import AnimeWatchlistHeader from 'components/AnimeWatchlistComponent/AnimeWatchlistHeader';
 import StateView from 'components/StateView/StateView';
+import LotteAnimation from 'components/utilityComponents/LotteAnimation';
 import AnimeGlobalSearchListContainer from 'containers/AnimeGlobalSearchListContainer/AnimeGlobalSearchListContainer';
-import NoAnimeImg from 'assets/noAnimeImg.svg';
-import SearchAnime from 'assets/searchAnime.svg';
-import HourGlass from 'assets/hourglass.svg';
-import Sweat from 'assets/sweat.svg';
+import noDataAnimation from 'assets/animation/no-data.json';
+import searchAnimation from 'assets/animation/search.json';
+import animeLoadingAnimation from 'assets/animation/anime-loading.json';
+import animeNotFoundAnimation from 'assets/animation/anime-not-found.json';
+import filterNotFoundAnimation from 'assets/animation/filter-not-found.json';
 import Error from 'assets/report.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,9 +50,17 @@ const AnimeWatchlistContainer = () => {
   if (isSearchBarFoccused && isAnimeLoading) {
     return (
       <>
-        <StateView
-          textToRender="Loading... Please wait."
-          imageToRender={HourGlass}
+        <LotteAnimation
+          defaultOptions={{
+            loop: true,
+            autoplay: true,
+            animationData: animeLoadingAnimation,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice',
+            },
+          }}
+          width="30%"
+          textToRender="Loading.. Please wait."
         />
       </>
     );
@@ -59,9 +69,17 @@ const AnimeWatchlistContainer = () => {
   if (isSearchBarFoccused && animeText.length === 0) {
     return (
       <>
-        <StateView
-          textToRender="Go on. Search your favourite anime."
-          imageToRender={SearchAnime}
+        <LotteAnimation
+          defaultOptions={{
+            loop: true,
+            autoplay: true,
+            animationData: searchAnimation,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice',
+            },
+          }}
+          width="30%"
+          textToRender="Go on. Search your favourite anime!"
         />
       </>
     );
@@ -75,9 +93,17 @@ const AnimeWatchlistContainer = () => {
   ) {
     return (
       <>
-        <StateView
+        <LotteAnimation
+          defaultOptions={{
+            loop: true,
+            autoplay: true,
+            animationData: animeNotFoundAnimation,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice',
+            },
+          }}
+          width="40%"
           textToRender="Oops! No result found. Please check if the anime name is spelled correct."
-          imageToRender={Sweat}
         />
       </>
     );
@@ -109,9 +135,17 @@ const AnimeWatchlistContainer = () => {
   if (selectedFilter !== 'Total' && filteredWatchlist.length === 0) {
     return (
       <>
-        <StateView
+        <LotteAnimation
+          defaultOptions={{
+            loop: true,
+            autoplay: true,
+            animationData: filterNotFoundAnimation,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice',
+            },
+          }}
+          width="20%"
           textToRender="No results found for the applied filter."
-          imageToRender={Error}
         />
       </>
     );
@@ -120,9 +154,17 @@ const AnimeWatchlistContainer = () => {
   return (
     <>
       {animeWatchlist.length === 0 ? (
-        <StateView
-          textToRender="Looks like you haven't added any anime to your watchlist yet."
-          imageToRender={NoAnimeImg}
+        <LotteAnimation
+          defaultOptions={{
+            loop: true,
+            autoplay: true,
+            animationData: noDataAnimation,
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid slice',
+            },
+          }}
+          width="40%"
+          textToRender="Looks like you haven't added any anime to your watchlist yet!"
         />
       ) : (
         <div className={classes.searchlistContainer}>
