@@ -161,7 +161,7 @@ const AnimeWatchListViewCard = (props) => {
           <Tooltip title="Delete from Watchlist">
             <IconButton
               className={classes.iconBtn}
-              onClick={() => onCardClick(malId)}
+              onClick={() => onDeleteClick(animeId)}
             >
               <DeleteForeverIcon
                 className={cls(classes.icon, classes.deleteIcon)}

@@ -59,9 +59,7 @@ function* verifyAccountWorker(action) {
     yield put(snackBarOpen(data?.message, 'success'));
   } catch (err) {
     yield put(verifyAccountAPIFail());
-    yield put(
-      snackBarOpen('Something went wrong in verifying the account.', 'error'),
-    );
+    yield put(snackBarOpen(err.response.data.error, 'error'));
   }
 }
 
