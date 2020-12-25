@@ -132,17 +132,6 @@ const AnimeDetailDialog = (props) => {
                 <Typography className={classes.statusText}>
                   Change your status below :{' '}
                 </Typography>
-                {/* <select
-                  className={classes.customSelect}
-                  onChange={(e) => onDropDownChange(e)}
-                >
-                  <option value={status}>{status}</option>
-                  {statusArray.map((val) => (
-                    <option key={val} value={val}>
-                      {val}
-                    </option>
-                  ))}
-                </select> */}
                 <Grid container justify="center" alignItems="center">
                   <Grid item xs={6} md={4} lg={4}>
                     <IconButton

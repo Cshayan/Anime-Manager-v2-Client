@@ -13,7 +13,9 @@ import {
   setAnimeStatusWatcher,
   getAnimeDetailsWatcher,
   getAnimeReviewWatcher,
+  setAnimeVideoURLWatcher,
 } from './animeSaga';
+import { getAnimeWatchlistStatWatcher } from './animeStatSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -28,5 +30,7 @@ export default function* rootSaga() {
     setAnimeStatusWatcher(),
     getAnimeDetailsWatcher(),
     getAnimeReviewWatcher(),
+    getAnimeWatchlistStatWatcher(),
+    setAnimeVideoURLWatcher(),
   ]);
 }

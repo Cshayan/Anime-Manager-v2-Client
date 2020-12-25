@@ -45,3 +45,16 @@ export const getAnimeReview = (id) =>
     method: 'GET',
     url: `features/anime-review/${id}`,
   });
+
+export const getAnimeWatchlistStat = () =>
+  axios({
+    method: 'GET',
+    url: '/features/getWatchlistStats',
+  });
+
+export const updateAnimeDetails = (animeId, data) =>
+  axios({
+    method: 'PUT',
+    url: `/features/updateWatchlist/${animeId}`,
+    data,
+  });

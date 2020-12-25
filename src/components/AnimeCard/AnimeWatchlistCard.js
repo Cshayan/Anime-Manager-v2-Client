@@ -13,6 +13,7 @@ import StarRatings from 'react-star-ratings';
 import cls from 'classnames';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as PlusIcon } from 'assets/plus.svg';
+import { ReactComponent as WatchVideoIcon } from 'assets/watch-video.svg';
 import MAL from '../../assets/mal.png';
 import './styles.css';
 
@@ -168,8 +169,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   love: {
-    width: theme.typography.pxToRem(30),
-    height: theme.typography.pxToRem(30),
+    width: theme.typography.pxToRem(25),
+    height: theme.typography.pxToRem(25),
     margin: `0 ${theme.typography.pxToRem(10)}`,
   },
   members: {
@@ -201,8 +202,14 @@ const useStyles = makeStyles((theme) => ({
     border: '1px dashed #e74c3c',
   },
   moreDetails: {
-    fontSize: theme.typography.pxToRem(20),
+    fontSize: theme.typography.pxToRem(16),
     background: theme.palette.background.default,
+    borderRadius: '5px',
+    color: theme.palette.text.primary,
+  },
+  watchNow: {
+    fontSize: theme.typography.pxToRem(16),
+    background: theme.button.background.light,
     borderRadius: '5px',
     color: theme.palette.text.primary,
   },
@@ -243,12 +250,14 @@ const AnimeCard = (props) => {
   const classes = useStyles();
   const {
     animeId,
-    animeData: { title, url, imageUrl, type, episodes, score, rated },
+    animeData: { title, url, imageUrl, type, episodes, score },
     onDeleteClick,
     onStatusClick,
+    onWatchVideoClick,
     status,
     malId,
     isAnimeDeletingFromWatchlist,
+    videoUrlToWatch,
   } = props;
 
   const history = useHistory();
@@ -286,22 +295,38 @@ const AnimeCard = (props) => {
                 <span className={classes.episodesText}>Episodes:</span>{' '}
                 {episodes}
               </div>
-              <div className={classes.rated}>{rated}</div>
-            </div>
-            <div className={classes.membersCont}>
-              <div className={classes.memberInner}>
-                <IconButton
-                  className={classes.moreDetails}
-                  onClick={() => onCardClick(malId)}
-                >
-                  <PlusIcon className={classes.love} />
-                  More details
-                </IconButton>
-              </div>
               <Tooltip title="View in MAL">
                 <a href={url} target="_blank" rel="noopener noreferrer">
                   <img src={MAL} className={classes.mal} alt="mal" />
                 </a>
+              </Tooltip>
+            </div>
+            <div className={classes.membersCont}>
+              <div className={classes.memberInner}>
+                <Tooltip title="More Details">
+                  <IconButton
+                    className={classes.moreDetails}
+                    onClick={() => onCardClick(malId)}
+                  >
+                    <PlusIcon className={classes.love} />
+                  </IconButton>
+                </Tooltip>
+              </div>
+              <Tooltip title="Watch Now">
+                <IconButton
+                  className={classes.watchNow}
+                  onClick={() =>
+                    onWatchVideoClick({
+                      title,
+                      animeId,
+                      status,
+                      imageUrl,
+                      videoUrlToWatch,
+                    })
+                  }
+                >
+                  <WatchVideoIcon className={classes.love} />
+                </IconButton>
               </Tooltip>
             </div>
             <IconButton
@@ -352,12 +377,13 @@ AnimeCard.propTypes = {
   episodes: PropTypes.number,
   score: PropTypes.number,
   malId: PropTypes.string,
-  rated: PropTypes.string,
   onDeleteClick: PropTypes.func,
   onStatusClick: PropTypes.func,
   animeData: PropTypes.object,
   status: PropTypes.string,
   isAnimeDeletingFromWatchlist: PropTypes.bool,
+  onWatchVideoClick: PropTypes.func,
+  videoUrlToWatch: PropTypes.string,
 };
 
 AnimeCard.defaultProps = {
@@ -368,12 +394,13 @@ AnimeCard.defaultProps = {
   type: '---',
   episodes: 0,
   score: 0.0,
-  rated: '?',
   onDeleteClick: () => {},
   onStatusClick: () => {},
   animeData: {},
   status: 'Unknown',
   isAnimeDeletingFromWatchlist: false,
+  onWatchVideoClick: () => {},
+  videoUrlToWatch: '',
 };
 
 export default AnimeCard;

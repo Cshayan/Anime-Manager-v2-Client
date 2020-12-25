@@ -70,8 +70,6 @@ export const darkTheme = createMuiTheme({
       primary: '#fff',
     },
     background: {
-      // background-color: #000000;
-      // background-image: linear-gradient(147deg, #000000 0%, #04619f 74%);
       default: 'linear-gradient(315deg, #485461 0%, #28313b 74%)',
     },
   },

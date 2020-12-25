@@ -1,3 +1,4 @@
+export { default as AnimeWatchlistStatsView } from './AnimeWatchlistStats/AnimeWatchlistStatsView';
 export { default as HomeView } from './HomeView/HomeView';
 export { default as AuthView } from './Auth/AuthView';
 export { default as VerifyAccountView } from './Auth/VerifyAccountView';

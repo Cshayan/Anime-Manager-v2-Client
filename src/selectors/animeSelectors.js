@@ -6,8 +6,11 @@ const selectIsAnimeAddingToWatchlist = ({ anime: { isAnimeAdding = false } }) =>
 const selectIsAnimeDeletingFromWatchlist = ({
   anime: { isAnimeDeleting = false },
 }) => isAnimeDeleting;
+const selectIsAnimeVideoURLAdding = ({
+  anime: { isAnimeVideoURLAdding = false },
+}) => isAnimeVideoURLAdding;
 
-/*  Selectors realted to anime detail dialog in dashboard page */
+/*  Selectors related to anime detail dialog in dashboard page */
 const selectIsAnimeDetailDialogOpen = ({
   dialog: { isAnimeDetailDialogOpen },
 }) => isAnimeDetailDialogOpen;
@@ -38,6 +41,10 @@ const selectIsAnimeReviewsLoading = ({
 }) => isReviewsLoading;
 const selectAnimeReviews = ({ animeReview: { reviews = [] } = {} }) => reviews;
 
+/* Theme selector */
+const selectIsDarkModeEnabled = ({ darkMode: { isDarkModeEnabled } }) =>
+  isDarkModeEnabled;
+
 export {
   selectWatchlist,
   selectAnimeId,
@@ -52,4 +59,6 @@ export {
   selectIsAnimeAlreadyPresent,
   selectIsAnimeReviewsLoading,
   selectAnimeReviews,
+  selectIsDarkModeEnabled,
+  selectIsAnimeVideoURLAdding,
 };

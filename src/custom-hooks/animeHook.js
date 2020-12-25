@@ -21,6 +21,7 @@ import {
   setAnimeFilter,
   getAnimeDetailsStart,
   getAnimeReviewStart,
+  setAnimeVideoURLStart,
 } from 'actions/animeAction';
 import {
   selectWatchlist,
@@ -36,6 +37,7 @@ import {
   selectIsAnimeAlreadyPresent,
   selectIsAnimeReviewsLoading,
   selectAnimeReviews,
+  selectIsAnimeVideoURLAdding,
 } from 'selectors/animeSelectors';
 
 export const useAnime = () => {
@@ -240,5 +242,56 @@ export const useAnimeWatchlistGridListView = () => {
   return {
     defaultView,
     onGridClick,
+  };
+};
+
+export const useAnimeAddVideoUrl = () => {
+  const dispatch = useDispatch();
+  const {
+    title = '',
+    imageUrl = '',
+    animeId = '',
+    status = '',
+    videoUrlToWatch = '',
+  } = useSelector(selectAnimeDialogDetail);
+  const isVideoURLAdding = useSelector(selectIsAnimeVideoURLAdding);
+  const [isWatchVideoDialogOpen, setIsWatchVideoDialog] = useState(false);
+  const [videoURL, setVideoURL] = useState('');
+
+  const handleWatchVideoClick = (animeDetail) => {
+    dispatch(setAnimeDialogDetail(animeDetail));
+    setIsWatchVideoDialog(true);
+  };
+
+  const handleWatchVideoDialogClose = () => {
+    setIsWatchVideoDialog(false);
+  };
+
+  const onAddURLClick = (e) => {
+    e.preventDefault();
+    const data = { animeId, urlToWatch: videoURL };
+    dispatch(setAnimeVideoURLStart(data));
+    setVideoURL('');
+    handleWatchVideoDialogClose();
+  };
+
+  const handleWatchNowClick = () => {
+    window.open(videoUrlToWatch, '_blank');
+  };
+
+  return {
+    title,
+    imageUrl,
+    animeId,
+    status,
+    videoUrlToWatch,
+    isWatchVideoDialogOpen,
+    handleWatchVideoClick,
+    handleWatchVideoDialogClose,
+    onAddURLClick,
+    videoURL,
+    setVideoURL,
+    handleWatchNowClick,
+    isVideoURLAdding,
   };
 };
