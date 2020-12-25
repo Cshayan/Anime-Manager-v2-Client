@@ -11,6 +11,9 @@ import {
   DELETE_ANIME_WATCHLIST_FAIL,
   SET_ANIME_DIALOG_DETAIL,
   ANIME_STATUS_SAVE_SUCCESS,
+  SET_ANIME_VIDEO_URL_START,
+  SET_ANIME_VIDEO_URL_SUCCESS,
+  SET_ANIME_VIDEO_URL_FAIL,
 } from '../constants/animeConstant';
 
 const initialState = {
@@ -26,6 +29,7 @@ const initialState = {
   animeDialogDetail: {},
   isAnimeAdding: false,
   isAnimeDeleting: false,
+  isAnimeVideoURLAdding: false,
 };
 
 export const animeReducer = (state = initialState, action) => {
@@ -122,6 +126,26 @@ export const animeReducer = (state = initialState, action) => {
             ? { ...list, animeStatus: payload.statusValue }
             : list,
         ),
+      };
+    case SET_ANIME_VIDEO_URL_START:
+      return {
+        ...state,
+        isAnimeVideoURLAdding: true,
+      };
+    case SET_ANIME_VIDEO_URL_SUCCESS:
+      return {
+        ...state,
+        isAnimeVideoURLAdding: false,
+        watchlist: state.watchlist.map((list) =>
+          list._id === payload.animeId
+            ? { ...list, urlToWatch: payload.urlToWatch }
+            : list,
+        ),
+      };
+    case SET_ANIME_VIDEO_URL_FAIL:
+      return {
+        ...state,
+        isAnimeVideoURLAdding: false,
       };
     default:
       return state;

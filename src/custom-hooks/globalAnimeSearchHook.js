@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsDarkModeEnabled } from 'selectors/animeSelectors';
 import {
   animeSearchBarBlur,
   animeSearchBarFocus,
   animeSearchStart,
   setAnimeText,
-} from "../actions/globalAnimeSearchAction";
+} from '../actions/globalAnimeSearchAction';
 
 const selectSearchBarFocus = (state) =>
   state.globalAnimeSearch.isSearchBarFocussed;
@@ -14,7 +15,7 @@ const selectIsAnimeLoading = ({ globalAnimeSearch: { isAnimeLoading } }) =>
 const selectSearchResults = ({ globalAnimeSearch: { searchResults = [] } }) =>
   searchResults;
 const selectSearchError = ({ globalAnimeSearch: { error = null } }) => error;
-const selectAnimeText = ({ globalAnimeSearch: { animeText = "" } }) =>
+const selectAnimeText = ({ globalAnimeSearch: { animeText = '' } }) =>
   animeText;
 
 export const useFocus = () => {
@@ -37,12 +38,13 @@ export const useFocus = () => {
 };
 
 export const useGlobalSearchAnime = () => {
-  const [animeName, setAnimeName] = useState("");
+  const [animeName, setAnimeName] = useState('');
   const dispatch = useDispatch();
   const isAnimeLoading = useSelector(selectIsAnimeLoading);
   const searchResults = useSelector(selectSearchResults);
   const searchError = useSelector(selectSearchError);
   const animeText = useSelector(selectAnimeText);
+  const isDarkModeEnabled = useSelector(selectIsDarkModeEnabled);
 
   const { isSearchBarFoccused } = useFocus();
 
@@ -66,5 +68,6 @@ export const useGlobalSearchAnime = () => {
     searchResults,
     searchError,
     animeText,
+    isDarkModeEnabled,
   };
 };

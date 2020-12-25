@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Lottie from 'react-lottie';
+import cls from 'classnames';
 import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LotteAnimation = (props) => {
-  const { defaultOptions, width, height, textToRender } = props;
+  const { defaultOptions, width, height, textToRender, style } = props;
   const classes = useStyles();
   return (
-    <div className={classes.noAnimeContainer}>
+    <div className={cls(classes.noAnimeContainer, style)}>
       <Lottie options={defaultOptions} width={width} height={height} />
       <Typography className={classes.noAnimeText}>{textToRender}</Typography>
     </div>
@@ -42,12 +43,14 @@ LotteAnimation.propTypes = {
   width: PropTypes.any,
   height: PropTypes.any,
   textToRender: PropTypes.string,
+  style: PropTypes.object,
 };
 
 LotteAnimation.defaultProps = {
   width: '100%',
   height: '100%',
   textToRender: '',
+  style: {},
 };
 
 export default LotteAnimation;

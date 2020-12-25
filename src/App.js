@@ -10,6 +10,7 @@ import {
   VerifyAccountView,
   Dashboard,
   AnimeDetailsView,
+  AnimeWatchlistStatsView,
 } from './views';
 import SnackBar from './components/utilityComponents/UniversalSnackbar';
 import './App.css';
@@ -27,6 +28,11 @@ const App = () => {
           <Route exact path="/verify-account" component={VerifyAccountView} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/anime/:mal_id" component={AnimeDetailsView} />
+          <Route
+            exact
+            path="/watchlist-stats"
+            component={AnimeWatchlistStatsView}
+          />
         </Switch>
       </Router>
     </MuiThemeProvider>

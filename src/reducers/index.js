@@ -10,6 +10,7 @@ import { animeReducer } from './animeReducer';
 import { animeFilterReducer } from './animeFilterSortReducer';
 import { animeDetailsReducer } from './animeDetailsReducer';
 import { animeReviewReducer } from './animeReviewsReducer';
+import { animeWatchlistStatsReducer } from './animeWatchlistStatReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
   animeFilter: animeFilterReducer,
   animeDetails: animeDetailsReducer,
   animeReview: animeReviewReducer,
+  animeWatchlistStats: animeWatchlistStatsReducer,
 });

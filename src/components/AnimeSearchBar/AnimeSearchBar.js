@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { makeStyles, MenuItem, Select } from '@material-ui/core/';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/';
 import {
   useFocus,
   useGlobalSearchAnime,
 } from 'custom-hooks/globalAnimeSearchHook';
 import { useResizeScreen } from 'custom-hooks/useResizeHook';
+import cls from 'classnames';
+import SearchIcon from '@material-ui/icons/Search';
 import './searchBarStyle.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     outline: 'none',
     cursor: 'pointer',
+    boxShadow: `0 3px 45px rgba(0, 0, 0, 0.1)`,
     '&:hover': {
       opacity: 0.9,
     },
@@ -74,14 +77,12 @@ const AnimeSearchBar = () => {
     onHandleAnimeNameChange,
     onHandleAnimeSearch,
     isAnimeLoading,
+    isDarkModeEnabled,
   } = useGlobalSearchAnime();
   const { isMobile } = useResizeScreen();
-  const [dropDownValue, setDropDownValue] = useState(1);
 
   const handleDropDownChange = (e) => {
-    setDropDownValue(e.target.value);
-
-    if (e.target.value === 1) {
+    if (Number(e.target.value) === 1) {
       onSearchBarBlur();
     } else {
       onSearchBarFocus();
@@ -93,29 +94,25 @@ const AnimeSearchBar = () => {
       className={classes.searchBarContainer}
       onSubmit={(e) => onHandleAnimeSearch(e)}
     >
-      <Select
-        fullWidth={!!isMobile}
-        variant="filled"
-        value={dropDownValue}
-        onChange={handleDropDownChange}
-        classes={{
-          root: classes.blueText,
-          icon: classes.blueIcon,
-          outlined: classes.select,
-        }}
-        className={classes.select}
-      >
-        <MenuItem value={1} className={classes.blueText}>
-          Search your watchlist.
-        </MenuItem>
-        <MenuItem value={2} className={classes.blueText}>
-          Search all animes.
-        </MenuItem>
-      </Select>
+      <div className="box">
+        <select
+          onChange={(e) => handleDropDownChange(e)}
+          className={cls({
+            'lightmode-select': !isDarkModeEnabled,
+            'darkmode-select': isDarkModeEnabled,
+          })}
+        >
+          <option value="1">Search your watchlist</option>
+          <option value="2">Search all animes</option>
+        </select>
+      </div>
       <input
-        type="text"
-        placeholder="&#61442; Search for your favourite anime"
-        className="searchBar"
+        type="search"
+        placeholder="Search for your favourite anime"
+        className={cls({
+          'searchBar-light': !isDarkModeEnabled,
+          'searchBar-dark': isDarkModeEnabled,
+        })}
         value={animeName}
         onChange={onHandleAnimeNameChange}
       />
@@ -127,10 +124,10 @@ const AnimeSearchBar = () => {
         {isAnimeLoading ? (
           <i
             className="fa fa-spinner fa-spin"
-            style={{ color: '#fff', fontSize: '20px' }}
+            style={{ color: '#fff', fontSize: '20px', overflow: 'hidden' }}
           ></i>
         ) : (
-          'Search'
+          'SEARCH'
         )}
       </button>
     </form>

@@ -20,6 +20,9 @@ import {
   GET_ANIME_REVIEW_START,
   GET_ANIME_REVIEW_SUCCESS,
   GET_ANIME_REVIEW_FAIL,
+  SET_ANIME_VIDEO_URL_START,
+  SET_ANIME_VIDEO_URL_SUCCESS,
+  SET_ANIME_VIDEO_URL_FAIL,
 } from '../constants/animeConstant';
 
 export const addAnimeWatchlistStart = (payload) => ({
@@ -123,5 +126,20 @@ export const getAnimeReviewSuccess = (payload) => ({
 
 export const getAnimeReviewFail = (payload) => ({
   type: GET_ANIME_REVIEW_FAIL,
+  payload,
+});
+
+export const setAnimeVideoURLStart = (payload) => ({
+  type: SET_ANIME_VIDEO_URL_START,
+  payload,
+});
+
+export const setAnimeVideoURLSuccess = (payload) => ({
+  type: SET_ANIME_VIDEO_URL_SUCCESS,
+  payload,
+});
+
+export const setAnimeVideoURLFail = (payload) => ({
+  type: SET_ANIME_VIDEO_URL_FAIL,
   payload,
 });

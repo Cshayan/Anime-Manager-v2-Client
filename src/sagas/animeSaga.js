@@ -8,6 +8,7 @@ import {
   ANIME_STATUS_SAVE_START,
   GET_ANIME_DETAILS_START,
   GET_ANIME_REVIEW_START,
+  SET_ANIME_VIDEO_URL_START,
 } from '../constants/animeConstant';
 import {
   animeSearchSuccess,
@@ -26,6 +27,8 @@ import {
   getAnimeDetailsFail,
   getAnimeReviewSuccess,
   getAnimeReviewFail,
+  setAnimeVideoURLSuccess,
+  setAnimeVideoURLFail,
 } from '../actions/animeAction';
 import { snackBarOpen } from '../actions/snackbarAction';
 import {
@@ -36,6 +39,7 @@ import {
   saveAnimeStatus,
   getAnimeDetails,
   getAnimeReview,
+  updateAnimeDetails,
 } from '../services/animeService';
 
 /* Worker Saga */
@@ -155,6 +159,20 @@ function* getAnimeReviewWorker(action) {
   }
 }
 
+function* setAnimeVideoURLWorker(action) {
+  const { payload: { animeId = '', urlToWatch = '' } = {} } = action;
+  try {
+    yield call(updateAnimeDetails, animeId, { urlToWatch });
+    yield put(setAnimeVideoURLSuccess({ animeId, urlToWatch }));
+    yield put(snackBarOpen('Video URL updated!', 'success'));
+  } catch (err) {
+    yield put(setAnimeVideoURLFail());
+    yield put(
+      snackBarOpen('Video URL cannot be updated. Try again later.', 'error'),
+    );
+  }
+}
+
 /* Watcher Saga */
 export function* searchAnimeWatcher() {
   yield takeLatest(GLO_ANIME_SEARCH_START, searchAnimeWorker);
@@ -182,4 +200,8 @@ export function* getAnimeDetailsWatcher() {
 
 export function* getAnimeReviewWatcher() {
   yield takeLatest(GET_ANIME_REVIEW_START, getAnimeReviewWorker);
+}
+
+export function* setAnimeVideoURLWatcher() {
+  yield takeLatest(SET_ANIME_VIDEO_URL_START, setAnimeVideoURLWorker);
 }
