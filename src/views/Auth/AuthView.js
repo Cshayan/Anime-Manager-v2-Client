@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import Logo from '../../components/utilityComponents/Logo';
 import AuthContainer from '../../containers/Auth/AuthContainer';
-import LoginImg from '../../assets/test.jpg';
+import LoginImg from '../../assets/login-image.jpg';
 
 const useStyles = makeStyles((theme) => ({
   backgroundCover: {

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { isEmpty } from 'lodash';
 import {
   openAnimeDeleteDialog,
   closeAnimeDeleteDialog,
@@ -69,7 +70,7 @@ export const useAnime = () => {
   };
 
   const fetchAnimes = useCallback(() => {
-    dispatch(getAnimeWatchlistStart());
+    if (isEmpty(animeWatchlist)) dispatch(getAnimeWatchlistStart());
   }, [dispatch]);
 
   return {

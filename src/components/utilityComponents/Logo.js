@@ -1,5 +1,8 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { makeStyles, Button, Tooltip } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import LogoImg from '../../assets/logo.png';
@@ -15,6 +18,7 @@ const useStyles = makeStyles(() => ({
     color: '#fff',
     cursor: 'pointer',
   },
+
   '@media screen and (max-width: 600px)': {
     logoImg: logoStyleMobileView,
     backIcon: {
@@ -25,6 +29,7 @@ const useStyles = makeStyles(() => ({
 
 const Logo = (props) => {
   const classes = useStyles();
+  const history = useHistory();
   const { isBackButtonRequired, onBackButtonPress } = props;
   return (
     <div
@@ -32,10 +37,9 @@ const Logo = (props) => {
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        // flexDirection: "column",
       }}
     >
-      <div>
+      <div onClick={() => history.push('/')}>
         <img src={LogoImg} alt="Logo" className={classes.logoImg} />
       </div>
       {isBackButtonRequired && (
