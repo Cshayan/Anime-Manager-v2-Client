@@ -5,8 +5,6 @@ import { useResizeScreen } from 'custom-hooks/useResizeHook';
 import Header from '../Header/Header';
 import DashboardContent from './DashboardContent';
 import DrawerContainer from '../../containers/CustomDrawerContainer/DrawerContainer';
-import ThemeDialog from '../utilityComponents/ThemeDialog';
-import LogoutDialog from '../utilityComponents/LogoutDialog';
 import AnimeDeleteDialog from '../utilityComponents/DeleteAnimeDialog';
 
 const useStyles = makeStyles(() => ({
@@ -32,8 +30,6 @@ const DashboardComponent = () => {
         >
           <Header isSearchBarRequired isAvatarPopUpRequired />
           <DashboardContent />
-          <ThemeDialog />
-          <LogoutDialog />
           <AnimeDeleteDialog />
           <AnimeDetailDialogContainer />
         </Grid>

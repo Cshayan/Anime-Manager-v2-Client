@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { useAuthentication } from 'custom-hooks/authHook';
 import AwesomeSlider from 'react-awesome-slider';
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
 import 'react-awesome-slider/dist/styles.css';
@@ -102,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SlideContent = (props) => {
   const { classes } = props;
+  const { isAuthenticated } = useAuthentication();
   return (
     <div className={classes.slideContent}>
       <Typography className={classes.slideText}>
@@ -109,18 +111,26 @@ const SlideContent = (props) => {
         place to manage all your favourite animes.
       </Typography>
       <div className={classes.buttonContainer}>
-        <Link
-          to={{ pathname: '/auth', state: { login: true } }}
-          className={classes.linkStyle}
-        >
-          <Button className={classes.loginButton}>Login</Button>
-        </Link>
-        <Link
-          to={{ pathname: '/auth', state: { login: false } }}
-          className={classes.linkStyle}
-        >
-          <Button className={classes.registerButton}>Sign Up</Button>
-        </Link>
+        {!isAuthenticated ? (
+          <>
+            <Link
+              to={{ pathname: '/auth', state: { login: true } }}
+              className={classes.linkStyle}
+            >
+              <Button className={classes.loginButton}>Login</Button>
+            </Link>
+            <Link
+              to={{ pathname: '/auth', state: { login: false } }}
+              className={classes.linkStyle}
+            >
+              <Button className={classes.registerButton}>Sign Up</Button>
+            </Link>
+          </>
+        ) : (
+          <Link to={{ pathname: '/dashboard' }} className={classes.linkStyle}>
+            <Button className={classes.registerButton}>Go to Dashboard</Button>
+          </Link>
+        )}
       </div>
     </div>
   );

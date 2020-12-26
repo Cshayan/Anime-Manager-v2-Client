@@ -17,11 +17,12 @@ const Header = (props) => {
     isBackButtonRequired,
     isSearchBarRequired,
     isAvatarPopUpRequired,
+    iconText,
   } = props;
   return (
     <Grid container className={classes.headerContainer} alignItems="center">
       <Grid item xs={2}>
-        {isBackButtonRequired && <GoBack toolTipTitle="Go Back to home" />}
+        {isBackButtonRequired && <GoBack iconText={iconText} />}
       </Grid>
       <Grid item xs={8}>
         {isSearchBarRequired && <AnimeSearchBar />}
@@ -37,12 +38,14 @@ Header.propTypes = {
   isBackButtonRequired: PropTypes.bool,
   isSearchBarRequired: PropTypes.bool,
   isAvatarPopUpRequired: PropTypes.bool,
+  iconText: PropTypes.string,
 };
 
 Header.defaultProps = {
   isBackButtonRequired: false,
   isSearchBarRequired: false,
   isAvatarPopUpRequired: false,
+  iconText: '',
 };
 
 export default Header;

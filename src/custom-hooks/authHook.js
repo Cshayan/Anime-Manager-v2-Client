@@ -2,6 +2,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'query-string';
+import { isEmpty } from 'lodash';
 import {
   loginAPIStart,
   getMeAPIStart,
@@ -95,7 +96,9 @@ export const useGetMe = () => {
   const userDetails = useSelector((state) => state.auth.user);
 
   const getCurrentUser = useCallback(() => {
-    dispatch(getMeAPIStart());
+    if (isEmpty(userDetails)) {
+      dispatch(getMeAPIStart());
+    }
   }, [dispatch]);
 
   return {
@@ -116,8 +119,6 @@ export const useVerifyAccount = (props) => {
       dispatch(verifyAccountAPIStart({ email, token }));
     }
   }, [email, token]);
-
-  console.log({ isUserVerifying, isUserVerified });
 
   return {
     isUserVerifying,

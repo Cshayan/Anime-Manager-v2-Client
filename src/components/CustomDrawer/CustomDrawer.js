@@ -9,28 +9,20 @@ import {
   Divider,
 } from '@material-ui/core';
 import { useResizeScreen } from 'custom-hooks/useResizeHook';
+import { screenNames } from 'custom-hooks/drawerHook';
 import cls from 'classnames';
-import { ReactComponent as DashboardIcon } from 'assets/dashboard.svg';
-import { ReactComponent as User } from '../../assets/userHam.svg';
-import { ReactComponent as Bell } from '../../assets/bell.svg';
-import { ReactComponent as Pie } from '../../assets/pie.svg';
-import { ReactComponent as Logout } from '../../assets/logout.svg';
-import { ReactComponent as DarkModeIcon } from '../../assets/nightMode.svg';
+import DashboardIcon from 'assets/dashboard.svg';
+import UserIcon from 'assets/userHam.svg';
+import PieIcon from 'assets/pie.svg';
+import { ReactComponent as Logout } from 'assets/logout.svg';
+import DarkModeIcon from 'assets/nightMode.svg';
 
 const useStyles = makeStyles((theme) => ({
-  userIcon: {
-    width: 30,
-    height: 30,
-  },
-  bellIcon: {
-    width: 30,
-    height: 30,
-  },
-  pieIcon: {
-    width: 30,
-    height: 30,
-  },
   logoutIcon: {
+    width: 30,
+    height: 30,
+  },
+  iconStyle: {
     width: 30,
     height: 30,
   },
@@ -55,10 +47,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const drawerItems = [
+  {
+    icon: DashboardIcon,
+    toolTipText: 'Dashboard',
+    id: 1,
+    name: screenNames.Dashboard,
+  },
+  {
+    icon: UserIcon,
+    toolTipText: 'View your profile',
+    id: 2,
+    name: screenNames.Profile,
+  },
+  {
+    icon: PieIcon,
+    toolTipText: 'See statistics',
+    id: 3,
+    name: screenNames.Statistics,
+  },
+  { icon: DarkModeIcon, toolTipText: 'Change your theme', id: 4 },
+];
+
 const CustomDrawer = (props) => {
   const classes = useStyles();
   const { isMobile } = useResizeScreen();
-  const { open, onLogOutClick, onClose, handleDarkModeClick } = props;
+  const {
+    open,
+    onLogOutClick,
+    onClose,
+    handleDarkModeClick,
+    onIconClick,
+    screenName,
+  } = props;
 
   return (
     <Drawer
@@ -68,39 +89,30 @@ const CustomDrawer = (props) => {
       classes={{ paper: classes.drawer }}
     >
       <List className={classes.list}>
-        <Tooltip title="Dashboard">
-          <ListItem
-            button
-            className={cls(classes.listButton, classes.activeIcon)}
-          >
-            <DashboardIcon className={classes.userIcon} />
-          </ListItem>
-        </Tooltip>
-        <Tooltip title="View Profile">
-          <ListItem button className={classes.listButton}>
-            <User className={classes.userIcon} />
-          </ListItem>
-        </Tooltip>
-        <Tooltip title="View Stats">
-          <ListItem button className={classes.listButton}>
-            <Pie className={classes.pieIcon} />
-          </ListItem>
-        </Tooltip>
-        <Tooltip title="Notifications">
-          <ListItem button className={classes.listButton}>
-            <Bell className={classes.bellIcon} />
-          </ListItem>
-        </Tooltip>
-        <Divider />
-        <Tooltip title="Change theme">
-          <ListItem
-            button
-            className={classes.listButton}
-            onClick={handleDarkModeClick}
-          >
-            <DarkModeIcon className={classes.bellIcon} />
-          </ListItem>
-        </Tooltip>
+        {drawerItems.map((item) => (
+          <>
+            {item.id === 4 && <Divider />}
+            <Tooltip key={item.id} title={item.toolTipText}>
+              <ListItem
+                button
+                className={cls(classes.listButton, {
+                  [classes.activeIcon]: screenName === item.name,
+                })}
+                onClick={
+                  item.id === 4
+                    ? handleDarkModeClick
+                    : () => onIconClick(item.id)
+                }
+              >
+                <img
+                  src={item.icon}
+                  className={classes.iconStyle}
+                  alt="drawer-icon"
+                />
+              </ListItem>
+            </Tooltip>
+          </>
+        ))}
         <Tooltip title="Logout">
           <ListItem
             button
@@ -120,6 +132,12 @@ CustomDrawer.propTypes = {
   onLogOutClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   handleDarkModeClick: PropTypes.func.isRequired,
+  onIconClick: PropTypes.func,
+  screenName: PropTypes.string.isRequired,
+};
+
+CustomDrawer.defaultProps = {
+  onIconClick: () => {},
 };
 
 export default CustomDrawer;

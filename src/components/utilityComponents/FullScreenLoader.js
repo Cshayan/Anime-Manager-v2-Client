@@ -1,14 +1,15 @@
 /* eslint-disable no-dupe-keys */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Lottie from 'react-lottie';
 import { makeStyles, Typography } from '@material-ui/core';
-import logoLoader from '../../assets/logoLoader.png';
+import defaultLoaderAnimation from 'assets/animation/default-loader.json';
 import './styles/fullScreenLoaderStyles.css';
 
 const useStyles = makeStyles((theme) => ({
   loaderContainer: {
-    width: '100vw',
-    height: '100vh',
+    width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -32,9 +33,17 @@ const useStyles = makeStyles((theme) => ({
 const FullScreenLoader = (props) => {
   const classes = useStyles();
   const { title } = props;
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: defaultLoaderAnimation,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   return (
     <div className={classes.loaderContainer}>
-      <img src={logoLoader} alt="Logo-Loader" className="img" />
+      <Lottie options={defaultOptions} width="50%" height="50%" />
       <Typography className={classes.loaderText}>{title}</Typography>
     </div>
   );
