@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 const AnimeStatisticsGraphContainer = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAuthentication();
-  const { watchlist, isAnimeLoading } = useAnimeWatchlistStatsAndCharts();
+  const { watchlist } = useAnimeWatchlistStatsAndCharts();
   const { animeStats } = useAnimeStatistics();
   const { isDarkModeEnabled } = useDarkMode();
 

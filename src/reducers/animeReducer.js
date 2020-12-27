@@ -1,3 +1,4 @@
+import { AUTH } from 'constants/authConstant';
 import {
   ADD_ANIME_WATCHLIST_START,
   ADD_ANIME_WATCHLIST_SUCCESS,
@@ -147,6 +148,8 @@ export const animeReducer = (state = initialState, action) => {
         ...state,
         isAnimeVideoURLAdding: false,
       };
+    case AUTH.RESET_ALL:
+      return initialState;
     default:
       return state;
   }
