@@ -4,9 +4,7 @@ import {
   useFocus,
   useGlobalSearchAnime,
 } from 'custom-hooks/globalAnimeSearchHook';
-import { useResizeScreen } from 'custom-hooks/useResizeHook';
 import cls from 'classnames';
-import SearchIcon from '@material-ui/icons/Search';
 import './searchBarStyle.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
     outline: 'none',
     cursor: 'pointer',
     boxShadow: `0 3px 45px rgba(0, 0, 0, 0.1)`,
+    borderTopRightRadius: '5px',
+    borderBottomRightRadius: '5px',
     '&:hover': {
       opacity: 0.9,
     },
@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
       width: '70%',
       margin: 'auto',
       marginTop: '5px',
+      borderRadius: 0,
     },
     searchBarContainer: {
       flexDirection: 'column',
@@ -79,7 +80,6 @@ const AnimeSearchBar = () => {
     isAnimeLoading,
     isDarkModeEnabled,
   } = useGlobalSearchAnime();
-  const { isMobile } = useResizeScreen();
 
   const handleDropDownChange = (e) => {
     if (Number(e.target.value) === 1) {

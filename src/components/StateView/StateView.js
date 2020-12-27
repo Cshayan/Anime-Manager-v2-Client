@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: '1rem',
+    overflow: 'hidden',
   },
   img: {
     width: 200,
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.5rem',
     color: theme.palette.text.primary,
     letterSpacing: '0.1rem',
+    overflow: 'hidden',
   },
   '@media screen and (max-width: 600px)': {
     img: {
