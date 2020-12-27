@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.5rem',
     color: theme.palette.text.primary,
     letterSpacing: '0.1rem',
+    overflow: 'hidden',
   },
   '@media screen and (max-width: 600px)': {
     noAnimeText: {

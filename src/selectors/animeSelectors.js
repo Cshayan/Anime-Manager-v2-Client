@@ -1,4 +1,6 @@
 /* Selectors related to watchlist */
+const selectIsAnimeLoading = ({ anime: { isAnimeLoading = false } }) =>
+  isAnimeLoading;
 const selectWatchlist = ({ anime: { watchlist = [] } }) => watchlist;
 const selectAnimeId = ({ anime: { animeIdToDelete = '' } }) => animeIdToDelete;
 const selectIsAnimeAddingToWatchlist = ({ anime: { isAnimeAdding = false } }) =>
@@ -46,6 +48,7 @@ const selectIsDarkModeEnabled = ({ darkMode: { isDarkModeEnabled } }) =>
   isDarkModeEnabled;
 
 export {
+  selectIsAnimeLoading,
   selectWatchlist,
   selectAnimeId,
   selectIsAnimeAddingToWatchlist,

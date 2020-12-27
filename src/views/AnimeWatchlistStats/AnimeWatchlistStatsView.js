@@ -6,8 +6,8 @@ import AnimeStatisticsGraphContainer from 'containers/AnimeStatisticsGraph/Anime
 const useStyles = makeStyles((theme) => ({
   '@global': {
     '*::-webkit-scrollbar': {
-      width: '0.4em',
-      height: '0.4em',
+      width: '0',
+      height: '0',
     },
     '*::-webkit-scrollbar-track': {
       '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.default,
     width: '100vw',
     height: '100vh',
+    // overflow: 'hidden',
   },
 }));
 
@@ -32,8 +33,8 @@ const AnimeWatchlistStatsView = (props) => {
   const classes = useStyles();
   const { isMobile } = useResizeScreen();
   return (
-    <>
-      <Grid container spacing={0} className={classes.detailsBack}>
+    <div className={classes.detailsBack}>
+      <Grid container spacing={0}>
         <Grid item xs={isMobile ? null : 1}>
           <DrawerContainer />
         </Grid>
@@ -45,7 +46,7 @@ const AnimeWatchlistStatsView = (props) => {
           <AnimeStatisticsGraphContainer />
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 

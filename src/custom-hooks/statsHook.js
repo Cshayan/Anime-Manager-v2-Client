@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
+import { useAnime } from 'custom-hooks/animeHook';
+import { selectIsAnimeLoading } from 'selectors/animeSelectors';
 
 const selectWatchlist = ({ anime: { watchlist = [] } }) => watchlist;
 
@@ -33,5 +36,67 @@ export const useAnimeStatistics = () => {
   return {
     watchlist,
     animeStats,
+  };
+};
+
+export const useAnimeWatchlistStatsAndCharts = () => {
+  const { fetchAnimes } = useAnime();
+  const watchlist = useSelector(selectWatchlist);
+  const isAnimeLoading = useSelector(selectIsAnimeLoading);
+
+  useEffect(() => {
+    fetchAnimes();
+  }, []);
+
+  return {
+    isAnimeLoading,
+    watchlist,
+  };
+};
+
+export const useActivityHistoryTimeLine = (isDarkModeEnabled) => {
+  const watchlist = useSelector(selectWatchlist);
+  const [activityTheme, setActivityTheme] = useState({});
+
+  useEffect(() => {
+    if (isDarkModeEnabled) {
+      setActivityTheme({
+        primary: '#5DDAE0',
+        secondary: 'linear-gradient(315deg, #485461 0%, #28313b 74%)',
+        cardBgColor: 'linear-gradient(315deg, #485461 0%, #28313b 74%)',
+        cardForeColor: '#fff',
+      });
+    } else {
+      setActivityTheme({
+        primary: '#27ae60',
+        secondary: 'linear-gradient(315deg, #485461 0%, #28313b 74%)',
+        cardBgColor: 'linear-gradient(to right, #ece9e6, #ffffff)',
+        cardForeColor: '#111',
+      });
+    }
+  }, [isDarkModeEnabled]);
+
+  const items = useMemo(() => {
+    if (watchlist.length > 0) {
+      return watchlist.map((list) => {
+        const obj = {
+          title: moment(list?.addedAt).format('DD, MMM YYYY'),
+          cardTitle: list.animeData?.title,
+          media: {
+            type: 'IMAGE',
+            source: {
+              url: list.animeData?.imageUrl,
+            },
+          },
+        };
+        return obj;
+      });
+    }
+    return [];
+  }, [watchlist]);
+
+  return {
+    items,
+    activityTheme,
   };
 };
