@@ -18,6 +18,7 @@ import {
   AnimeDetailsView,
   AnimeWatchlistStatsView,
   PageNotFoundView,
+  UserProfileView,
 } from './views';
 import './App.css';
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/anime/:mal_id" component={AnimeDetailsView} />
           <Route exact path="/statistics" component={AnimeWatchlistStatsView} />
+          <Route exact path="/profile" component={UserProfileView} />
           <Route component={PageNotFoundView} />
         </Switch>
       </Router>

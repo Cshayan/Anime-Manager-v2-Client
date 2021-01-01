@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { makeStyles, Typography } from '@material-ui/core';
 import Header from 'components/Header/Header';
 import AnimePieChartStats from 'components/AnimeStatCard/AnimePieChartStats';
 import Lottie from 'react-lottie';
-import { useAuthentication } from 'custom-hooks/authHook';
+import { useAuthentication, useGetMe } from 'custom-hooks/authHook';
 import {
   useAnimeWatchlistStatsAndCharts,
   useAnimeStatistics,
@@ -51,9 +51,14 @@ const useStyles = makeStyles((theme) => ({
 const AnimeStatisticsGraphContainer = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAuthentication();
+  const { getCurrentUser } = useGetMe();
   const { watchlist } = useAnimeWatchlistStatsAndCharts();
   const { animeStats } = useAnimeStatistics();
   const { isDarkModeEnabled } = useDarkMode();
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
 
   if (!isAuthenticated) {
     return <Redirect to="/auth" />;

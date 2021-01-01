@@ -209,6 +209,19 @@ export const useResetPassword = (props) => {
   };
 };
 
+export const useUserProfile = () => {
+  const { getCurrentUser, userDetails, isUserLoading } = useGetMe();
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
+  return {
+    isUserLoading,
+    userDetails,
+  };
+};
+
 export const useLogOut = () => {
   const dispatch = useDispatch();
   const isLogoutDialogOpen = useSelector(selectLogoutDialog);

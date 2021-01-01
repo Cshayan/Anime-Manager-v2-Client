@@ -7,3 +7,4 @@ export { default as ResetPasswordView } from './Auth/ResetPasswordView';
 export { default as Dashboard } from './Dashboard/Dashboard';
 export { default as AnimeDetailsView } from './AnimeDetailsView/AnimeDetailsView';
 export { default as PageNotFoundView } from './HomeView/404View';
+export { default as UserProfileView } from './UserProfileView/UserProfileView';
