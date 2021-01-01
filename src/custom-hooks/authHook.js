@@ -3,12 +3,16 @@ import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'query-string';
 import { isEmpty } from 'lodash';
+import { useHistory } from 'react-router-dom';
+import { snackBarOpen } from 'actions/snackbarAction';
 import {
   loginAPIStart,
   getMeAPIStart,
   registerAPIStart,
   logOutUserSuccess,
   verifyAccountAPIStart,
+  forgotPasswordStart,
+  resetPasswordStart,
 } from '../actions/authAction';
 import { resetAll } from '../actions/resetAction';
 import { openLogoutDialog, closeLogoutDialog } from '../actions/dialogAction';
@@ -21,6 +25,17 @@ const selectIsUserVerifying = ({ auth: { isUserVerifying = false } }) =>
   isUserVerifying;
 const selectIsUserVerified = ({ auth: { isUserVerified = false } }) =>
   isUserVerified;
+const selectIsForgotAPIOn = ({ auth: { isForgotAPIOn = false } }) =>
+  isForgotAPIOn;
+const selectForgotPasswordMessage = ({
+  auth: { forgotPasswordMessage = '' },
+}) => forgotPasswordMessage;
+const selectIsResetPasswordAPIOn = ({
+  auth: { isResetPasswordAPIOn = false },
+}) => isResetPasswordAPIOn;
+const selectIsResetPasswordSuccess = ({
+  auth: { isResetPasswordSuccess = '' },
+}) => isResetPasswordSuccess;
 
 export const useAuthentication = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -123,6 +138,87 @@ export const useVerifyAccount = (props) => {
   return {
     isUserVerifying,
     isUserVerified,
+  };
+};
+
+export const useForgotPassword = () => {
+  const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
+  const isForgotAPIOn = useSelector(selectIsForgotAPIOn);
+  const forgotPasswordMessage = useSelector(selectForgotPasswordMessage);
+
+  const onResetLinkClick = (e) => {
+    e.preventDefault();
+    dispatch(forgotPasswordStart({ email }));
+  };
+
+  return {
+    email,
+    setEmail,
+    isForgotAPIOn,
+    forgotPasswordMessage,
+    onResetLinkClick,
+  };
+};
+
+export const useResetPassword = (props) => {
+  const { email = '', token = '' } = qs.parse(props.location.search);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [passwordDetails, setPasswordDetails] = useState({
+    password: '',
+    confirm_password: '',
+  });
+  const isResetPasswordAPIOn = useSelector(selectIsResetPasswordAPIOn);
+  const isResetPasswordSuccess = useSelector(selectIsResetPasswordSuccess);
+
+  useEffect(() => {
+    if (isResetPasswordSuccess) {
+      history.push('/auth');
+    }
+  }, [isResetPasswordSuccess]);
+
+  const onChangeHandler = (e) => {
+    setPasswordDetails({ ...passwordDetails, [e.target.name]: e.target.value });
+  };
+
+  const onResetPasswordClick = (e) => {
+    e.preventDefault();
+
+    // check if two password matches
+    if (passwordDetails.password !== passwordDetails.confirm_password) {
+      return dispatch(snackBarOpen('Two passwords must match', 'error'));
+    }
+
+    dispatch(
+      resetPasswordStart({
+        email,
+        token,
+        newPassword: passwordDetails.password,
+      }),
+    );
+
+    return null;
+  };
+
+  return {
+    passwordDetails,
+    onChangeHandler,
+    onResetPasswordClick,
+    isResetPasswordAPIOn,
+  };
+};
+
+export const useUserProfile = () => {
+  const { getCurrentUser, userDetails, isUserLoading } = useGetMe();
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
+  return {
+    isUserLoading,
+    userDetails,
   };
 };
 

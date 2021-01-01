@@ -11,6 +11,10 @@ const initialState = {
   isUserVerifying: false,
   isUserVerified: false,
   hasUserRegistered: false,
+  isForgotAPIOn: false,
+  forgotPasswordMessage: '',
+  isResetPasswordAPIOn: false,
+  isResetPasswordSuccess: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -88,19 +92,41 @@ export const authReducer = (state = initialState, action) => {
         isUserVerifying: false,
         isUserVerified: false,
       };
+    case AUTH.FORGOT_PASSWORD_START:
+      return {
+        ...state,
+        isForgotAPIOn: true,
+        forgotPasswordMessage: '',
+      };
+    case AUTH.FORGOT_PASSWORD_SUCCESS:
+    case AUTH.FORGOT_PASSWORD_FAIL:
+      return {
+        ...state,
+        isForgotAPIOn: false,
+        forgotPasswordMessage: payload.message,
+      };
+    case AUTH.RESET_PASSWORD_START:
+      return {
+        ...state,
+        isResetPasswordAPIOn: true,
+        isResetPasswordSuccess: false,
+      };
+    case AUTH.RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isResetPasswordAPIOn: false,
+        isResetPasswordSuccess: true,
+      };
+    case AUTH.RESET_PASSWORD_FAIL:
+      return {
+        ...state,
+        isResetPasswordAPIOn: false,
+        isResetPasswordSuccess: false,
+      };
     case AUTH.LOGOUT_USER_SUCCESS:
     case AUTH.RESET_ALL:
       localStorage.removeItem(ANIME_TOKEN);
-      return {
-        ...state,
-        token: localStorage.getItem(ANIME_TOKEN),
-        isUserLoading: false,
-        isAuthenticated: !!localStorage.getItem(ANIME_TOKEN),
-        user: null,
-        error: null,
-        isUserVerifying: false,
-        isUserVerifed: false,
-      };
+      return initialState;
     default:
       return state;
   }

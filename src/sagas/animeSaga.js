@@ -30,7 +30,11 @@ import {
   setAnimeVideoURLSuccess,
   setAnimeVideoURLFail,
 } from '../actions/animeAction';
-import { snackBarOpen } from '../actions/snackbarAction';
+import {
+  snackBarOpen,
+  backDropOpen,
+  backDropClose,
+} from '../actions/snackbarAction';
 import {
   searchAnime,
   addAnimeWatchlist,
@@ -57,6 +61,7 @@ function* searchAnimeWorker(action) {
 function* addAnimeWatchlistWorker(action) {
   const { payload } = action;
   try {
+    yield put(backDropOpen());
     const { data } = yield call(addAnimeWatchlist, payload);
     yield put(addAnimeWatchlistSuccess(data));
     yield put(snackBarOpen(data.msg, 'success'));
@@ -72,6 +77,8 @@ function* addAnimeWatchlistWorker(action) {
         'error',
       ),
     );
+  } finally {
+    yield put(backDropClose());
   }
 }
 
@@ -89,6 +96,7 @@ function* getAnimeWatchlistWorker() {
 function* deleteAnimeWatchlistWorker(action) {
   try {
     const { payload } = action;
+    yield put(backDropOpen());
     const { data } = yield call(deleteAnimeWatchlist, payload);
     yield put(deleteAnimeWatchlistSuccess(payload));
     yield put(snackBarOpen(data.msg, 'success'));
@@ -101,6 +109,8 @@ function* deleteAnimeWatchlistWorker(action) {
     yield put(
       snackBarOpen('Failed to delete the anime from the watchlist.', 'error'),
     );
+  } finally {
+    yield put(backDropClose());
   }
 }
 
@@ -109,6 +119,7 @@ function* setAnimeStatusWorker(action) {
     payload: { animeId, statusValue },
   } = action;
   try {
+    yield put(backDropOpen());
     yield call(saveAnimeStatus, animeId, statusValue);
     yield put(animeStatusSaveSuccess({ animeId, statusValue }));
     yield put(snackBarOpen('Anime status updated successfully.', 'success'));
@@ -120,6 +131,8 @@ function* setAnimeStatusWorker(action) {
         'error',
       ),
     );
+  } finally {
+    yield put(backDropClose());
   }
 }
 
@@ -162,6 +175,7 @@ function* getAnimeReviewWorker(action) {
 function* setAnimeVideoURLWorker(action) {
   const { payload: { animeId = '', urlToWatch = '' } = {} } = action;
   try {
+    yield put(backDropOpen());
     yield call(updateAnimeDetails, animeId, { urlToWatch });
     yield put(setAnimeVideoURLSuccess({ animeId, urlToWatch }));
     yield put(snackBarOpen('Video URL updated!', 'success'));
@@ -170,6 +184,8 @@ function* setAnimeVideoURLWorker(action) {
     yield put(
       snackBarOpen('Video URL cannot be updated. Try again later.', 'error'),
     );
+  } finally {
+    yield put(backDropClose());
   }
 }
 

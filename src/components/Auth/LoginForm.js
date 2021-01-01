@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, TextField } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { useLogin } from '../../custom-hooks/authHook';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +36,16 @@ const useStyles = makeStyles((theme) => ({
       opacity: '0.5',
       overflow: 'hidden',
     },
+  },
+  btnCont: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  forgotPassText: {
+    fontSize: theme.typography.pxToRem(16),
+    letterSpacing: '0.1rem',
+    color: theme.palette.text.primary,
   },
 }));
 
@@ -77,20 +88,25 @@ const LoginForm = () => {
           classes: { input: classes.input },
         }}
       />
-      <button
-        className={classes.loginButton}
-        type="submit"
-        disabled={isUserLogging}
-      >
-        {isUserLogging ? (
-          <i
-            className="fa fa-spinner fa-spin"
-            style={{ color: '#fff', fontSize: '20px', overflow: 'hidden' }}
-          ></i>
-        ) : (
-          'LOGIN'
-        )}
-      </button>
+      <div className={classes.btnCont}>
+        <button
+          className={classes.loginButton}
+          type="submit"
+          disabled={isUserLogging}
+        >
+          {isUserLogging ? (
+            <i
+              className="fa fa-spinner fa-spin"
+              style={{ color: '#fff', fontSize: '20px', overflow: 'hidden' }}
+            ></i>
+          ) : (
+            'LOGIN'
+          )}
+        </button>
+        <Link to="/forgot-password" className={classes.forgotPassText}>
+          Forgot password?
+        </Link>
+      </div>
     </form>
   );
 };

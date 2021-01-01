@@ -17,6 +17,8 @@ export const useDrawer = () => {
   const screenName = useSelector(selectScreenName);
 
   useEffect(() => {
+    console.log(window.location.pathname);
+
     if (window.location.pathname) {
       switch (window.location.pathname) {
         case '/dashboard':
@@ -35,6 +37,7 @@ export const useDrawer = () => {
   }, [window.location.pathname]);
 
   const handleIconClick = (screenID) => {
+    console.log(screenID);
     switch (screenID) {
       case 1:
         history.push(screenNames.Dashboard);

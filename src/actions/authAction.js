@@ -60,6 +60,36 @@ export const verifyAccountAPIFail = (data) => ({
   payload: data,
 });
 
+export const forgotPasswordStart = (data) => ({
+  type: AUTH.FORGOT_PASSWORD_START,
+  payload: data,
+});
+
+export const forgotPasswordSuccess = (data) => ({
+  type: AUTH.FORGOT_PASSWORD_SUCCESS,
+  payload: data,
+});
+
+export const forgotPasswordFail = (data) => ({
+  type: AUTH.FORGOT_PASSWORD_FAIL,
+  payload: data,
+});
+
+export const resetPasswordStart = (data) => ({
+  type: AUTH.RESET_PASSWORD_START,
+  payload: data,
+});
+
+export const resetPasswordSuccess = (data) => ({
+  type: AUTH.RESET_PASSWORD_SUCCESS,
+  payload: data,
+});
+
+export const resetPasswordFail = (data) => ({
+  type: AUTH.RESET_PASSWORD_FAIL,
+  payload: data,
+});
+
 export const logOutUserStart = () => ({
   type: AUTH.LOGOUT_USER_START,
 });
