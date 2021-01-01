@@ -28,4 +28,25 @@ const verifyAccount = (data) =>
     data,
   });
 
-export const APIS = { loginUser, registerUser, getMe, verifyAccount };
+const forgotPassword = (data) =>
+  axios({
+    method: 'PUT',
+    url: '/auth/forgot-password',
+    data,
+  });
+
+const resetPassword = (data) =>
+  axios({
+    method: 'PUT',
+    url: '/auth/reset-password',
+    data,
+  });
+
+export const APIS = {
+  loginUser,
+  registerUser,
+  getMe,
+  verifyAccount,
+  forgotPassword,
+  resetPassword,
+};

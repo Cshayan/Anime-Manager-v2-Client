@@ -12,6 +12,8 @@ import {
   HomeView,
   AuthView,
   VerifyAccountView,
+  ForgotPasswordView,
+  ResetPasswordView,
   Dashboard,
   AnimeDetailsView,
   AnimeWatchlistStatsView,
@@ -33,6 +35,8 @@ const App = () => {
           <Route exact path="/" component={HomeView} />
           <Route exact path="/auth" component={AuthView} />
           <Route exact path="/verify-account" component={VerifyAccountView} />
+          <Route exact path="/forgot-password" component={ForgotPasswordView} />
+          <Route exact path="/reset-password" component={ResetPasswordView} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/anime/:mal_id" component={AnimeDetailsView} />
           <Route exact path="/statistics" component={AnimeWatchlistStatsView} />

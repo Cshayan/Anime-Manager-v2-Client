@@ -2,6 +2,8 @@ export { default as AnimeWatchlistStatsView } from './AnimeWatchlistStats/AnimeW
 export { default as HomeView } from './HomeView/HomeView';
 export { default as AuthView } from './Auth/AuthView';
 export { default as VerifyAccountView } from './Auth/VerifyAccountView';
+export { default as ForgotPasswordView } from './Auth/ForgotPasswordView';
+export { default as ResetPasswordView } from './Auth/ResetPasswordView';
 export { default as Dashboard } from './Dashboard/Dashboard';
 export { default as AnimeDetailsView } from './AnimeDetailsView/AnimeDetailsView';
 export { default as PageNotFoundView } from './HomeView/404View';

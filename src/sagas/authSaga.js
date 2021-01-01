@@ -11,6 +11,10 @@ import {
   logOutUserSuccess,
   verifyAccountAPISuccess,
   verifyAccountAPIFail,
+  forgotPasswordSuccess,
+  forgotPasswordFail,
+  resetPasswordSuccess,
+  resetPasswordFail,
 } from '../actions/authAction';
 import { snackBarOpen } from '../actions/snackbarAction';
 import { APIS } from '../services/authService';
@@ -63,6 +67,35 @@ function* verifyAccountWorker(action) {
   }
 }
 
+function* forgotPasswordWorker(action) {
+  const { payload } = action;
+  try {
+    const { data } = yield call(APIS.forgotPassword, payload);
+    yield put(
+      forgotPasswordSuccess({
+        message:
+          'Check your mail! We have sent you a link to reset your password.',
+      }),
+    );
+    yield put(snackBarOpen(data?.message, 'success'));
+  } catch (err) {
+    yield put(forgotPasswordFail({ message: err.response.data.error }));
+    yield put(snackBarOpen(err.response.data.error, 'error'));
+  }
+}
+
+function* resetPasswordWorker(action) {
+  const { payload } = action;
+  try {
+    const { data } = yield call(APIS.resetPassword, payload);
+    yield put(resetPasswordSuccess());
+    yield put(snackBarOpen(data?.message, 'success'));
+  } catch (err) {
+    yield put(resetPasswordFail());
+    yield put(snackBarOpen(err.response.data.error, 'error'));
+  }
+}
+
 function* logOutUserWorker() {
   yield put(logOutUserSuccess());
 }
@@ -82,6 +115,14 @@ export function* getMeWatcher() {
 
 export function* verifyAccountWatcher() {
   yield takeLatest(AUTH.VERIFY_ACCOUNT_START, verifyAccountWorker);
+}
+
+export function* forgotPasswordWatcher() {
+  yield takeLatest(AUTH.FORGOT_PASSWORD_START, forgotPasswordWorker);
+}
+
+export function* resetPasswordWatcher() {
+  yield takeLatest(AUTH.RESET_PASSWORD_START, resetPasswordWorker);
 }
 
 export function* logOutUserWatcher() {

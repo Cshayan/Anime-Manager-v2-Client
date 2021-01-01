@@ -43,59 +43,62 @@ const AnimePieChartStats = (props) => {
       {
         name: 'Watching',
         y: watching,
-        // color: '#2ecc71',
-        color: {
-          linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-          stops: [
-            [0, '#2ecc71'],
-            [1, '#55efc4'],
-          ],
-        },
+        color: '#2ecc71',
+        // color: {
+        //   linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+        //   stops: [
+        //     [0, '#2ecc71'],
+        //     [1, '#55efc4'],
+        //   ],
+        // },
       },
       {
         name: 'Unwatched',
         y: unwatched,
-        // color: '#7f8c8d',
-        color: {
-          linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-          stops: [
-            [0, '#7f8c8d'],
-            [1, '#b2bec3'],
-          ],
-        },
+        color: '#7f8c8d',
+        // color: {
+        //   linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+        //   stops: [
+        //     [0, '#7f8c8d'],
+        //     [1, '#b2bec3'],
+        //   ],
+        // },
       },
       {
         name: 'Completed',
         y: completed,
-        color: {
-          linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-          stops: [
-            [0, '#0984e3'],
-            [1, '#a29bfe'],
-          ],
-        },
+        color: '#0984e3',
+        // color: {
+        //   linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+        //   stops: [
+        //     [0, '#0984e3'],
+        //     [1, '#a29bfe'],
+        //   ],
+        // },
       },
       {
         name: 'On hold',
         y: hold,
-        color: {
-          linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-          stops: [
-            [0, '#ffeaa7'],
-            [1, '#f1c40f'],
-          ],
-        },
+        color: '#ffeaa7',
+        // color: {
+        //   linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+        //   stops: [
+        //     [0, '#ffeaa7'],
+        //     [1, '#f1c40f'],
+        //   ],
+        // },
       },
       {
         name: 'Dropped',
         y: dropped,
-        color: {
-          linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-          stops: [
-            [0, '#d63031'],
-            [1, '#ff7675'],
-          ],
-        },
+        color: '#d63031',
+        // color: {
+        //   linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
+        //   stops: [
+        //     [0, '#d63031'],
+        //     [1, '#ff7675'],
+        //   ],
+        // },
       },
     ]);
   };
@@ -106,14 +109,14 @@ const AnimePieChartStats = (props) => {
 
   const classes = useStyles();
   return (
-    <div className={classes.card}>
-      <PieChart
-        data={data}
-        title="View stats of your watchlist"
-        titleStyle={titleStyle}
-        legendStyle={legendStyle}
-      />
-    </div>
+    // <div className={classes.card}>
+    <PieChart
+      data={data}
+      title="View stats of your watchlist"
+      titleStyle={titleStyle}
+      legendStyle={legendStyle}
+    />
+    // </div>
   );
 };
 

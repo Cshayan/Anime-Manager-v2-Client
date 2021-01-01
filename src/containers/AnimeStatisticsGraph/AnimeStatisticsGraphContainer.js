@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   statCont: {
     marginTop: '1rem',
     display: 'grid',
-    gridTemplateColumns: '1fr 2fr',
+    gridTemplateColumns: '1fr 1.2fr',
     gridGap: '10px',
   },
   '@media screen and (max-width: 600px)': {
@@ -78,6 +78,10 @@ const AnimeStatisticsGraphContainer = () => {
             />
           </div>
           <div className={classes.statCont}>
+            <ActivityHistoryTimeLine
+              watchlist={watchlist}
+              isDarkModeEnabled={isDarkModeEnabled}
+            />
             <AnimePieChartStats
               total={animeStats?.total}
               watching={animeStats?.watching}
@@ -85,10 +89,6 @@ const AnimeStatisticsGraphContainer = () => {
               dropped={animeStats?.dropped}
               hold={animeStats?.hold}
               unwatched={animeStats?.unwatched}
-            />
-            <ActivityHistoryTimeLine
-              watchlist={watchlist}
-              isDarkModeEnabled={isDarkModeEnabled}
             />
           </div>
         </>

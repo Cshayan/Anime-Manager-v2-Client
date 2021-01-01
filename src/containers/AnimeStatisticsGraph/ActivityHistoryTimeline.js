@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: '430px',
     borderRadius: '5px',
     border: `1px solid ${theme.palette.primary.main}`,
-    overflow: 'hidden',
+    padding: '0 0 2.2rem 0',
   },
   timeLineTheme: {
     primary: 'red',
@@ -40,7 +40,7 @@ const ActivityHistoryTimeline = (props) => {
         <Chrono
           items={items}
           hideControls
-          mode="VERTICAL"
+          mode="VERTICAL_ALTERNATING"
           theme={activityTheme}
         />
       )}
