@@ -4,6 +4,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import SnackBar from 'components/utilityComponents/UniversalSnackbar';
 import ThemeDialog from 'components/utilityComponents/ThemeDialog';
 import LogoutDialog from 'components/utilityComponents/LogoutDialog';
+import BackDrop from 'components/utilityComponents/BackDrop';
 import { useDarkMode } from './custom-hooks/darkModeHook';
 import theme, { darkTheme } from './utils/theme';
 import 'react-image-lightbox/style.css';
@@ -24,6 +25,7 @@ const App = () => {
   return (
     <MuiThemeProvider theme={isDarkModeEnabled ? darkTheme : theme}>
       <SnackBar />
+      <BackDrop />
       <ThemeDialog />
       <LogoutDialog />
       <Router>
