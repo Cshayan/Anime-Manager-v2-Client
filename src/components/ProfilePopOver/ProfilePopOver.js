@@ -1,12 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Popover from "@material-ui/core/Popover";
-import ProfilePopOverContent from "./ProfilePopOverContent";
-import { useGetMe, useLogOut } from "../../custom-hooks/authHook";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Popover from '@material-ui/core/Popover';
+import ProfilePopOverContent from './ProfilePopOverContent';
+import { useLogOut } from '../../custom-hooks/authHook';
 
 const ProfilePopOver = (props) => {
-  const { anchorEl, handleClose, open, id } = props;
-  const { userDetails } = useGetMe();
+  const { anchorEl, handleClose, open, id, userDetails } = props;
   const { handleLogoutButtonClick } = useLogOut();
 
   return (
@@ -16,12 +15,12 @@ const ProfilePopOver = (props) => {
       anchorEl={anchorEl}
       onClose={handleClose}
       anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "center",
+        vertical: 'bottom',
+        horizontal: 'center',
       }}
       transformOrigin={{
-        vertical: "top",
-        horizontal: "center",
+        vertical: 'top',
+        horizontal: 'center',
       }}
     >
       <ProfilePopOverContent
@@ -39,6 +38,7 @@ ProfilePopOver.defaultProps = {
 };
 
 ProfilePopOver.propTypes = {
+  userDetails: PropTypes.object.isRequired,
   id: PropTypes.string,
   open: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,

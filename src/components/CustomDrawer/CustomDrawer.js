@@ -101,7 +101,10 @@ const CustomDrawer = (props) => {
                 onClick={
                   item.id === 4
                     ? handleDarkModeClick
-                    : () => onIconClick(item.id)
+                    : () => {
+                        onIconClick(item.id);
+                        onClose();
+                      }
                 }
               >
                 <img

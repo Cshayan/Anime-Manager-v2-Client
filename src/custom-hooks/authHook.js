@@ -13,6 +13,7 @@ import {
   verifyAccountAPIStart,
   forgotPasswordStart,
   resetPasswordStart,
+  uploadProfilePicStart,
 } from '../actions/authAction';
 import { resetAll } from '../actions/resetAction';
 import { openLogoutDialog, closeLogoutDialog } from '../actions/dialogAction';
@@ -219,6 +220,37 @@ export const useUserProfile = () => {
   return {
     isUserLoading,
     userDetails,
+  };
+};
+
+export const usePhotoUpload = () => {
+  const [photoInputValue, setPhotoInputValue] = useState('');
+  const [selectedFile, setSelectedFile] = useState();
+  const dispatch = useDispatch();
+
+  const handlePhotoInputChange = (e) => {
+    const file = e.target.files[0];
+    setPhotoInputValue(e.target.value);
+    setSelectedFile(file);
+  };
+
+  useEffect(() => {
+    if (!selectedFile) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      uploadImage(reader.result);
+    };
+  }, [selectedFile]);
+
+  const uploadImage = (base64EncodedImage) => {
+    dispatch(uploadProfilePicStart({ data: base64EncodedImage }));
+  };
+
+  return {
+    photoInputValue,
+    handlePhotoInputChange,
   };
 };
 

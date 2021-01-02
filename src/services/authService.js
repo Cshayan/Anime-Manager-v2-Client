@@ -42,6 +42,13 @@ const resetPassword = (data) =>
     data,
   });
 
+const updateProfilePic = (data) =>
+  axios({
+    method: 'PUT',
+    url: '/auth/update-profile-pic',
+    data,
+  });
+
 export const APIS = {
   loginUser,
   registerUser,
@@ -49,4 +56,5 @@ export const APIS = {
   verifyAccount,
   forgotPassword,
   resetPassword,
+  updateProfilePic,
 };

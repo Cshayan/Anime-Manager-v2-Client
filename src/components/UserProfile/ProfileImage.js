@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, Typography, IconButton } from '@material-ui/core';
-import UserIcon from 'assets/userPng.png';
+import { makeStyles, Typography } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import { usePhotoUpload } from 'custom-hooks/authHook';
 
 const useStyles = makeStyles((theme) => ({
   userIconSVG: {
@@ -39,51 +40,73 @@ const useStyles = makeStyles((theme) => ({
     top: '90%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    padding: '0.3rem',
+    padding: '0.3rem 0.5rem',
     borderRadius: '50%',
     background: '#e67e22',
+    border: 'none',
+    outline: 'none',
+    cursor: 'pointer',
     '&:hover': {
       opacity: '0.8',
       background: '#e67e22',
     },
   },
+  fileInput: {
+    display: 'none',
+  },
   editIcon: {
     color: '#fff',
   },
-  '@media screen and (max-width: 600px)': {},
+  '@media screen and (max-width: 600px)': {
+    profileContainer: {
+      flexDirection: 'column',
+    },
+    infoCont: {
+      textAlign: 'center',
+      marginTop: '0.8rem',
+    },
+  },
 }));
 
 const ProfileImage = (props) => {
-  const { userDetails } = props;
+  const { name, email, profilePicUrl } = props;
   const classes = useStyles();
+  const { photoInputValue, handlePhotoInputChange } = usePhotoUpload();
   return (
     <div className={classes.profileContainer}>
       <div className={classes.image}>
-        {true ? (
-          <img
-            src={UserIcon}
-            alt="user-profile"
-            className={classes.userIconSVG}
+        <img
+          src={profilePicUrl}
+          alt="user-profile"
+          className={classes.userIconSVG}
+        />
+        <label className={classes.uploadBtn}>
+          <input
+            type="file"
+            className={classes.fileInput}
+            value={photoInputValue}
+            onChange={handlePhotoInputChange}
           />
-        ) : null}
-        <IconButton className={classes.uploadBtn}>
           <EditOutlinedIcon className={classes.editIcon} />
-        </IconButton>
+        </label>
       </div>
       <div className={classes.infoCont}>
-        <Typography className={classes.nameText}>
-          {userDetails?.name}
-        </Typography>
-        <Typography className={classes.emailText}>
-          {userDetails?.email}
-        </Typography>
+        <Typography className={classes.nameText}>{name}</Typography>
+        <Typography className={classes.emailText}>{email}</Typography>
       </div>
     </div>
   );
 };
 
 ProfileImage.propTypes = {
-  userDetails: PropTypes.object.isRequired,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  profilePicUrl: PropTypes.string.isRequired,
+};
+
+ProfileImage.defaultProps = {
+  name: 'John Doe',
+  email: 'john@gmail.com',
 };
 
 export default ProfileImage;

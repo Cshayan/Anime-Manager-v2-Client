@@ -90,6 +90,21 @@ export const resetPasswordFail = (data) => ({
   payload: data,
 });
 
+export const uploadProfilePicStart = (data) => ({
+  type: AUTH.UPLOAD_PROFILE_PIC_START,
+  payload: data,
+});
+
+export const uploadProfilePicSuccess = (data) => ({
+  type: AUTH.UPLOAD_PROFILE_PIC_SUCCESS,
+  payload: data,
+});
+
+export const uploadProfilePicFail = (data) => ({
+  type: AUTH.UPLOAD_PROFILE_PIC_FAIL,
+  payload: data,
+});
+
 export const logOutUserStart = () => ({
   type: AUTH.LOGOUT_USER_START,
 });
