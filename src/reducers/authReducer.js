@@ -15,6 +15,7 @@ const initialState = {
   forgotPasswordMessage: '',
   isResetPasswordAPIOn: false,
   isResetPasswordSuccess: false,
+  isProfilePicUploading: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -122,6 +123,22 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isResetPasswordAPIOn: false,
         isResetPasswordSuccess: false,
+      };
+    case AUTH.UPLOAD_PROFILE_PIC_START:
+      return {
+        ...state,
+        isProfilePicUploading: true,
+      };
+    case AUTH.UPLOAD_PROFILE_PIC_SUCCESS:
+      return {
+        ...state,
+        isProfilePicUploading: false,
+        user: { ...state.user, profilePicUrl: payload.profilePicUrl },
+      };
+    case AUTH.UPLOAD_PROFILE_PIC_FAIL:
+      return {
+        ...state,
+        isProfilePicUploading: false,
       };
     case AUTH.LOGOUT_USER_SUCCESS:
     case AUTH.RESET_ALL:

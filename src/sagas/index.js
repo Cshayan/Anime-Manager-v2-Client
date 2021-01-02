@@ -6,6 +6,7 @@ import {
   verifyAccountWatcher,
   forgotPasswordWatcher,
   resetPasswordWatcher,
+  uploadProfilePicWatcher,
 } from './authSaga';
 import {
   searchAnimeWatcher,
@@ -27,6 +28,7 @@ export default function* rootSaga() {
     verifyAccountWatcher(),
     forgotPasswordWatcher(),
     resetPasswordWatcher(),
+    uploadProfilePicWatcher(),
     searchAnimeWatcher(),
     addAnimeWatchlistWatcher(),
     getAnimeWatchlistWatcher(),

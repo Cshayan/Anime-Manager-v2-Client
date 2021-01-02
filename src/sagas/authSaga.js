@@ -15,8 +15,14 @@ import {
   forgotPasswordFail,
   resetPasswordSuccess,
   resetPasswordFail,
+  uploadProfilePicSuccess,
+  uploadProfilePicFail,
 } from '../actions/authAction';
-import { snackBarOpen } from '../actions/snackbarAction';
+import {
+  snackBarOpen,
+  backDropOpen,
+  backDropClose,
+} from '../actions/snackbarAction';
 import { APIS } from '../services/authService';
 
 /* Worker Saga */
@@ -100,6 +106,21 @@ function* logOutUserWorker() {
   yield put(logOutUserSuccess());
 }
 
+function* uploadProfilePicWorker(action) {
+  const { payload } = action;
+  try {
+    yield put(backDropOpen());
+    const { data } = yield call(APIS.updateProfilePic, payload);
+    yield put(uploadProfilePicSuccess({ profilePicUrl: data?.profilePicUrl }));
+    yield put(snackBarOpen(data?.message, 'success'));
+  } catch (err) {
+    yield put(uploadProfilePicFail());
+    yield put(snackBarOpen(err.response.data.error, 'error'));
+  } finally {
+    yield put(backDropClose());
+  }
+}
+
 /* Watcher Saga */
 export function* loginUserWatcher() {
   yield takeLatest(AUTH.LOGIN_API_START, loginUserWorker);
@@ -127,4 +148,8 @@ export function* resetPasswordWatcher() {
 
 export function* logOutUserWatcher() {
   yield takeLatest(AUTH.LOGOUT_USER_START, logOutUserWorker);
+}
+
+export function* uploadProfilePicWatcher() {
+  yield takeLatest(AUTH.UPLOAD_PROFILE_PIC_START, uploadProfilePicWorker);
 }

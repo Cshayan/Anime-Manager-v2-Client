@@ -20,8 +20,14 @@ const UserProfileContainer = () => {
 
   return (
     <>
-      <Header isBackButtonRequired />
-      {!isUserLoading && <ProfileImage userDetails={userDetails} />}
+      <Header isBackButtonRequired isAvatarPopUpRequired />
+      {!isUserLoading && (
+        <ProfileImage
+          name={userDetails?.name}
+          email={userDetails?.email}
+          profilePicUrl={userDetails?.profilePicUrl}
+        />
+      )}
     </>
   );
 };

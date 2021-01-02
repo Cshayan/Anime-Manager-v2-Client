@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { makeStyles, Avatar, IconButton } from '@material-ui/core';
 import cls from 'classnames';
 import { useResizeScreen } from 'custom-hooks/useResizeHook';
+import { useGetMe } from 'custom-hooks/authHook';
 import { drawerOpen } from '../../actions/drawerAction';
-import UserIcon from '../../assets/user.svg';
 import Hamburger from '../../assets/hamburger.svg';
 import ProfilePopOver from '../ProfilePopOver/ProfilePopOver';
 import NotificationPopOver from '../NotificationPopOver/NotificationPopOver';
@@ -46,6 +46,7 @@ const AvatarPopup = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { isMobile } = useResizeScreen();
+  const { userDetails } = useGetMe();
 
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
@@ -91,7 +92,7 @@ const AvatarPopup = () => {
         >
           <Avatar
             alt="avatar"
-            src={UserIcon}
+            src={userDetails?.profilePicUrl}
             className={cls(classes.avatarIcon)}
           />
         </IconButton>
@@ -110,6 +111,7 @@ const AvatarPopup = () => {
         id={profileId}
         anchorEl={profileAnchorEl}
         handleClose={handleProfilePopOverClose}
+        userDetails={userDetails}
       />
       <NotificationPopOver
         open={notificationOpen}
