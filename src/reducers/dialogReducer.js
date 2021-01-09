@@ -7,6 +7,8 @@ import {
   ANIME_DELETE_DIALOG_CLOSE,
   ANIME_DETAIL_DIALOG_OPEN,
   ANIME_DETAIL_DIALOG_CLOSE,
+  SHARE_WATCHLIST_DIALOG_OPEN,
+  SHARE_WATCHLIST_DIALOG_CLOSE,
 } from '../constants/dialogConstant';
 import { AUTH } from '../constants/authConstant';
 
@@ -15,6 +17,7 @@ const initialState = {
   isLogoutDialogOpen: false,
   isAnimeDeleteDialogOpen: false,
   isAnimeDetailDialogOpen: false,
+  isShareWatchlistDialogOpen: false,
 };
 
 export const dialogReducer = (state = initialState, action) => {
@@ -59,6 +62,16 @@ export const dialogReducer = (state = initialState, action) => {
       return {
         ...state,
         isAnimeDetailDialogOpen: false,
+      };
+    case SHARE_WATCHLIST_DIALOG_OPEN:
+      return {
+        ...state,
+        isShareWatchlistDialogOpen: true,
+      };
+    case SHARE_WATCHLIST_DIALOG_CLOSE:
+      return {
+        ...state,
+        isShareWatchlistDialogOpen: false,
       };
     case AUTH.RESET_ALL:
       return initialState;

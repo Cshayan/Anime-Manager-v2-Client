@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import SnackBar from 'components/utilityComponents/UniversalSnackbar';
 import ThemeDialog from 'components/utilityComponents/ThemeDialog';
@@ -19,33 +20,51 @@ import {
   AnimeWatchlistStatsView,
   PageNotFoundView,
   UserProfileView,
+  ViewMyWatchlist,
 } from './views';
 import './App.css';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const { isDarkModeEnabled } = useDarkMode();
 
   return (
-    <MuiThemeProvider theme={isDarkModeEnabled ? darkTheme : theme}>
-      <SnackBar />
-      <BackDrop />
-      <ThemeDialog />
-      <LogoutDialog />
-      <Router>
-        <Switch>
-          <Route exact path="/" component={HomeView} />
-          <Route exact path="/auth" component={AuthView} />
-          <Route exact path="/verify-account" component={VerifyAccountView} />
-          <Route exact path="/forgot-password" component={ForgotPasswordView} />
-          <Route exact path="/reset-password" component={ResetPasswordView} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/anime/:mal_id" component={AnimeDetailsView} />
-          <Route exact path="/statistics" component={AnimeWatchlistStatsView} />
-          <Route exact path="/profile" component={UserProfileView} />
-          <Route component={PageNotFoundView} />
-        </Switch>
-      </Router>
-    </MuiThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <MuiThemeProvider theme={isDarkModeEnabled ? darkTheme : theme}>
+        <SnackBar />
+        <BackDrop />
+        <ThemeDialog />
+        <LogoutDialog />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={HomeView} />
+            <Route exact path="/auth" component={AuthView} />
+            <Route exact path="/verify-account" component={VerifyAccountView} />
+            <Route
+              exact
+              path="/forgot-password"
+              component={ForgotPasswordView}
+            />
+            <Route exact path="/reset-password" component={ResetPasswordView} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/anime/:mal_id" component={AnimeDetailsView} />
+            <Route
+              exact
+              path="/statistics"
+              component={AnimeWatchlistStatsView}
+            />
+            <Route exact path="/profile" component={UserProfileView} />
+            <Route
+              exact
+              path="/view-my-watchlist"
+              component={ViewMyWatchlist}
+            />
+            <Route component={PageNotFoundView} />
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
+    </QueryClientProvider>
   );
 };
 

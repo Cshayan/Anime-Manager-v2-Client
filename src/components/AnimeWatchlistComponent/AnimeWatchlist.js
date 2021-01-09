@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core/';
 import AnimeWatchVideoDialog from 'components/AnimeDetailDialog/AnimeWatchVideoDialog';
+import ShareWatchlistDialog from 'components/ShareWatchlist/ShareWatchlistDialog';
 import {
   useAnime,
   useAnimeDetailDialog,
   useAnimeAddVideoUrl,
+  useShareWatchlist,
 } from 'custom-hooks/animeHook';
 import { useResizeScreen } from 'custom-hooks/useResizeHook';
 import AnimewatchlistCard from '../AnimeCard/AnimeWatchlistCard';
@@ -29,6 +31,13 @@ const AnimeWatchlist = (props) => {
     handleWatchNowClick,
     isVideoURLAdding,
   } = useAnimeAddVideoUrl();
+  const {
+    shareWatchlistLink,
+    isShareWatchlistDialogOpen,
+    handleShareWatchlistDialogClose,
+    handleCopyLinkClick,
+    linkRef,
+  } = useShareWatchlist();
   const { isMobile } = useResizeScreen();
 
   return (
@@ -60,6 +69,14 @@ const AnimeWatchlist = (props) => {
         onWatchNowClick={handleWatchNowClick}
         isVideoURLAdding={isVideoURLAdding}
         isMobile={isMobile}
+      />
+      <ShareWatchlistDialog
+        shareWatchlistLink={shareWatchlistLink}
+        open={isShareWatchlistDialogOpen}
+        onClose={handleShareWatchlistDialogClose}
+        isMobile={isMobile}
+        onCopyLinkClick={handleCopyLinkClick}
+        linkRef={linkRef}
       />
     </>
   );

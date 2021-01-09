@@ -1,11 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
+import copy from 'copy-to-clipboard';
 import {
   openAnimeDeleteDialog,
   closeAnimeDeleteDialog,
   openAnimeDetailDialog,
   closeAnimeDetailDialog,
+  shareWatchlistDialogOpen,
+  shareWatchlistDialogClose,
 } from 'actions/dialogAction';
 import UnwatchedIcon from 'assets/unwatched.svg';
 import CompletedIcon from 'assets/completed.svg';
@@ -24,6 +27,7 @@ import {
   getAnimeReviewStart,
   setAnimeVideoURLStart,
 } from 'actions/animeAction';
+import { snackBarOpen } from 'actions/snackbarAction';
 import {
   selectWatchlist,
   selectAnimeId,
@@ -39,6 +43,7 @@ import {
   selectIsAnimeReviewsLoading,
   selectAnimeReviews,
   selectIsAnimeVideoURLAdding,
+  selectShareWatchlistLink,
 } from 'selectors/animeSelectors';
 
 export const useAnime = () => {
@@ -294,5 +299,38 @@ export const useAnimeAddVideoUrl = () => {
     setVideoURL,
     handleWatchNowClick,
     isVideoURLAdding,
+  };
+};
+
+export const useShareWatchlist = () => {
+  const shareWatchlistLink = useSelector(selectShareWatchlistLink);
+  const dispatch = useDispatch();
+  const selectIsDialogOpen = ({
+    dialog: { isShareWatchlistDialogOpen = false } = {},
+  }) => isShareWatchlistDialogOpen;
+  const isShareWatchlistDialogOpen = useSelector(selectIsDialogOpen);
+  const linkRef = useRef(null);
+
+  const handleShareWatchlistIconClick = () => {
+    dispatch(shareWatchlistDialogOpen());
+  };
+
+  const handleShareWatchlistDialogClose = () => {
+    dispatch(shareWatchlistDialogClose());
+  };
+
+  const handleCopyLinkClick = (text) => {
+    linkRef.current.select();
+    copy(text);
+    dispatch(snackBarOpen('Copied to clipboard!', 'success'));
+  };
+
+  return {
+    shareWatchlistLink,
+    isShareWatchlistDialogOpen,
+    handleShareWatchlistIconClick,
+    handleShareWatchlistDialogClose,
+    handleCopyLinkClick,
+    linkRef,
   };
 };

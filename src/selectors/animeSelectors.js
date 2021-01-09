@@ -11,6 +11,9 @@ const selectIsAnimeDeletingFromWatchlist = ({
 const selectIsAnimeVideoURLAdding = ({
   anime: { isAnimeVideoURLAdding = false },
 }) => isAnimeVideoURLAdding;
+const selectShareWatchlistLink = ({
+  anime: { shareWatchlistLink = '' } = {},
+}) => shareWatchlistLink;
 
 /*  Selectors related to anime detail dialog in dashboard page */
 const selectIsAnimeDetailDialogOpen = ({
@@ -64,4 +67,5 @@ export {
   selectAnimeReviews,
   selectIsDarkModeEnabled,
   selectIsAnimeVideoURLAdding,
+  selectShareWatchlistLink,
 };

@@ -49,6 +49,13 @@ const updateProfilePic = (data) =>
     data,
   });
 
+const getSpecificUser = (data) =>
+  axios({
+    method: 'POST',
+    url: '/auth/getUser',
+    data,
+  });
+
 export const APIS = {
   loginUser,
   registerUser,
@@ -57,4 +64,5 @@ export const APIS = {
   forgotPassword,
   resetPassword,
   updateProfilePic,
+  getSpecificUser,
 };

@@ -42,8 +42,7 @@ export default createMuiTheme({
       tooltip: {
         fontSize: '14px',
         color: '#fff',
-        backgroundColor: '#34495e',
-        border: '1px solid #fff',
+        backgroundColor: '#111',
       },
     },
     MuiDialog: {
@@ -96,8 +95,7 @@ export const darkTheme = createMuiTheme({
       tooltip: {
         fontSize: '14px',
         color: '#fff',
-        backgroundColor: '#34495e',
-        border: '1px solid #fff',
+        backgroundColor: '#111',
       },
     },
     MuiDialog: {
