@@ -58,3 +58,10 @@ export const updateAnimeDetails = (animeId, data) =>
     url: `/features/updateWatchlist/${animeId}`,
     data,
   });
+
+export const getUserWatchlistAPI = (data) =>
+  axios({
+    method: 'POST',
+    url: '/features/getUserWatchlist',
+    data,
+  });

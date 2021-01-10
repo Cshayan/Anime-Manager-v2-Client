@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import PropTypes from 'prop-types';
+import cls from 'classnames';
 import { makeStyles, Typography } from '@material-ui/core';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import { usePhotoUpload } from 'custom-hooks/authHook';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,13 +35,14 @@ const useStyles = makeStyles((theme) => ({
   image: {
     position: 'relative',
     overflow: 'hidden',
+    height: '200px',
   },
   uploadBtn: {
     position: 'absolute',
-    top: '90%',
+    top: '70%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    padding: '0.3rem 0.5rem',
+    padding: '0.5rem 0.7rem 0.3rem 0.7rem',
     borderRadius: '50%',
     background: '#e67e22',
     border: 'none',
@@ -69,26 +71,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProfileImage = (props) => {
-  const { name, email, profilePicUrl } = props;
+  const { name, email, profilePicUrl, isUploadRequired } = props;
   const classes = useStyles();
   const { photoInputValue, handlePhotoInputChange } = usePhotoUpload();
   return (
-    <div className={classes.profileContainer}>
+    <div
+      className={cls(classes.profileContainer)}
+      style={{ flexDirection: 'column' }}
+    >
       <div className={classes.image}>
         <img
           src={profilePicUrl}
           alt="user-profile"
           className={classes.userIconSVG}
         />
-        <label className={classes.uploadBtn}>
-          <input
-            type="file"
-            className={classes.fileInput}
-            value={photoInputValue}
-            onChange={handlePhotoInputChange}
-          />
-          <EditOutlinedIcon className={classes.editIcon} />
-        </label>
+        {isUploadRequired && (
+          <label className={classes.uploadBtn}>
+            <input
+              type="file"
+              className={classes.fileInput}
+              value={photoInputValue}
+              onChange={handlePhotoInputChange}
+            />
+            <CameraAltIcon className={classes.editIcon} />
+          </label>
+        )}
       </div>
       <div className={classes.infoCont}>
         <Typography className={classes.nameText}>{name}</Typography>
@@ -102,11 +109,13 @@ ProfileImage.propTypes = {
   name: PropTypes.string,
   email: PropTypes.string,
   profilePicUrl: PropTypes.string.isRequired,
+  isUploadRequired: PropTypes.bool,
 };
 
 ProfileImage.defaultProps = {
   name: 'John Doe',
   email: 'john@gmail.com',
+  isUploadRequired: true,
 };
 
 export default ProfileImage;

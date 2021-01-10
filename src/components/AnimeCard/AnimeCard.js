@@ -244,6 +244,7 @@ const AnimeCard = (props) => {
     members,
     onAddClick,
     isAnimeAddingToWatchlist,
+    isAddButtonRequired,
   } = props;
 
   const history = useHistory();
@@ -313,37 +314,39 @@ const AnimeCard = (props) => {
             </Tooltip>
           </div>
         </div>
-        <button
-          className={classes.addToWatchlist}
-          onClick={() =>
-            onAddClick({
-              mal_id: id,
-              title,
-              url,
-              imageUrl,
-              type,
-              episodes,
-              score,
-              startDate,
-              endDate,
-              ongoing,
-              rated,
-              members,
-            })
-          }
-          disabled={isAnimeAddingToWatchlist}
-        >
-          {isAnimeAddingToWatchlist ? (
-            <i
-              className="fa fa-spinner fa-spin"
-              style={{ color: '#fff', fontSize: '20px' }}
-            ></i>
-          ) : (
-            <>
-              <AddCircleIcon /> Add to Watchlist
-            </>
-          )}
-        </button>
+        {isAddButtonRequired && (
+          <button
+            className={classes.addToWatchlist}
+            onClick={() =>
+              onAddClick({
+                mal_id: id,
+                title,
+                url,
+                imageUrl,
+                type,
+                episodes,
+                score,
+                startDate,
+                endDate,
+                ongoing,
+                rated,
+                members,
+              })
+            }
+            disabled={isAnimeAddingToWatchlist}
+          >
+            {isAnimeAddingToWatchlist ? (
+              <i
+                className="fa fa-spinner fa-spin"
+                style={{ color: '#fff', fontSize: '20px' }}
+              ></i>
+            ) : (
+              <>
+                <AddCircleIcon /> Add to Watchlist
+              </>
+            )}
+          </button>
+        )}
       </div>
     </div>
   );
@@ -364,6 +367,7 @@ AnimeCard.propTypes = {
   members: PropTypes.number,
   onAddClick: PropTypes.func,
   isAnimeAddingToWatchlist: PropTypes.bool,
+  isAddButtonRequired: PropTypes.bool,
 };
 
 AnimeCard.defaultProps = {
@@ -380,6 +384,7 @@ AnimeCard.defaultProps = {
   members: 0,
   onAddClick: () => {},
   isAnimeAddingToWatchlist: false,
+  isAddButtonRequired: true,
 };
 
 export default AnimeCard;

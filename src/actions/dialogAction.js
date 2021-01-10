@@ -7,6 +7,8 @@ import {
   ANIME_DELETE_DIALOG_CLOSE,
   ANIME_DETAIL_DIALOG_OPEN,
   ANIME_DETAIL_DIALOG_CLOSE,
+  SHARE_WATCHLIST_DIALOG_OPEN,
+  SHARE_WATCHLIST_DIALOG_CLOSE,
 } from '../constants/dialogConstant';
 
 export const openThemeDialog = () => ({
@@ -39,4 +41,12 @@ export const openAnimeDetailDialog = () => ({
 
 export const closeAnimeDetailDialog = () => ({
   type: ANIME_DETAIL_DIALOG_CLOSE,
+});
+
+export const shareWatchlistDialogOpen = () => ({
+  type: SHARE_WATCHLIST_DIALOG_OPEN,
+});
+
+export const shareWatchlistDialogClose = () => ({
+  type: SHARE_WATCHLIST_DIALOG_CLOSE,
 });

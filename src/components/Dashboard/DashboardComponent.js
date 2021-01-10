@@ -2,10 +2,10 @@ import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import AnimeDetailDialogContainer from 'containers/AnimeDetailDialogContainer/AnimeDetailDialogContainer';
 import { useResizeScreen } from 'custom-hooks/useResizeHook';
-import Header from '../Header/Header';
+import DrawerContainer from 'containers/CustomDrawerContainer/DrawerContainer';
+import AnimeDeleteDialog from 'components/utilityComponents/DeleteAnimeDialog';
 import DashboardContent from './DashboardContent';
-import DrawerContainer from '../../containers/CustomDrawerContainer/DrawerContainer';
-import AnimeDeleteDialog from '../utilityComponents/DeleteAnimeDialog';
+import Header from '../Header/Header';
 
 const useStyles = makeStyles(() => ({
   rightGridStyle: {

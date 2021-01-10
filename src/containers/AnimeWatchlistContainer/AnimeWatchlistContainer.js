@@ -8,6 +8,7 @@ import {
   useAnime,
   useAnimeFilter,
   useAnimeWatchlistGridListView,
+  useShareWatchlist,
 } from 'custom-hooks/animeHook';
 import AnimeWatchlistGrid from 'components/AnimeWatchlistComponent/AnimeWatchlist';
 import AnimeWatchListView from 'components/AnimeWatchlistComponent/AnimeWatchListView';
@@ -45,6 +46,7 @@ const AnimeWatchlistContainer = () => {
   const { animeWatchlist } = useAnime();
   const { filteredWatchlist, selectedFilter } = useAnimeFilter();
   const { defaultView, onGridClick } = useAnimeWatchlistGridListView();
+  const { handleShareWatchlistIconClick } = useShareWatchlist();
   const classes = useStyles();
 
   if (isSearchBarFoccused && isAnimeLoading) {
@@ -171,6 +173,7 @@ const AnimeWatchlistContainer = () => {
           <AnimeWatchlistHeader
             defaultView={defaultView}
             onGridClick={onGridClick}
+            onShareIconClick={handleShareWatchlistIconClick}
           />
           {defaultView === 'grid' ? (
             <AnimeWatchlistGrid

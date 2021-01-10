@@ -38,14 +38,18 @@ const useStyles = makeStyles((theme) => ({
 
 const AnimeWatchlistHeader = (props) => {
   const classes = useStyles();
-  const { defaultView, onGridClick } = props;
+  const { defaultView, onGridClick, onShareIconClick } = props;
   return (
     <div className={classes.titleCont}>
       <div className={classes.iconTextCont}>
         <WatchlistIcon className={classes.icon} />
         <Typography className={classes.animeText}>Your watchlist </Typography>
       </div>
-      <GridListIcon defaultView={defaultView} onGridClick={onGridClick} />
+      <GridListIcon
+        defaultView={defaultView}
+        onGridClick={onGridClick}
+        onShareIconClick={onShareIconClick}
+      />
     </div>
   );
 };
@@ -53,6 +57,7 @@ const AnimeWatchlistHeader = (props) => {
 AnimeWatchlistHeader.propTypes = {
   defaultView: PropTypes.string.isRequired,
   onGridClick: PropTypes.func.isRequired,
+  onShareIconClick: PropTypes.func.isRequired,
 };
 
 export default AnimeWatchlistHeader;
