@@ -7,6 +7,7 @@ import Lottie from 'react-lottie';
 import noUserErrorAnimation from 'assets/animation/no-user-error.json';
 import { useGetSpecificUser } from './hooks';
 import Header from './header';
+import LoaderScreen from './loader-screen';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -74,7 +75,31 @@ const ViewMyWatchlist = (props) => {
     isError,
     watchlist,
     scrollElement,
+    isWatchlistLoading,
   } = useGetSpecificUser(props);
+
+  // for loading screen
+  if (isUserDataLoading || isWatchlistLoading) {
+    return (
+      <div style={{ height: '100vh' }}>
+        <Header isAuthenticated={isAuthenticated} />
+        <LoaderScreen />
+      </div>
+    );
+  }
+
+  // for error screen
+  if (isError) {
+    return (
+      <div style={{ height: '100vh' }}>
+        <Header isAuthenticated={isAuthenticated} />
+        <Lottie options={defaultOptions} width="50%" height="50%" />
+        <Typography className={classes.errorText}>
+          Something went wrong! Please try again by reloading the page.
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -88,44 +113,35 @@ const ViewMyWatchlist = (props) => {
         <Avatar alt="avatar" src={user?.profilePicUrl} />
         <Typography className={classes.nameText}>{user?.name}</Typography>
       </div>
-      {isError ? (
-        <>
-          <Lottie options={defaultOptions} width="50%" height="50%" />
-          <Typography className={classes.errorText}>
-            Something went wrong! Please try again by reloading the page.
-          </Typography>
-        </>
-      ) : (
-        <div className={classes.topContainer}>
-          {!isUserDataLoading && (
-            <ProfileImage
-              isUploadRequired={false}
-              profilePicUrl={user?.profilePicUrl}
-              name={user?.name}
-              email={user?.email}
+      <div className={classes.topContainer}>
+        {!isUserDataLoading && (
+          <ProfileImage
+            isUploadRequired={false}
+            profilePicUrl={user?.profilePicUrl}
+            name={user?.name}
+            email={user?.email}
+          />
+        )}
+        <div className={classes.watchlistContainer}>
+          {watchlist?.map((list) => (
+            <AnimeCard
+              key={list?._id}
+              id={list?.malId}
+              title={list?.animeData?.title}
+              url={list?.animeData?.url}
+              imageUrl={list?.animeData?.imageUrl}
+              type={list?.animeData?.type}
+              episodes={list?.animeData?.episodes}
+              score={list?.animeData?.score}
+              startDate={list?.animeData?.startDate}
+              endDate={list?.animeData?.endDate}
+              ongoing={list?.animeData?.ongoing}
+              rated={list?.animeData?.rated}
+              isAddButtonRequired={false}
             />
-          )}
-          <div className={classes.watchlistContainer}>
-            {watchlist?.map((list) => (
-              <AnimeCard
-                key={list?._id}
-                id={list?.malId}
-                title={list?.animeData?.title}
-                url={list?.animeData?.url}
-                imageUrl={list?.animeData?.imageUrl}
-                type={list?.animeData?.type}
-                episodes={list?.animeData?.episodes}
-                score={list?.animeData?.score}
-                startDate={list?.animeData?.startDate}
-                endDate={list?.animeData?.endDate}
-                ongoing={list?.animeData?.ongoing}
-                rated={list?.animeData?.rated}
-                isAddButtonRequired={false}
-              />
-            ))}
-          </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -32,6 +32,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-select": "^3.1.1",
+    "react-skeleton-loader": "^1.0.4",
     "react-star-ratings": "^2.3.0",
     "react-transition-group": "4.3.0",
     "redux": "^4.0.5",

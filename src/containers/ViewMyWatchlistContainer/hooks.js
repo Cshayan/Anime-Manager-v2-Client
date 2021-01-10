@@ -43,15 +43,14 @@ export const useGetSpecificUser = (props) => {
     refetchOnMount: false,
   });
 
-  const { data: { data: { count, data = [] } = {} } = {} } = useQuery(
-    ['get-specific-user-watchlist', id],
-    getUserWatchlist,
-    {
-      enabled: !isError && !isUserDataLoading,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-    },
-  );
+  const {
+    data: { data: { count, data = [] } = {} } = {},
+    isLoading: isWatchlistLoading,
+  } = useQuery(['get-specific-user-watchlist', id], getUserWatchlist, {
+    enabled: !isError && !isUserDataLoading,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
 
   return {
     scrollElement,
@@ -60,5 +59,6 @@ export const useGetSpecificUser = (props) => {
     isUserDataLoading,
     watchlistCount: count,
     watchlist: data,
+    isWatchlistLoading,
   };
 };
