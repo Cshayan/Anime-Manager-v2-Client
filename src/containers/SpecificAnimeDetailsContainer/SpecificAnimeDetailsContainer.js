@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from 'components/utilityComponents/SpinnerLoader';
 import AnimeDetailsComponent from 'components/AnimeDetailsComponent/AnimeDetailsComponent';
 import { useAnimeDetails, useAnimeReviews } from 'custom-hooks/animeHook';
 
 const SpecificAnimeDetailsContainer = (props) => {
-  const {
-    animeDetails,
-    isAnimeDetailsLoading,
-    isAnimeAlreadyPresent,
-  } = useAnimeDetails(props.match?.params?.mal_id);
-  const {
-    isAnimeReviewsLoading,
-    animeReviews,
-    handleReviewReadMoreClick,
-  } = useAnimeReviews(props.match?.params?.mal_id);
+  const { animeDetails, isAnimeDetailsLoading, isAnimeAlreadyPresent } =
+    useAnimeDetails(props.match?.params?.mal_id);
+  const { isAnimeReviewsLoading, animeReviews, handleReviewReadMoreClick } =
+    useAnimeReviews(props.match?.params?.mal_id);
 
   return (
     <>

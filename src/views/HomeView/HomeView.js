@@ -1,73 +1,43 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles, Typography, Button } from '@material-ui/core';
+import { makeStyles, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useAuthentication } from 'custom-hooks/authHook';
-import AwesomeSlider from 'react-awesome-slider';
-import withAutoplay from 'react-awesome-slider/dist/autoplay';
-import 'react-awesome-slider/dist/styles.css';
-import 'react-awesome-slider/dist/custom-animations/fall-animation.css';
+import homeAnimation from 'assets/animation/home-animation.json';
+import Lottie from 'react-lottie';
 import Logo from '../../components/utilityComponents/Logo';
 import { useSnackbar } from '../../custom-hooks/snackbarHook';
-import Slider1 from '../../assets/slider1.jpg';
-import Slider2 from '../../assets/slider2.png';
-import Slider3 from '../../assets/slider3.jpg';
-
-const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const useStyles = makeStyles((theme) => ({
-  fullPageContainer1: {
-    backgroundImage: `url(${Slider1})`,
-    height: '100vh',
+  '@global': {
+    '*::-webkit-scrollbar': {
+      width: '0.4em',
+      height: '0.4em',
+    },
+    '*::-webkit-scrollbar-track': {
+      '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
+    },
+    '*::-webkit-scrollbar-thumb': {
+      backgroundColor: theme.palette.primary.main,
+      outline: '1px solid slategrey',
+    },
+  },
+  homeBack: {
+    background: theme.palette.background.default,
     width: '100vw',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  },
-  fullPageContainer2: {
-    backgroundImage: `url(${Slider2})`,
     height: '100vh',
-    width: '100vw',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
   },
-  fullPageContainer3: {
-    backgroundImage: `url(${Slider3})`,
-    height: '100vh',
-    width: '100vw',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+  rowContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  img: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-  },
-  slideContent: {
-    width: '100%',
-    height: '75%',
+  textContainer: {
+    padding: `0 ${theme.typography.pxToRem(40)}`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    padding: '0 1rem',
-  },
-  slideText: {
-    color: '#fff',
-    fontSize: '1.2rem',
-    textAlign: 'center',
-  },
-  slideHeader: {
-    fontSize: '3rem',
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    color: theme.palette.text.primary,
   },
   loginButton: {
     background: `${theme.palette.primary.main}`,
@@ -99,108 +69,98 @@ const useStyles = makeStyles((theme) => ({
   linkStyle: {
     textDecoration: 'none',
   },
+  animeText: {
+    color: theme.palette.primary.main,
+    fontWeight: 'bold',
+    fontSize: theme.typography.pxToRem(76),
+  },
+  instBox: {
+    background: theme.palette.primary.main,
+    padding: theme.typography.pxToRem(15),
+    borderRadius: theme.typography.pxToRem(20),
+    margin: `${theme.typography.pxToRem(15)} 0`,
+    color: '#fff',
+  },
+  line: {
+    background: theme.palette.text.primary,
+    width: theme.typography.pxToRem(2),
+    height: theme.typography.pxToRem(45),
+  },
 }));
 
-const SlideContent = (props) => {
-  const { classes } = props;
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: homeAnimation,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice',
+  },
+};
+
+const Home = () => {
+  const classes = useStyles();
   const { isAuthenticated } = useAuthentication();
+  useSnackbar();
   return (
-    <div className={classes.slideContent}>
-      <Typography className={classes.slideText}>
-        <span className={classes.slideHeader}>Anime Manager</span> <br /> One
-        place to manage all your favourite animes.
-      </Typography>
-      <div className={classes.buttonContainer}>
-        {!isAuthenticated ? (
-          <>
-            <Link
-              to={{ pathname: '/auth', state: { login: true } }}
-              className={classes.linkStyle}
-            >
-              <Button className={classes.loginButton}>Login</Button>
-            </Link>
-            <Link
-              to={{ pathname: '/auth', state: { login: false } }}
-              className={classes.linkStyle}
-            >
-              <Button className={classes.registerButton}>Sign Up</Button>
-            </Link>
-          </>
-        ) : (
-          <Link to={{ pathname: '/dashboard' }} className={classes.linkStyle}>
-            <Button className={classes.registerButton}>Go to Dashboard</Button>
-          </Link>
+    <div className={classes.homeBack}>
+      <Logo />
+      <div className={classes.rowContainer}>
+        <div className={classes.textContainer}>
+          <h1>
+            <span className={classes.animeText}>Anime</span>Manager
+          </h1>
+          <p>Place to manage all your favourite animes</p>
+          <div>
+            {!isAuthenticated ? (
+              <>
+                <Link
+                  to={{ pathname: '/auth', state: { login: true } }}
+                  className={classes.linkStyle}
+                >
+                  <Button className={classes.loginButton}>Login</Button>
+                </Link>
+                <Link
+                  to={{ pathname: '/auth', state: { login: false } }}
+                  className={classes.linkStyle}
+                >
+                  <Button className={classes.registerButton}>Sign Up</Button>
+                </Link>
+              </>
+            ) : (
+              <Link
+                to={{ pathname: '/dashboard' }}
+                className={classes.linkStyle}
+              >
+                <Button className={classes.registerButton}>
+                  Go to Dashboard
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
+        <Lottie options={defaultOptions} width="40%" height="40%" />
+        {!isAuthenticated && (
+          <div className={classes.textContainer}>
+            <p>3 easy steps</p>
+            <div className={classes.instBox}>
+              <h2>Signup</h2>
+              <p>for an account.</p>
+            </div>
+            <div className={classes.line}></div>
+            <div className={classes.instBox}>
+              <h2>Login</h2>
+              <p>to your account.</p>
+            </div>
+            <div className={classes.line}></div>
+            <div className={classes.instBox}>
+              <h2>Manage</h2>
+              <p>your fav animes.</p>
+            </div>
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-const FirstSlide = (props) => {
-  const { classes } = props;
-  return (
-    <div className={classes.fullPageContainer1}>
-      <Logo />
-      <SlideContent {...props} />
-    </div>
-  );
-};
-
-const SecondSlide = (props) => {
-  const { classes } = props;
-  return (
-    <div className={classes.fullPageContainer2}>
-      <Logo />
-      <SlideContent {...props} />
-    </div>
-  );
-};
-
-const ThirdSlide = (props) => {
-  const { classes } = props;
-  return (
-    <div className={classes.fullPageContainer3}>
-      <Logo />
-      <SlideContent {...props} />
-    </div>
-  );
-};
-
-const Home = () => {
-  const classes = useStyles();
-  useSnackbar();
-  return (
-    <AutoplaySlider
-      fillParent
-      bullets={false}
-      organicArrows={false}
-      play
-      interval={6000}
-      animation="fallAnimation"
-    >
-      <div>
-        <FirstSlide classes={classes} />
-      </div>
-      <div>
-        <SecondSlide classes={classes} />
-      </div>
-      <div>
-        <ThirdSlide classes={classes} />
-      </div>
-    </AutoplaySlider>
-  );
-};
-
-SlideContent.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-FirstSlide.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-SecondSlide.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-ThirdSlide.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 export default Home;

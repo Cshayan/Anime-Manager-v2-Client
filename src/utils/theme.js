@@ -26,7 +26,7 @@ export default createMuiTheme({
   },
   button: {
     background: {
-      light: 'linear-gradient(to right, #1f4037, #99f2c8)',
+      light: '#27ae60',
     },
     delete: {
       background: 'linear-gradient(to right, #ee0979, #ff6a00)',
