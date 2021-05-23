@@ -65,3 +65,9 @@ export const getUserWatchlistAPI = (data) =>
     url: '/features/getUserWatchlist',
     data,
   });
+
+export const getTopAnimesAPI = (page = 1, type = 'airing', limit = 7) =>
+  axios({
+    method: 'GET',
+    url: `/features/top-animes/anime/${page}/${type}/${limit}`,
+  });

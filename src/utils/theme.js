@@ -22,7 +22,7 @@ export default createMuiTheme({
     pxToRem: (px) => pxToRem(px),
   },
   card: {
-    background: 'linear-gradient(to right, #abbaab, #ffffff)',
+    background: '#fff',
   },
   button: {
     background: {
