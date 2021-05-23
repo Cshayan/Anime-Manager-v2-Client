@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import TopAnimes from 'containers/home/top-animes/top-animes';
+import SeasonAnimes from 'containers/home/season-animes/season-animes';
 import Logo from 'components/utilityComponents/Logo';
 import HomeContainer from 'containers/home';
 import Footer from 'containers/home/footer';
@@ -33,7 +34,7 @@ const Home = () => {
       <Logo />
       <HomeContainer />
       <TopAnimes />
-      <TopAnimes />
+      <SeasonAnimes />
       <Footer />
     </div>
   );

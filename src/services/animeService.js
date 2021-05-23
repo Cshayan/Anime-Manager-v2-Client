@@ -71,3 +71,9 @@ export const getTopAnimesAPI = (page = 1, type = 'airing', limit = 7) =>
     method: 'GET',
     url: `/features/top-animes/anime/${page}/${type}/${limit}`,
   });
+
+export const getSeasonAnimesAPI = (year, season, limit = 7) =>
+  axios({
+    method: 'GET',
+    url: `/features/season-animes/anime/${year}/${season}/${limit}`,
+  });
