@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import TopAnimes from 'containers/home/top-animes/top-animes';
 import Logo from 'components/utilityComponents/Logo';
 import HomeContainer from 'containers/home';
+import Footer from 'containers/home/footer';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -32,6 +33,8 @@ const Home = () => {
       <Logo />
       <HomeContainer />
       <TopAnimes />
+      <TopAnimes />
+      <Footer />
     </div>
   );
 };
