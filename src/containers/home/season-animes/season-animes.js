@@ -1,18 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import viewAllAnimation from 'assets/animation/view-all-animation.json';
-import Lottie from 'react-lottie';
+// import viewAllAnimation from 'assets/animation/view-all-animation.json';
+// import Lottie from 'react-lottie';
 import AnimeCard from './anime-card';
 import { useSeasonAnimes } from './hooks';
 
-const viewAllOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: viewAllAnimation,
-  rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice',
-  },
-};
+// const viewAllOptions = {
+//   loop: true,
+//   autoplay: true,
+//   animationData: viewAllAnimation,
+//   rendererSettings: {
+//     preserveAspectRatio: 'xMidYMid slice',
+//   },
+// };
 
 const useStyles = makeStyles((theme) => ({
   topAnimeContainer: {
@@ -41,6 +41,17 @@ const useStyles = makeStyles((theme) => ({
     width: theme.typography.pxToRem(30),
     height: theme.typography.pxToRem(30),
   },
+  '@media screen and (max-width: 600px)': {
+    cardContainer: {
+      display: 'grid',
+      gridTemplateColumns: '1fr',
+      gridGap: '1rem',
+      margin: '0 auto',
+    },
+    headerText: {
+      fontSize: theme.typography.pxToRem(36),
+    },
+  },
 }));
 
 const TopAnimes = () => {
@@ -53,10 +64,10 @@ const TopAnimes = () => {
         {seasonAnimes?.map((ele) => (
           <AnimeCard key={ele.mal_id} {...ele} />
         ))}
-        <button className={classes.viewAllIconBtn}>
+        {/* <button className={classes.viewAllIconBtn}>
           <Lottie options={viewAllOptions} width="30%" height="30%" />
           <p>View all</p>
-        </button>
+        </button> */}
       </div>
     </div>
   );

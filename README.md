@@ -23,29 +23,45 @@ Link : https://anime-manager-v2.netlify.app/
 
 ### Before you go to check out how to run this project in local, see some of its screenshots.
 
-1. Landing Home Page
-   <a href="https://anime-manager-v2.netlify.app/"><img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(29).png" alt="Awesome README Templates" /></a>
-   <br/><br/>
-2. SignIn and SignUp Page
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(30).png" alt="Awesome README Templates" />
-   <br/><br />
-3. Landing Dashboard View  
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(34).png" alt="Awesome README Templates" />
-   <br/><br/> 4. Search any anime and add to watchlist
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(41).png" alt="Awesome README Templates" />
-   <br/><br/> 5. List View of dashboard
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(35).png" alt="Awesome README Templates" />
-   <br/><br/> 6. Filter your watchlist according to status
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(36).png" alt="Awesome README Templates" />
-   <br/><br/> 7. Update status of your anime accordingly
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(37).png" alt="Awesome README Templates" />
-   <br/><br/> 8. Add your favourite website URL to watch them in one click!
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(38).png" alt="Awesome README Templates" />
-   <br/><br/> 9. View details of any anime (including reviews)
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(40).png" alt="Awesome README Templates" />
-   <br/><br/> 10. Toogle your theme between Light and Dark Mode
-   <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/Screenshot%20(39).png" alt="Awesome README Templates" />
-   <br/><br/>
+Landing Home Page
+<a href="https://anime-manager-v2.netlify.app/"><img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/homev2.png" alt="Awesome README Templates" /></a>
+<br/><br/>
+Signin, Signup, Forgot Password
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/loginV2.png" alt="Awesome README Templates" />
+<br/><br />
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/signUpV2.png" alt="Awesome README Templates" />
+<br/><br />
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/forgotPasswordV2.png" alt="Awesome README Templates" />
+<br/><br />
+Top Animes airing
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/topAnimesv2.png" alt="Awesome README Templates" />
+<br/><br/>
+Season Animes airing
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/seasonAnimesv2.png" alt="Awesome README Templates" />
+<br/><br/>
+Landing Dashboard View  
+ <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/dashboardV2.png" alt="Awesome README Templates" />
+<br/><br/> Search any anime and add to watchlist
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/searchAnimesV2.png" alt="Awesome README Templates" />
+<br/><br/> List View of dashboard
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/listViewAnimesV2.png" alt="Awesome README Templates" />
+<br/><br/> Filter your watchlist according to status
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/filteredAnimesV2.png" alt="Awesome README Templates" />
+<br/><br/> Update status of your anime accordingly
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/statusUpdateAnimeV2.png" alt="Awesome README Templates" />
+<br/><br/> Add your favourite website URL to watch them in one click!
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/addAnimeURLV2.png" alt="Awesome README Templates" />
+<br/><br/> Share the link of your watchlist with anyone you wish
+<img src="https://github.com/Cshayan/Helpful-Online-Links/blob/master/anime-manager-v2/shareWatchlistV2.png" alt="Awesome README Templates" />
+<br/><br/> View details of any anime (including reviews)
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/animeDetailsV2.png" alt="Awesome README Templates" />
+<br/><br/> Add and update your profile
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/updateProfilePicV2.png" alt="Awesome README Templates" />
+<br/><br/> Watch stats of your animes in charts and see your history of activity
+<img src="https://github.com/Cshayan/Helpful-Online-Links/blob/master/anime-manager-v2/viewStatsV2.png" alt="Awesome README Templates" />
+<br/><br/> Toogle your theme between Light and Dark Mode
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/lightThemeV2.png" alt="Awesome README Templates" />
+<br/><br/>
 
 ## Implementation
 
@@ -61,7 +77,10 @@ This project is in ongoing state, will update this portion when it will be ready
 6. View more details like Trailer, Synopsis and Reviews of any particular anime.
 7. Mark the status of your anime in the watchlist as you go along.
 8. Add your favourite website URL against your anime and watch them directly by clicking just one button.
-9. Toogle between light and dark theme according to your choice.
+9. Share your watchlist with anyone to view.
+10. Toogle between light and dark theme according to your choice.
+11. Update your profile details (profile picture as of now)
+12. View stats and activity history in the dashboard
 
 ## Related
 

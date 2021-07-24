@@ -66,13 +66,13 @@ export const getUserWatchlistAPI = (data) =>
     data,
   });
 
-export const getTopAnimesAPI = (page = 1, type = 'airing', limit = 7) =>
+export const getTopAnimesAPI = (page = 1, type = 'airing', limit = 8) =>
   axios({
     method: 'GET',
     url: `/features/top-animes/anime/${page}/${type}/${limit}`,
   });
 
-export const getSeasonAnimesAPI = (year, season, limit = 7) =>
+export const getSeasonAnimesAPI = (year, season, limit = 8) =>
   axios({
     method: 'GET',
     url: `/features/season-animes/anime/${year}/${season}/${limit}`,

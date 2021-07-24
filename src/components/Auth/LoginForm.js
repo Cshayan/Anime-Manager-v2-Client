@@ -45,19 +45,14 @@ const useStyles = makeStyles((theme) => ({
   forgotPassText: {
     fontSize: theme.typography.pxToRem(16),
     letterSpacing: '0.1rem',
-    color: theme.palette.text.primary,
+    color: theme.card.text,
   },
 }));
 
 const LoginForm = () => {
   const classes = useStyles();
-  const {
-    email,
-    password,
-    onChangeHandler,
-    onLoginSubmit,
-    isUserLogging,
-  } = useLogin();
+  const { email, password, onChangeHandler, onLoginSubmit, isUserLogging } =
+    useLogin();
   return (
     <form noValidate autoComplete="off" onSubmit={(e) => onLoginSubmit(e)}>
       <TextField

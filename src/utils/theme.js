@@ -23,6 +23,7 @@ export default createMuiTheme({
   },
   card: {
     background: '#fff',
+    text: '#fff',
   },
   button: {
     background: {
@@ -77,6 +78,7 @@ export const darkTheme = createMuiTheme({
   },
   card: {
     background: 'linear-gradient(to right, #141e30, #243b55)',
+    text: '#fff',
   },
   button: {
     background: {

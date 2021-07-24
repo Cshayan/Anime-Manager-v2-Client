@@ -8,7 +8,7 @@ import Lottie from 'react-lottie';
 import { useSnackbar } from 'custom-hooks/snackbarHook';
 
 const useStyles = makeStyles((theme) => ({
-  rowContainer: {
+  topContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -83,6 +83,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  '@media screen and (max-width: 600px)': {
+    textContainer: {
+      flexDirection: 'column',
+    },
+    topContainer: {
+      flexDirection: 'column',
+    },
+  },
 }));
 
 const defaultOptions = {
@@ -109,7 +117,7 @@ const Home = () => {
   useSnackbar();
   return (
     <>
-      <div className={classes.rowContainer}>
+      <div className={classes.topContainer}>
         <div className={classes.textContainer}>
           <h1>
             <span className={classes.animeText}>Anime</span> Manager

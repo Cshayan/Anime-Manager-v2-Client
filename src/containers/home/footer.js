@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: '#fff',
     fontSize: theme.typography.pxToRem(22),
-    margin: `${theme.typography.pxToRem(10)} 0`,
+    margin: `${theme.typography.pxToRem(10)}`,
     '&:hover': {
       textDecoration: 'underline',
     },
@@ -42,6 +42,18 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '0.1rem',
     background: '#fff',
+  },
+  '@media screen and (max-width: 600px)': {
+    footer: {
+      fontSize: theme.typography.pxToRem(22),
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    linkContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+    },
   },
 }));
 
