@@ -22,11 +22,12 @@ export default createMuiTheme({
     pxToRem: (px) => pxToRem(px),
   },
   card: {
-    background: 'linear-gradient(to right, #abbaab, #ffffff)',
+    background: '#fff',
+    text: '#fff',
   },
   button: {
     background: {
-      light: 'linear-gradient(to right, #1f4037, #99f2c8)',
+      light: '#27ae60',
     },
     delete: {
       background: 'linear-gradient(to right, #ee0979, #ff6a00)',
@@ -77,6 +78,7 @@ export const darkTheme = createMuiTheme({
   },
   card: {
     background: 'linear-gradient(to right, #141e30, #243b55)',
+    text: '#fff',
   },
   button: {
     background: {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/';
 import PropTypes from 'prop-types';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ReactPlayer from 'react-player';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,25 +34,25 @@ const useStyles = makeStyles((theme) => ({
 
 const AnimeTrailerStat = (props) => {
   const classes = useStyles();
-  const { trailerUrl, isAnimeAlreadyPresent } = props;
+  const { trailerUrl } = props;
   return (
     <>
       <div className={classes.trailerCont}>
         <ReactPlayer width="100%" height="100%" url={trailerUrl} controls />
       </div>
-      <button
+      {/* <button
         className={classes.addToWatchlist}
         disabled={isAnimeAlreadyPresent}
       >
         <AddCircleIcon /> Add to Watchlist
-      </button>
+      </button> */}
     </>
   );
 };
 
 AnimeTrailerStat.propTypes = {
   trailerUrl: PropTypes.string,
-  isAnimeAlreadyPresent: PropTypes.bool.isRequired,
+  // isAnimeAlreadyPresent: PropTypes.bool.isRequired,
 };
 
 AnimeTrailerStat.defaultProps = {
