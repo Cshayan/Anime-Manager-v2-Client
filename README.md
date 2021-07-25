@@ -81,6 +81,7 @@ This project is in ongoing state, will update this portion when it will be ready
 10. Toogle between light and dark theme according to your choice.
 11. Update your profile details (profile picture as of now)
 12. View stats and activity history in the dashboard
+13. Deployed to Netlify using CI/CD pipeline configuration.
 
 ## Related
 
