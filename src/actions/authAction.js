@@ -30,11 +30,6 @@ export const registerAPIFail = (data) => ({
   payload: data,
 });
 
-export const getMeAPIStart = (data) => ({
-  type: AUTH.GET_ME_API_START,
-  payload: data,
-});
-
 export const getMeAPISuccess = (data) => ({
   type: AUTH.GET_ME_API_SUCCESS,
   payload: data,

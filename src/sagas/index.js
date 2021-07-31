@@ -1,7 +1,6 @@
 import { all } from 'redux-saga/effects';
 import {
   loginUserWatcher,
-  getMeWatcher,
   registerUserWatcher,
   verifyAccountWatcher,
   forgotPasswordWatcher,
@@ -11,7 +10,6 @@ import {
 import {
   searchAnimeWatcher,
   addAnimeWatchlistWatcher,
-  getAnimeWatchlistWatcher,
   deleteAnimeWatchlistWatcher,
   setAnimeStatusWatcher,
   getAnimeDetailsWatcher,
@@ -23,7 +21,6 @@ import { getAnimeWatchlistStatWatcher } from './animeStatSaga';
 export default function* rootSaga() {
   yield all([
     loginUserWatcher(),
-    getMeWatcher(),
     registerUserWatcher(),
     verifyAccountWatcher(),
     forgotPasswordWatcher(),
@@ -31,7 +28,6 @@ export default function* rootSaga() {
     uploadProfilePicWatcher(),
     searchAnimeWatcher(),
     addAnimeWatchlistWatcher(),
-    getAnimeWatchlistWatcher(),
     deleteAnimeWatchlistWatcher(),
     setAnimeStatusWatcher(),
     getAnimeDetailsWatcher(),

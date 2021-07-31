@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmpty } from 'lodash';
 import copy from 'copy-to-clipboard';
+import { useQuery } from 'react-query';
 import {
   openAnimeDeleteDialog,
   closeAnimeDeleteDialog,
@@ -17,7 +17,6 @@ import OnHoldIcon from 'assets/hold.svg';
 import DroppedIcon from 'assets/dropped.svg';
 import {
   addAnimeWatchlistStart,
-  getAnimeWatchlistStart,
   setAnimeIdToDelete,
   deleteAnimeWatchlistStart,
   setAnimeDialogDetail,
@@ -26,7 +25,9 @@ import {
   getAnimeDetailsStart,
   getAnimeReviewStart,
   setAnimeVideoURLStart,
+  getAnimeWatchlistSuccess,
 } from 'actions/animeAction';
+import { getAnimeWatchlist } from 'services/animeService';
 import { snackBarOpen } from 'actions/snackbarAction';
 import {
   selectWatchlist,
@@ -45,6 +46,20 @@ import {
   selectIsAnimeVideoURLAdding,
   selectShareWatchlistLink,
 } from 'selectors/animeSelectors';
+
+export const useGetAnimeWatchlist = () => {
+  const dispatch = useDispatch();
+
+    // fetch user anime watchlist on mount
+  useQuery(['get-anime-watchlist'], () => getAnimeWatchlist(), {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    onSuccess: async data => {
+      const { data: watchlistData } = data;
+      dispatch(getAnimeWatchlistSuccess(watchlistData))
+    }
+  });
+}
 
 export const useAnime = () => {
   const dispatch = useDispatch();
@@ -74,15 +89,10 @@ export const useAnime = () => {
     dispatch(setAnimeIdToDelete(''));
   };
 
-  const fetchAnimes = useCallback(() => {
-    if (isEmpty(animeWatchlist)) dispatch(getAnimeWatchlistStart());
-  }, [dispatch]);
-
   return {
     isAnimeAddingToWatchlist,
     isAnimeDeletingFromWatchlist,
     handleAnimeAddToWatchlistClick,
-    fetchAnimes,
     animeWatchlist,
     handleDeleteFromWatchlistClick,
     deleteAnimeFromWatchlist,

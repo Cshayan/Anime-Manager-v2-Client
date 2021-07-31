@@ -1,11 +1,9 @@
 /* Saga file to handle authentication */
-import { call, takeLatest, put, delay } from 'redux-saga/effects';
+import { call, takeLatest, put } from 'redux-saga/effects';
 import { AUTH } from '../constants/authConstant';
 import {
   loginAPISuccess,
   loginAPIFail,
-  getMeAPISuccess,
-  getMeAPIFail,
   registerAPIFail,
   registerAPISuccess,
   logOutUserSuccess,
@@ -26,18 +24,6 @@ import {
 import { APIS } from '../services/authService';
 
 /* Worker Saga */
-function* getMeWorker() {
-  try {
-    yield delay(2000);
-    const { data } = yield call(APIS.getMe);
-    yield put(getMeAPISuccess(data));
-  } catch (err) {
-    yield put(getMeAPIFail(err.response.data));
-    yield put(snackBarOpen(err.response.data.error, 'info'));
-    yield put(logOutUserSuccess());
-  }
-}
-
 function* registerUserWorker(action) {
   const { payload } = action;
   try {
@@ -128,10 +114,6 @@ export function* loginUserWatcher() {
 
 export function* registerUserWatcher() {
   yield takeLatest(AUTH.REGISTER_API_START, registerUserWorker);
-}
-
-export function* getMeWatcher() {
-  yield takeLatest(AUTH.GET_ME_API_START, getMeWorker);
 }
 
 export function* verifyAccountWatcher() {

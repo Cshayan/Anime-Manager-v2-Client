@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-import { useAnime } from 'custom-hooks/animeHook';
+import { useGetAnimeWatchlist } from 'custom-hooks/animeHook';
 import { selectIsAnimeLoading } from 'selectors/animeSelectors';
 
 const selectWatchlist = ({ anime: { watchlist = [] } }) => watchlist;
@@ -40,13 +40,10 @@ export const useAnimeStatistics = () => {
 };
 
 export const useAnimeWatchlistStatsAndCharts = () => {
-  const { fetchAnimes } = useAnime();
+  useGetAnimeWatchlist()
   const watchlist = useSelector(selectWatchlist);
   const isAnimeLoading = useSelector(selectIsAnimeLoading);
 
-  useEffect(() => {
-    fetchAnimes();
-  }, []);
 
   return {
     isAnimeLoading,

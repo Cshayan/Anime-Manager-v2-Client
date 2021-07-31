@@ -1,4 +1,5 @@
 /* File to make the API calls here */
+import api from 'api';
 import { axiosInstance as axios } from '../api/api.instance';
 
 export const searchAnime = (data) =>
@@ -18,7 +19,7 @@ export const addAnimeWatchlist = (data) =>
 export const getAnimeWatchlist = () =>
   axios({
     method: 'GET',
-    url: '/features/getWatchlist',
+    url: api.getAnimeWatchList,
   });
 
 export const deleteAnimeWatchlist = (animeId) =>

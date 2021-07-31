@@ -1,4 +1,5 @@
 /* File to make the API calls here */
+import api from 'api';
 import { axiosInstance as axios } from '../api/api.instance';
 
 const loginUser = (data) =>
@@ -15,10 +16,10 @@ const registerUser = (data) =>
     data,
   });
 
-const getMe = () =>
+export const getCurrentUser = () =>
   axios({
     method: 'GET',
-    url: '/auth/getMe',
+    url: api.getCurrentUser
   });
 
 const verifyAccount = (data) =>
@@ -59,7 +60,6 @@ const getSpecificUser = (data) =>
 export const APIS = {
   loginUser,
   registerUser,
-  getMe,
   verifyAccount,
   forgotPassword,
   resetPassword,

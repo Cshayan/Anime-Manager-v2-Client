@@ -1,5 +1,7 @@
-import React from 'react';
-import { makeStyles, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import { makeStyles, TextField, IconButton } from '@material-ui/core';
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useRegister } from '../../custom-hooks/authHook';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +37,14 @@ const useStyles = makeStyles((theme) => ({
       overflow: 'hidden',
     },
   },
+  passwordTextInputContainer: {
+    display: 'flex', flexDirection: 'row', alignItems: 'center'
+  },
+  eyeIcon: {
+    width: 40,
+    height: 40,
+    color: theme.palette.primary.main
+ }
 }));
 
 const RegisterForm = () => {
@@ -47,6 +57,8 @@ const RegisterForm = () => {
     onRegisterSubmit,
     isUserLogging,
   } = useRegister();
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <form noValidate autoComplete="off" onSubmit={(e) => onRegisterSubmit(e)}>
       <TextField
@@ -79,18 +91,23 @@ const RegisterForm = () => {
           },
         }}
       />
-      <TextField
-        type="password"
-        name="password"
-        value={password}
-        placeholder="Your password"
-        className={classes.formInput}
-        onChange={onChangeHandler}
-        fullWidth
-        InputProps={{
+      <div className={classes.passwordTextInputContainer}>
+        <TextField
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          value={password}
+          placeholder="Your password"
+          className={classes.formInput}
+          onChange={onChangeHandler}
+          fullWidth
+          InputProps={{
           classes: { input: classes.input },
         }}
-      />
+        />
+        <IconButton className={classes.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      </div>
       <button
         className={classes.registerButton}
         type="submit"
