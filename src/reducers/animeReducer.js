@@ -3,9 +3,7 @@ import {
   ADD_ANIME_WATCHLIST_START,
   ADD_ANIME_WATCHLIST_SUCCESS,
   ADD_ANIME_WATCHLIST_FAIL,
-  GET_ANIME_WATCHLIST_START,
   GET_ANIME_WATCHLIST_SUCCESS,
-  GET_ANIME_WATCHLIST_FAIL,
   SET_ANIME_ID,
   DELETE_ANIME_WATCHLIST_START,
   DELETE_ANIME_WATCHLIST_SUCCESS,
@@ -62,15 +60,6 @@ export const animeReducer = (state = initialState, action) => {
         animeAddError: payload.error,
         animeIdToDelete: '',
       };
-    case GET_ANIME_WATCHLIST_START:
-      return {
-        ...state,
-        isAnimeLoading: true,
-        animeGetMessage: null,
-        animeGetError: null,
-        animeIdToDelete: '',
-        shareWatchlistLink: '',
-      };
     case GET_ANIME_WATCHLIST_SUCCESS:
       return {
         ...state,
@@ -79,16 +68,6 @@ export const animeReducer = (state = initialState, action) => {
         animeGetError: null,
         watchlist: payload.data,
         shareWatchlistLink: payload.shareWatchlistLink,
-        animeIdToDelete: '',
-      };
-    case GET_ANIME_WATCHLIST_FAIL:
-      return {
-        ...state,
-        isAnimeLoading: false,
-        animeGetMessage: null,
-        animeGetError: 'Error in fetching Anime watchlist',
-        watchlist: [],
-        shareWatchlistLink: '',
         animeIdToDelete: '',
       };
     case SET_ANIME_ID:

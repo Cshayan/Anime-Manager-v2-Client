@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { makeStyles, Typography } from '@material-ui/core';
 import Header from 'components/Header/Header';
@@ -51,14 +51,10 @@ const useStyles = makeStyles((theme) => ({
 const AnimeStatisticsGraphContainer = () => {
   const classes = useStyles();
   const { isAuthenticated } = useAuthentication();
-  const { getCurrentUser } = useGetMe();
+  useGetMe();
   const { watchlist } = useAnimeWatchlistStatsAndCharts();
   const { animeStats } = useAnimeStatistics();
   const { isDarkModeEnabled } = useDarkMode();
-
-  useEffect(() => {
-    getCurrentUser();
-  }, []);
 
   if (!isAuthenticated) {
     return <Redirect to="/auth" />;

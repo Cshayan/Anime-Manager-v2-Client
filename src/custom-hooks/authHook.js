@@ -1,19 +1,20 @@
 /* Custom Hooks for authentication */
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'query-string';
-import { isEmpty } from 'lodash';
+import { useQuery } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { snackBarOpen } from 'actions/snackbarAction';
+import { getCurrentUser } from 'services/authService';
 import {
   loginAPIStart,
-  getMeAPIStart,
   registerAPIStart,
   logOutUserSuccess,
   verifyAccountAPIStart,
   forgotPasswordStart,
   resetPasswordStart,
   uploadProfilePicStart,
+  getMeAPISuccess,
 } from '../actions/authAction';
 import { resetAll } from '../actions/resetAction';
 import { openLogoutDialog, closeLogoutDialog } from '../actions/dialogAction';
@@ -108,18 +109,19 @@ export const useRegister = () => {
 
 export const useGetMe = () => {
   const dispatch = useDispatch();
-  const isUserLoading = useSelector((state) => state.auth.isUserLoading);
   const userDetails = useSelector((state) => state.auth.user);
 
-  const getCurrentUser = useCallback(() => {
-    if (isEmpty(userDetails)) {
-      dispatch(getMeAPIStart());
-    }
-  }, [dispatch]);
+  const { isLoading: isUserLoading } = useQuery(['get-current-user'], () => getCurrentUser(), {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    onSuccess: async data => {
+      const { data: currentUserData } = data;
+      dispatch(getMeAPISuccess(currentUserData))
+    },
+  })
 
   return {
     isUserLoading,
-    getCurrentUser,
     userDetails,
   };
 };
@@ -211,7 +213,7 @@ export const useResetPassword = (props) => {
 };
 
 export const useUserProfile = () => {
-  const { getCurrentUser, userDetails, isUserLoading } = useGetMe();
+  const { userDetails, isUserLoading } = useGetMe();
 
   useEffect(() => {
     getCurrentUser();

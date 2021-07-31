@@ -2,7 +2,6 @@ import {
   ADD_ANIME_WATCHLIST_START,
   ADD_ANIME_WATCHLIST_SUCCESS,
   ADD_ANIME_WATCHLIST_FAIL,
-  GET_ANIME_WATCHLIST_START,
   GET_ANIME_WATCHLIST_SUCCESS,
   GET_ANIME_WATCHLIST_FAIL,
   SET_ANIME_ID,
@@ -38,10 +37,6 @@ export const addAnimeWatchlistSuccess = (payload) => ({
 export const addAnimeWatchlistFail = (payload) => ({
   type: ADD_ANIME_WATCHLIST_FAIL,
   payload,
-});
-
-export const getAnimeWatchlistStart = () => ({
-  type: GET_ANIME_WATCHLIST_START,
 });
 
 export const getAnimeWatchlistSuccess = (payload) => ({

@@ -3,7 +3,6 @@ import { call, takeLatest, put, delay } from 'redux-saga/effects';
 import { GLO_ANIME_SEARCH_START } from '../constants/globalAnimeSearchConstant';
 import {
   ADD_ANIME_WATCHLIST_START,
-  GET_ANIME_WATCHLIST_START,
   DELETE_ANIME_WATCHLIST_START,
   ANIME_STATUS_SAVE_START,
   GET_ANIME_DETAILS_START,
@@ -17,8 +16,6 @@ import {
 import {
   addAnimeWatchlistSuccess,
   addAnimeWatchlistFail,
-  getAnimeWatchlistSuccess,
-  getAnimeWatchlistFail,
   deleteAnimeWatchlistSuccess,
   deleteAnimeWatchlistFail,
   animeStatusSaveSuccess,
@@ -38,7 +35,6 @@ import {
 import {
   searchAnime,
   addAnimeWatchlist,
-  getAnimeWatchlist,
   deleteAnimeWatchlist,
   saveAnimeStatus,
   getAnimeDetails,
@@ -79,17 +75,6 @@ function* addAnimeWatchlistWorker(action) {
     );
   } finally {
     yield put(backDropClose());
-  }
-}
-
-function* getAnimeWatchlistWorker() {
-  try {
-    const { data } = yield call(getAnimeWatchlist);
-    yield put(getAnimeWatchlistSuccess(data));
-  } catch (err) {
-    yield put(
-      getAnimeWatchlistFail('Anime watchlist cannot be fetched from server.'),
-    );
   }
 }
 
@@ -196,10 +181,6 @@ export function* searchAnimeWatcher() {
 
 export function* addAnimeWatchlistWatcher() {
   yield takeLatest(ADD_ANIME_WATCHLIST_START, addAnimeWatchlistWorker);
-}
-
-export function* getAnimeWatchlistWatcher() {
-  yield takeLatest(GET_ANIME_WATCHLIST_START, getAnimeWatchlistWorker);
 }
 
 export function* deleteAnimeWatchlistWatcher() {

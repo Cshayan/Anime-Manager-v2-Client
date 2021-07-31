@@ -3,12 +3,12 @@ import { Redirect } from 'react-router-dom';
 import DashboardComponent from 'components/Dashboard/DashboardComponent';
 import { useGetMe, useAuthentication } from '../../custom-hooks/authHook';
 import ContainerWrapper from '../../wrapper/ContainerWrapper';
-import { useAnime } from '../../custom-hooks/animeHook';
+import { useGetAnimeWatchlist } from '../../custom-hooks/animeHook';
 
 const DashboardContainer = () => {
-  const { isUserLoading, getCurrentUser } = useGetMe();
+  const { isUserLoading } = useGetMe();
   const { isAuthenticated } = useAuthentication();
-  const { fetchAnimes } = useAnime();
+  useGetAnimeWatchlist();
 
   if (!isAuthenticated) {
     return <Redirect to="/auth" />;
@@ -18,8 +18,6 @@ const DashboardContainer = () => {
     <>
       <ContainerWrapper
         isLoading={isUserLoading}
-        getCurrentUser={getCurrentUser}
-        fetchAnimes={fetchAnimes}
       >
         <DashboardComponent />
       </ContainerWrapper>

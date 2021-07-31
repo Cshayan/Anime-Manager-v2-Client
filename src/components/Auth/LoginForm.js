@@ -1,5 +1,7 @@
-import React from 'react';
-import { makeStyles, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import { IconButton, makeStyles, TextField } from '@material-ui/core';
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Link } from 'react-router-dom';
 import { useLogin } from '../../custom-hooks/authHook';
 
@@ -37,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
       overflow: 'hidden',
     },
   },
+  passwordTextInputContainer: {
+    display: 'flex', flexDirection: 'row', alignItems: 'center'
+  },
   btnCont: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -47,12 +52,20 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: '0.1rem',
     color: theme.card.text,
   },
+  eyeIcon: {
+     width: 40,
+     height: 40,
+     color: theme.palette.primary.main
+  }
 }));
 
 const LoginForm = () => {
   const classes = useStyles();
   const { email, password, onChangeHandler, onLoginSubmit, isUserLogging } =
     useLogin();
+
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <form noValidate autoComplete="off" onSubmit={(e) => onLoginSubmit(e)}>
       <TextField
@@ -71,18 +84,23 @@ const LoginForm = () => {
           },
         }}
       />
-      <TextField
-        type="password"
-        name="password"
-        placeholder="Your password"
-        value={password}
-        onChange={onChangeHandler}
-        className={classes.formInput}
-        fullWidth
-        InputProps={{
+      <div className={classes.passwordTextInputContainer}>
+        <TextField
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          placeholder="Your password"
+          value={password}
+          onChange={onChangeHandler}
+          className={classes.formInput}
+          fullWidth
+          InputProps={{
           classes: { input: classes.input },
         }}
-      />
+        />
+        <IconButton className={classes.eyeIcon} onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      </div>
       <div className={classes.btnCont}>
         <button
           className={classes.loginButton}

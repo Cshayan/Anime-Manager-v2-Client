@@ -2,9 +2,9 @@ import { AUTH } from '../constants/authConstant';
 import { ANIME_TOKEN } from '../constants/url';
 
 const initialState = {
-  token: localStorage.getItem(ANIME_TOKEN),
+  token: null,
   isUserLoading: false,
-  isAuthenticated: !!localStorage.getItem(ANIME_TOKEN),
+  isAuthenticated: false,
   user: null,
   error: null,
   isUserLogging: false,
@@ -54,11 +54,6 @@ export const authReducer = (state = initialState, action) => {
         error: payload,
         hasUserRegistered: false,
       };
-    case AUTH.GET_ME_API_START:
-      return {
-        ...state,
-        isUserLoading: true,
-      };
     case AUTH.GET_ME_API_SUCCESS:
       return {
         ...state,
@@ -66,14 +61,6 @@ export const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
         user: payload.data,
         error: null,
-      };
-    case AUTH.GET_ME_API_FAIL:
-      return {
-        ...state,
-        isUserLoading: false,
-        isAuthenticated: false,
-        error: payload,
-        user: null,
       };
     case AUTH.VERIFY_ACCOUNT_START:
       return {
@@ -143,7 +130,7 @@ export const authReducer = (state = initialState, action) => {
     case AUTH.LOGOUT_USER_SUCCESS:
     case AUTH.RESET_ALL:
       localStorage.removeItem(ANIME_TOKEN);
-      return initialState;
+      return initialState
     default:
       return state;
   }
