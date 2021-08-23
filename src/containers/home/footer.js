@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +59,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = useStyles();
+
+  const handleRedirect = () => {
+    window.location.assign('hrxmobileapp://App/Dashboard');
+  };
+
   return (
     <div>
       <div className={classes.footer}>
@@ -79,6 +84,7 @@ const Footer = () => {
           >
             Sign Up
           </Link>
+          <Button onClick={() => handleRedirect()}>Redirect</Button>
         </div>
       </div>
       <div className={classes.line}></div>
