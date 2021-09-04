@@ -9,3 +9,4 @@ export { default as AnimeDetailsView } from './AnimeDetailsView/AnimeDetailsView
 export { default as PageNotFoundView } from './HomeView/404View';
 export { default as UserProfileView } from './UserProfileView/UserProfileView';
 export { default as ViewMyWatchlist } from './ViewMyWatchlist';
+export { default as TopAnimesView } from './TopAnimesView';

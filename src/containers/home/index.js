@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
     topContainer: {
       flexDirection: 'column',
     },
+    diffBoxPara: {
+      fontSize: theme.typography.pxToRem(26),
+    },
   },
 }));
 
@@ -174,7 +177,9 @@ const Home = () => {
       </div>
       <div className={classes.diffBox}>
         <Lottie options={browseAnimOptions} width="20%" height="100%" />
-        <p>Browse all your favourite animes here!</p>
+        <p className={classes.diffBoxPara}>
+          Browse all your favourite animes here!
+        </p>
       </div>
     </>
   );

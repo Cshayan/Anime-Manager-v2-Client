@@ -21,6 +21,7 @@ import {
   PageNotFoundView,
   UserProfileView,
   ViewMyWatchlist,
+  TopAnimesView,
 } from './views';
 import './App.css';
 
@@ -60,6 +61,7 @@ const App = () => {
               path="/view-my-watchlist"
               component={ViewMyWatchlist}
             />
+            <Route exact path="/top-anime-landing" component={TopAnimesView} />
             <Route component={PageNotFoundView} />
           </Switch>
         </Router>

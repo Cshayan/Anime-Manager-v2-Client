@@ -36,6 +36,9 @@ Signin, Signup, Forgot Password
 Top Animes airing
 <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/topAnimesv2.png" alt="Awesome README Templates" />
 <br/><br/>
+Detailed Top Anime Landing Page (with infinite scrolling)
+<img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/topAnimeLandingPageV2.png" alt="Awesome README Templates" />
+<br/><br/>
 Season Animes airing
 <img src="https://raw.githubusercontent.com/Cshayan/Helpful-Online-Links/master/anime-manager-v2/seasonAnimesv2.png" alt="Awesome README Templates" />
 <br/><br/>

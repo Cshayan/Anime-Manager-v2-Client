@@ -1,18 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
-// import viewAllAnimation from 'assets/animation/view-all-animation.json';
-// import Lottie from 'react-lottie';
+import { makeStyles, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import AnimeCard from './anime-card';
 import { useTopAnimes } from './hooks';
-
-// const viewAllOptions = {
-//   loop: true,
-//   autoplay: true,
-//   animationData: viewAllAnimation,
-//   rendererSettings: {
-//     preserveAspectRatio: 'xMidYMid slice',
-//   },
-// };
 
 const useStyles = makeStyles((theme) => ({
   topAnimeContainer: {
@@ -41,15 +31,35 @@ const useStyles = makeStyles((theme) => ({
     width: theme.typography.pxToRem(30),
     height: theme.typography.pxToRem(30),
   },
+  viewAllContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: theme.typography.pxToRem(15),
+  },
+  viewAllButton: {
+    fontSize: theme.typography.pxToRem(26),
+    background: theme.palette.primary.main,
+    color: '#fff',
+  },
+  viewAllLink: {
+    textDecoration: 'none',
+  },
   '@media screen and (max-width: 600px)': {
     cardContainer: {
       display: 'grid',
       gridTemplateColumns: '1fr',
-      gridGap: '1rem',
-      margin: '0 auto',
+      alignContent: 'center',
+      justifyContent: 'center',
     },
     headerText: {
-      fontSize: theme.typography.pxToRem(36),
+      fontSize: theme.typography.pxToRem(22),
+    },
+    viewAllButton: {
+      fontSize: theme.typography.pxToRem(16),
+      background: theme.palette.primary.main,
+      color: theme.palette.text.primary,
     },
   },
 }));
@@ -59,15 +69,16 @@ const TopAnimes = () => {
   const { topAnimes } = useTopAnimes();
   return (
     <div className={classes.topAnimeContainer}>
-      <h1 className={classes.headerText}>Top animes airing now</h1>
+      <div className={classes.viewAllContainer}>
+        <h1 className={classes.headerText}>Top animes airing now</h1>
+        <Link to="/top-anime-landing" className={classes.viewAllLink}>
+          <Button className={classes.viewAllButton}>View all</Button>
+        </Link>
+      </div>
       <div className={classes.cardContainer}>
         {topAnimes?.map((ele) => (
           <AnimeCard key={ele.mal_id} {...ele} />
         ))}
-        {/* <button className={classes.viewAllIconBtn}>
-          <Lottie options={viewAllOptions} width="30%" height="30%" />
-          <p>View all</p>
-        </button> */}
       </div>
     </div>
   );
