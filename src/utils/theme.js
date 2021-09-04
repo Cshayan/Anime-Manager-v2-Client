@@ -1,8 +1,8 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 
 export const pxToRem = (px) => `${px / 22.5}rem`;
 
-export default createMuiTheme({
+export default createTheme({
   palette: {
     primary: {
       main: '#27ae60',
@@ -57,7 +57,7 @@ export default createMuiTheme({
   },
 });
 
-export const darkTheme = createMuiTheme({
+export const darkTheme = createTheme({
   palette: {
     primary: {
       main: '#5DAAE0',

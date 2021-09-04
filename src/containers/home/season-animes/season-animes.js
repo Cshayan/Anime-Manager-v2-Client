@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
       margin: '0 auto',
     },
     headerText: {
-      fontSize: theme.typography.pxToRem(36),
+      fontSize: theme.typography.pxToRem(26),
     },
   },
 }));
