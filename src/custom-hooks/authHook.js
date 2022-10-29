@@ -2,27 +2,28 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'query-string';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import { snackBarOpen } from 'actions/snackbarAction';
-import { getCurrentUser } from 'services/authService';
+import { getCurrentUser, loginUser, registerUser } from 'services/authService';
 import {
-  loginAPIStart,
-  registerAPIStart,
   logOutUserSuccess,
   verifyAccountAPIStart,
   forgotPasswordStart,
   resetPasswordStart,
   uploadProfilePicStart,
   getMeAPISuccess,
+  loginAPISuccess,
+  loginAPIFail,
+  verifyAccountAPISuccess,
+  verifyAccountAPIFail,
 } from '../actions/authAction';
 import { resetAll } from '../actions/resetAction';
 import { openLogoutDialog, closeLogoutDialog } from '../actions/dialogAction';
 import { drawerClose } from '../actions/drawerAction';
+import { ANIME_TOKEN } from '../constants/url';
 
 const selectLogoutDialog = (state) => state.dialog.isLogoutDialogOpen;
-const selectIsUserLogging = ({ auth: { isUserLogging = false } }) =>
-  isUserLogging;
 const selectIsUserVerifying = ({ auth: { isUserVerifying = false } }) =>
   isUserVerifying;
 const selectIsUserVerified = ({ auth: { isUserVerified = false } }) =>
@@ -40,20 +41,20 @@ const selectIsResetPasswordSuccess = ({
 }) => isResetPasswordSuccess;
 
 export const useAuthentication = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const animeToken = localStorage.getItem(ANIME_TOKEN);
   const hasUserRegistered = useSelector(
     (state) => state.auth.hasUserRegistered,
   );
 
   return {
-    isAuthenticated,
+    isAuthenticated: !!animeToken,
     hasUserRegistered,
   };
 };
 
 export const useLogin = () => {
   const dispatch = useDispatch();
-  const isUserLogging = useSelector(selectIsUserLogging);
+  const history = useHistory();
 
   const [loginDetails, setLoginDetails] = useState({
     email: '',
@@ -64,9 +65,24 @@ export const useLogin = () => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
 
+  const { mutateAsync: loginUserAPI, isLoading: isUserLogging } = useMutation(
+    (values) => loginUser(values),
+    {
+      onSuccess: (response) => {
+        const { data = {} } = response || {};
+        dispatch(loginAPISuccess(data));
+        history.push('/dashboard');
+      },
+      onError: (error) => {
+        dispatch(loginAPIFail(error?.response?.data));
+        dispatch(snackBarOpen(error?.response?.data?.error, 'info'));
+      },
+    },
+  );
+
   const onLoginSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginAPIStart(loginDetails));
+    loginUserAPI(loginDetails);
   };
 
   return {
@@ -80,7 +96,6 @@ export const useLogin = () => {
 
 export const useRegister = () => {
   const dispatch = useDispatch();
-  const isUserLogging = useSelector(selectIsUserLogging);
 
   const [registerDetails, setLoginDetails] = useState({
     name: '',
@@ -92,9 +107,22 @@ export const useRegister = () => {
     setLoginDetails({ ...registerDetails, [e.target.name]: e.target.value });
   };
 
+  const { mutateAsync: registerUserAPI, isLoading: isUserLogging } =
+    useMutation((values) => registerUser(values), {
+      onSuccess: (response) => {
+        const { data = {} } = response || {};
+        dispatch(verifyAccountAPISuccess());
+        dispatch(snackBarOpen(data?.message, 'success'));
+      },
+      onError: (error) => {
+        dispatch(verifyAccountAPIFail());
+        dispatch(snackBarOpen(error.response.data.error, 'success'));
+      },
+    });
+
   const onRegisterSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerAPIStart(registerDetails));
+    registerUserAPI(registerDetails);
   };
 
   return {
@@ -111,14 +139,18 @@ export const useGetMe = () => {
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.auth.user);
 
-  const { isLoading: isUserLoading } = useQuery(['get-current-user'], () => getCurrentUser(), {
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    onSuccess: async data => {
-      const { data: currentUserData } = data;
-      dispatch(getMeAPISuccess(currentUserData))
+  const { isLoading: isUserLoading } = useQuery(
+    ['get-current-user'],
+    () => getCurrentUser(),
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      onSuccess: async (data) => {
+        const { data: currentUserData } = data;
+        dispatch(getMeAPISuccess(currentUserData));
+      },
     },
-  })
+  );
 
   return {
     isUserLoading,

@@ -2,14 +2,14 @@
 import api from 'api';
 import { axiosInstance as axios } from '../api/api.instance';
 
-const loginUser = (data) =>
+export const loginUser = (data) =>
   axios({
     method: 'POST',
     url: '/auth/signIn',
     data,
   });
 
-const registerUser = (data) =>
+export const registerUser = (data) =>
   axios({
     method: 'POST',
     url: '/auth/signUp',
@@ -19,7 +19,7 @@ const registerUser = (data) =>
 export const getCurrentUser = () =>
   axios({
     method: 'GET',
-    url: api.getCurrentUser
+    url: api.getCurrentUser,
   });
 
 const verifyAccount = (data) =>
