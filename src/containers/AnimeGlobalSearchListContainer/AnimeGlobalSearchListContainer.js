@@ -34,10 +34,8 @@ const AnimeGlobalSearchListContainer = (props) => {
   const { animeSearchResults } = props;
   const classes = useStyles();
   const { animeText } = useGlobalSearchAnime();
-  const {
-    handleAnimeAddToWatchlistClick,
-    isAnimeAddingToWatchlist,
-  } = useAnime();
+  const { handleAnimeAddToWatchlistClick, isAnimeAddingToWatchlist } =
+    useAnime();
 
   return (
     <div className={classes.searchlistContainer}>
@@ -54,12 +52,12 @@ const AnimeGlobalSearchListContainer = (props) => {
                 id={anime.mal_id}
                 title={anime.title}
                 url={anime.url}
-                imageUrl={anime.image_url}
+                imageUrl={anime.images.webp.image_url}
                 type={anime.type}
                 episodes={anime.episodes}
                 score={getScoreFormatter(anime.score)}
-                startDate={dateFormatterInString(anime.start_date)}
-                endDate={dateFormatterInString(anime.end_date)}
+                startDate={dateFormatterInString(anime?.aired?.from)}
+                endDate={dateFormatterInString(anime?.aired?.to)}
                 ongoing={anime.airing ? 'Yes' : 'No'}
                 rated={anime.rated}
                 members={anime.members}

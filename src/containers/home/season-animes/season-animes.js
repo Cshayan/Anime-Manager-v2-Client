@@ -59,7 +59,7 @@ const TopAnimes = () => {
   const { seasonAnimes } = useSeasonAnimes();
   return (
     <div className={classes.topAnimeContainer}>
-      <h1 className={classes.headerText}>View animes by season</h1>
+      <h1 className={classes.headerText}>Currently airing now</h1>
       <div className={classes.cardContainer}>
         {seasonAnimes?.map((ele) => (
           <AnimeCard key={ele.mal_id} {...ele} />

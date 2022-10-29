@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles, Typography } from '@material-ui/core';
 import StarRatings from 'react-star-ratings';
 import { ReactComponent as ToIcon } from 'assets/to.svg';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   animeCard: {
@@ -64,15 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AnimeCard = ({
-  title = '',
-  episodes = '',
-  start_date: startDate = '?',
-  end_date: endDate = '?',
-  mal_id = '',
-  image_url: imgURL = '',
-  score = 0,
-}) => {
+const AnimeCard = (props) => {
   const classes = useStyles();
 
   const history = useHistory();
@@ -82,31 +75,44 @@ const AnimeCard = ({
   };
 
   return (
-    <div className={classes.animeCard} onClick={() => onCardClick(mal_id)}>
-      <img src={imgURL} className={classes.img} alt="anime-cover" />
+    <div
+      className={classes.animeCard}
+      onClick={() => onCardClick(props?.mal_id)}
+    >
+      <img
+        src={props?.images?.webp?.image_url}
+        className={classes.img}
+        alt="anime-cover"
+      />
       <div className={classes.infoContainer}>
         <Typography noWrap className={classes.title}>
-          {title}
+          {props?.title}
         </Typography>
         <div className={classes.episodes}>
           <span className={classes.episodesText}>Episodes:</span>{' '}
-          {episodes ?? '---'}
+          {props?.episodes ?? '---'}
         </div>
         <StarRatings
           starRatedColor="#f1c40f"
-          rating={score - 5}
+          rating={props?.score - 5}
           numberOfStars={5}
           starDimension="20px"
           starSpacing="2px"
         />
         <div className={classes.dateContainer}>
           <div className={classes.dateContent}>
-            <Typography className={classes.startDate}>{startDate}</Typography>
+            <Typography className={classes.startDate}>
+              {props?.aired?.from
+                ? moment(props?.aired?.from).format('MMM YYYY')
+                : '?'}
+            </Typography>
           </div>
           <ToIcon className={classes.toIcon} />
           <div className={classes.dateContent}>
             <Typography className={classes.endDate}>
-              {endDate ?? '?'}
+              {props?.aired?.to
+                ? moment(props?.aired?.to).format('MMM YYYY')
+                : '?'}
             </Typography>
           </div>
         </div>
