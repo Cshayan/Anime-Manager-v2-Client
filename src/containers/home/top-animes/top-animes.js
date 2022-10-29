@@ -70,7 +70,7 @@ const TopAnimes = () => {
   return (
     <div className={classes.topAnimeContainer}>
       <div className={classes.viewAllContainer}>
-        <h1 className={classes.headerText}>Top animes airing now</h1>
+        <h1 className={classes.headerText}>Top animes of all time</h1>
         <Link to="/top-anime-landing" className={classes.viewAllLink}>
           <Button className={classes.viewAllButton}>View all</Button>
         </Link>

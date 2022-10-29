@@ -31,7 +31,7 @@ const AnimeDetailsComponent = (props) => {
     <div className={classes.detailCont}>
       <AnimeBasicInfo
         title={props?.title}
-        imageUrl={props?.image_url}
+        imageUrl={props?.images?.webp?.image_url}
         engTitle={props?.title_english}
         duration={props?.duration}
         genres={props?.genres}
@@ -44,7 +44,7 @@ const AnimeDetailsComponent = (props) => {
           score={props?.score}
           status={props?.status}
           episodes={props?.episodes}
-          trailerUrl={props?.trailer_url}
+          trailerUrl={props?.trailer?.embed_url}
           popularity={props?.popularity}
           isAnimeAlreadyPresent={props?.isAnimeAlreadyPresent}
         />
